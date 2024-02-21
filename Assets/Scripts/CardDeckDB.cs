@@ -1,41 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-public class Card : ScriptableObject
+public class CardDeckDB : MonoBehaviour
 {
-    public string cardName;
-    public string description;
-    public Sprite artwork;
-
-    public virtual void PlayCard()
+    public static List<Card> cardDeck = new List<Card>();
+    
+    void Awake()
     {
-        // Implement functionality for playing this card.
-        // This method can be overridden by subclasses.
+        cardDeck.Add(CreateResourceCard("Log", "Yes, a log. Nothing more.", ResourceType.Wood));
+        cardDeck.Add(CreateItemCard("Island Map", "You can now navigate easily around the island, draw 2 cards instead of 1 every turn", ItemName.Map));
+        cardDeck.Add(CreateEventCard("A (not so) little refreshment", "All players randomly lose 1 card from their hand", EventName.Flood));
+        cardDeck.Add(CreateActionCard("Today is a long day!", "You feel energized, you decided to search for more stuff.", ActionName.Draw2));
+    }
+
+    private ResourceCard CreateResourceCard(string cardName, string description, ResourceType resourceType)
+    {
+        ResourceCard card = ScriptableObject.CreateInstance<ResourceCard>();
+        card.cardName = cardName;
+        card.description = description;
+        card.resourceType = resourceType;
+        return card;
+    }
+
+    private ItemCard CreateItemCard(string cardName, string description, ItemName itemName)
+    {
+        ItemCard card = ScriptableObject.CreateInstance<ItemCard>();
+        card.cardName = cardName;
+        card.description = description;
+        card.itemName = itemName;
+        return card;
+    }
+
+    private EventCard CreateEventCard(string cardName, string description, EventName eventName)
+    {
+        EventCard card = ScriptableObject.CreateInstance<EventCard>();
+        card.cardName = cardName;
+        card.description = description;
+        card.eventName = eventName;
+        return card;
+    }
+
+    private ActionCard CreateActionCard(string cardName, string description, ActionName actionName)
+    {
+        ActionCard card = ScriptableObject.CreateInstance<ActionCard>();
+        card.cardName = cardName;
+        card.description = description;
+        card.actionName = actionName;
+        return card;
     }
 }
-
-public class ResourceCard : Card
-{
-    public ResourceType resourceType;
-    // Additional properties specific to resource cards
-}
-
-public class ActionCard : Card
-{
-    public override void PlayCard()
-    {
-        // Implement action-specific functionality
-    }
-}
-
-public class ItemCard : Card
-{
-    // Item-specific properties and methods
-}
-
-public class EventCard : Card
-{
-    // Event-specific properties and methods
-}
-
-public enum ResourceType { Wood, Food, Scrap, Junk }
