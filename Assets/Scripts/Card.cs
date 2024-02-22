@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
 
 //Temp
 public enum ResourceType { Wood, Food, Scrap, Junk }
