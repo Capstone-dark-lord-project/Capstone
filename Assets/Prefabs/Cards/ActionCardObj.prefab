@@ -124,7 +124,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.9}
-  m_SizeDelta: {x: 2, y: 1.25}
+  m_SizeDelta: {x: 1.7, y: 1.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1176063794011220300
 CanvasRenderer:
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_text: Card Description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c393d1f17e7accc46b366cc4da3f6630, type: 2}
-  m_sharedMaterial: {fileID: 7899933066700946785, guid: c393d1f17e7accc46b366cc4da3f6630,
+  m_sharedMaterial: {fileID: -1668749884888385266, guid: c393d1f17e7accc46b366cc4da3f6630,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
