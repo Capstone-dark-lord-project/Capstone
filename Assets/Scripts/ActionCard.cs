@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public enum ActionName { Skip, Draw2 }
@@ -9,8 +10,8 @@ public class ActionCard : Card
 {
     public ActionName actionName;
 
-    public ActionCard(string cardName, string description, Sprite artwork, ActionName actionName)
-        : base(cardName, description, artwork)
+    public ActionCard(string cardName, string cardDescription, Sprite cardArtwork, ActionName actionName)
+        : base(cardName, cardDescription, cardArtwork)
     {
         this.actionName = actionName;
     }

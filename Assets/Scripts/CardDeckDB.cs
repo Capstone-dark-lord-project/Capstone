@@ -18,7 +18,7 @@ public class CardDeckDB : MonoBehaviour
     {
         ResourceCard card = ScriptableObject.CreateInstance<ResourceCard>();
         card.cardName = cardName;
-        card.description = description;
+        card.cardDescription = description;
         card.resourceType = resourceType;
         return card;
     }
@@ -27,7 +27,7 @@ public class CardDeckDB : MonoBehaviour
     {
         ItemCard card = ScriptableObject.CreateInstance<ItemCard>();
         card.cardName = cardName;
-        card.description = description;
+        card.cardDescription = description;
         card.itemName = itemName;
         return card;
     }
@@ -36,7 +36,7 @@ public class CardDeckDB : MonoBehaviour
     {
         EventCard card = ScriptableObject.CreateInstance<EventCard>();
         card.cardName = cardName;
-        card.description = description;
+        card.cardDescription = description;
         card.eventName = eventName;
         return card;
     }
@@ -45,7 +45,7 @@ public class CardDeckDB : MonoBehaviour
     {
         ActionCard card = ScriptableObject.CreateInstance<ActionCard>();
         card.cardName = cardName;
-        card.description = description;
+        card.cardDescription = description;
         card.actionName = actionName;
         return card;
     }

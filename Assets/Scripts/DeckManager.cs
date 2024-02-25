@@ -41,7 +41,7 @@ public class NewBehaviourScript : MonoBehaviour
         for (int i = 0; i < deck.Count; i++)
         {
             Card temp = deck[i];
-            int randomIndex = UnityEngine.Random.Range(i, deck.Count);
+            int randomIndex = Random.Range(i, deck.Count);
             deck[i] = deck[randomIndex];
             deck[randomIndex] = temp;
         }

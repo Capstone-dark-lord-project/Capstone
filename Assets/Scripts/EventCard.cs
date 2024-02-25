@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public enum EventName { Flood, Fire }
@@ -9,8 +10,8 @@ public class EventCard : Card
 {
     public EventName eventName;
 
-    public EventCard(string cardName, string description, Sprite artwork, EventName eventName)
-        : base(cardName, description, artwork)
+    public EventCard(string cardName, string cardDescription, Sprite cardArtwork, EventName eventName)
+        : base(cardName, cardDescription, cardArtwork)
     {
         this.eventName = eventName;
     }

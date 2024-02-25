@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public enum ItemName { Map, Compass }
@@ -9,8 +10,8 @@ public class ItemCard : Card
 {
     public ItemName itemName;
 
-    public ItemCard(string cardName, string description, Sprite artwork, ItemName itemName)
-        : base(cardName, description, artwork)
+    public ItemCard(string cardName, string cardDescription, Sprite cardArtwork, ItemName itemName)
+        : base(cardName, cardDescription, cardArtwork)
     {
         this.itemName = itemName;
     }
