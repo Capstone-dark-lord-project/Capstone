@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 588cd162d61287b4ca3bff2c383a7f08, type: 3}
-  m_Name: Test Event
+  m_Name: Flood (Test Event)
   m_EditorClassIdentifier: 
-  cardName: Test Event
-  description: Event for Testing Purpose
-  artwork: {fileID: 0}
+  cardName: A  little refreshment
+  cardDescription: All players randomly lose 1 card from their hand
+  cardArtwork: {fileID: 21300000, guid: 5c88e069ecd499e4dbdcac39dfaba0b1, type: 3}
   eventName: 0

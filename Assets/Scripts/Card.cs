@@ -21,9 +21,4 @@ public class Card : ScriptableObject
     {
 
     }
-
-    public void Print()
-    {
-        Debug.Log("Card Name: " + cardName + "\nDescription: " + cardDescription + " Artwork:" + cardArtwork);
-    }
 }
