@@ -25,15 +25,11 @@ public class CardDisplay : MonoBehaviour
             cardNameText.text = card.cardName;
             cardDescriptionText.text = card.cardDescription;
             artWorkImage.sprite = card.cardArtwork;
-
+            
             if (card is ResourceCard resourceCard && resourceCard.resourceIcon != null)
             {
                 resourceIconImage.sprite = resourceCard.resourceIcon;
                 resourceIconImage.gameObject.SetActive(true);
-            }
-            else
-            {
-                resourceIconImage.gameObject.SetActive(false);
             }
         }
         else
