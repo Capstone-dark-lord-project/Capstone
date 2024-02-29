@@ -8,38 +8,39 @@ public class Grabber : MonoBehaviour
 
     private void Update()
    {
-    if(Input.GetMouseButtonDown(0))
-    {
-        if(selectedObject == null)
+        if(Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit = CastRay();
-            if(hit.collider != null)
+            if(selectedObject == null)
             {
-                if(!hit.collider.CompareTag("drag"))
+                RaycastHit hit = CastRay();
+                if(hit.collider != null)
                 {
-                    return;
-                }
+                    if(!hit.collider.CompareTag("drag"))
+                    {
+                        return;
+                    }
 
-                selectedObject = hit.collider.gameObject;
-                Cursor.visible = false;
+                    selectedObject = hit.collider.gameObject;
+                    Cursor.visible = false;
+                }
+            } 
+            else 
+            {
+                Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+                selectedObject.transform.position = new Vector3(worldPosition.x, 0f, worldPosition.z);
+
+                selectedObject = null;
+                Cursor.visible = true;
             }
         }
-    } 
-    else
-    {
-        Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-        selectedObject.transform.position = new Vector3(worldPosition.x, 0f, worldPosition.z);
 
-        Cursor.visible = true;
-    }
-
-    if(selectedObject != null)
-    {
-        Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-        selectedObject.transform.position = new Vector3(worldPosition.x, .25f, worldPosition.z);
-    }
+        if(selectedObject != null)
+        {
+            Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+            selectedObject.transform.position = new Vector3(worldPosition.x, .25f, worldPosition.z);
+        }
    }
 
    private RaycastHit CastRay()
