@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ToonUnlit 1
-  m_Shader: {fileID: -6465566751694194690, guid: 0669673ff148fa64c9d51dad966a2c80,
+  m_Name: ToonShadow 1
+  m_Shader: {fileID: -6465566751694194690, guid: eb2866feb00b7ec40ad44bed2ab228e4,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,12 +24,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Shader_Ramp:
+    - _ShaderRamp:
         m_Texture: {fileID: 2800000, guid: ea48b5a984ebe92409256a43a0723e77, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture_Material:
-        m_Texture: {fileID: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: 1aaa304167e3bdf4989df45956efe45a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -46,14 +46,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Fresnel_Edge: 0.75
-    - _Fresnel_Power: 1
+    - _Float: 1
+    - _Float_1: 0.75
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1956292823276684635
+--- !u!114 &807246526267500558
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
