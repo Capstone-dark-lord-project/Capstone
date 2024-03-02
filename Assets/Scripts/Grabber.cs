@@ -4,60 +4,53 @@ using UnityEngine;
 
 public class Grabber : MonoBehaviour
 {
-    public GameObject selectedObject;
+   GameObject objSelected = null;
+   public GameObject[] snapPoints;
+   private float snapSensitivity = 2.0f;
 
-    private void Update()
+   void Update()
    {
         if(Input.GetMouseButtonDown(0))
         {
-            if(selectedObject == null)
-            {
-                RaycastHit hit = CastRay();
-                if(hit.collider != null)
-                {
-                    if(!hit.collider.CompareTag("drag"))
-                    {
-                        return;
-                    }
+            CheckHitObject();
+        }
+        if(Input.GetMouseButton(0) && objSelected != null)
+        {
+            DragObject();
+        }
+        if(Input.GetMouseButtonUp(0) && objSelected != null)
+        {
+            Dropobject();
+        }
+   }
 
-                    selectedObject = hit.collider.gameObject;
-                    Cursor.visible = false;
-                }
-            } 
-            else 
+   void CheckHitObject()
+   {
+        if(objSelected == null )
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                selectedObject.transform.position = new Vector3(worldPosition.x, 0f, worldPosition.z);
-
-                selectedObject = null;
-                Cursor.visible = true;
+                objSelected = hit.transform.gameObject;
             }
         }
-
-        if(selectedObject != null)
-        {
-            Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-            selectedObject.transform.position = new Vector3(worldPosition.x, .25f, worldPosition.z);
-        }
    }
 
-   private RaycastHit CastRay()
+   void DragObject()
    {
-        Vector3 screenMousePosFar = new Vector3(
-            Input.mousePosition.x,
-            Input.mousePosition.y,
-            Camera.main.farClipPlane);
-        Vector3 screenMousePosNear = new Vector3(
-            Input.mousePosition.x,
-            Input.mousePosition.y,
-            Camera.main.nearClipPlane);
-        Vector3 worldMousePosFar = Camera.main.ScreenToWorldPoint(screenMousePosFar);
-        Vector3 worldMousePosNear = Camera.main.ScreenToWorldPoint(screenMousePosNear);
-        RaycastHit hit;
-        Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit);
-
-        return hit;
+    objSelected.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 20.0f));
    }
-}
+
+   void Dropobject()
+   {
+    for(int i = 0; i < snapPoints.Length; i++)
+    {
+        if(Vector3.Distance(snapPoints[i].transform.position, objSelected.transform.position) < snapSensitivity)
+        {
+            objSelected.transform.position = new Vector3(snapPoints[i].transform.position.x, snapPoints[i].transform.position.y, snapPoints[i].transform.position.z - 0.1f);
+        }
+    }
+    objSelected = null;
+   }
+} 
