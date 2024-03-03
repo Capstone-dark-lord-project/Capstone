@@ -1469,7 +1469,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2206,7 +2206,7 @@ GameObject:
   - component: {fileID: 2125171171}
   - component: {fileID: 2125171170}
   - component: {fileID: 2125171169}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
