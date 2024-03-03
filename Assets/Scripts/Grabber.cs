@@ -7,6 +7,7 @@ public class Grabber : MonoBehaviour
    GameObject objSelected = null;
    public GameObject[] snapPoints;
    private float snapSensitivity = 2.0f;
+   public GameObject craftedObjectPrefab;
 
    void Update()
    {
@@ -44,13 +45,22 @@ public class Grabber : MonoBehaviour
 
    void Dropobject()
    {
+    bool crafted = false;
     for(int i = 0; i < snapPoints.Length; i++)
     {
         if(Vector3.Distance(snapPoints[i].transform.position, objSelected.transform.position) < snapSensitivity)
         {
-            objSelected.transform.position = new Vector3(snapPoints[i].transform.position.x, snapPoints[i].transform.position.y, snapPoints[i].transform.position.z - 0.1f);
+            GameObject craftedObject = Instantiate(craftedObjectPrefab, snapPoints[i].transform.position, Quaternion.identity);
+            crafted = true;
+
+            Destroy(objSelected);
+            objSelected = null;
+            break;
         }
     }
-    objSelected = null;
+    if (!crafted)
+    {
+        objSelected = null;
+    }
    }
 } 
