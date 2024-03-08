@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class DeckManager : MonoBehaviour
 {
   // List to hold all cards in the deck
     public List<Card> deck = new List<Card>();
@@ -15,25 +16,48 @@ public class NewBehaviourScript : MonoBehaviour
     }
 
     void InitializeDeck()
-{
-    // Load and add Event Cards
-    EventCard[] eventCards = Resources.LoadAll<EventCard>("Cards/Events");
-    deck.AddRange(eventCards);
+    {
+        EventCard[] eventCards = Resources.LoadAll<EventCard>("Scriptables/Cards/Events");
+        LoadAndAddCards(eventCards);
 
-    // Load and add Resource Cards
-    ResourceCard[] resourceCards = Resources.LoadAll<ResourceCard>("Cards/Resources");
-    deck.AddRange(resourceCards);
+        ResourceCard[] resourceCards = Resources.LoadAll<ResourceCard>("Scriptables/Cards/Resources");
+        LoadAndAddCards(resourceCards);
 
-    // Load and add Item Cards
-    ItemCard[] itemCards = Resources.LoadAll<ItemCard>("Cards/Items");
-    deck.AddRange(itemCards);
+        ItemCard[] itemCards = Resources.LoadAll<ItemCard>("Scriptables/Cards/Items");
+        LoadAndAddCards(itemCards);
 
-    // Load and add Action Cards
-    ActionCard[] actionCards = Resources.LoadAll<ActionCard>("Cards/Actions");
-    deck.AddRange(actionCards);
+        ActionCard[] actionCards = Resources.LoadAll<ActionCard>("Scriptables/Cards/Actions");
+        LoadAndAddCards(actionCards);
 
-    Debug.Log($"Deck initialized with {deck.Count} cards.");
-}
+        Debug.Log($"Deck initialized with {deck.Count} cards: {GetCardNamesList()}");
+    }
+
+    void LoadAndAddCards<T>(T[] cards) where T : Card
+    {
+        if (cards.Length == 0)
+        {
+            Debug.LogWarning($"No {typeof(T).Name} found!");
+        }
+        else
+        {
+            foreach (T card in cards)
+            {
+                for (int i = 0; i < card.count; i++)
+                {
+                    deck.Add(card);
+                }
+            }
+            LogLoadedCards(cards);
+        }
+    }
+
+    void LogLoadedCards<T>(T[] loadedCards) where T : Card
+    {
+        foreach (var card in loadedCards)
+        {
+            Debug.Log($"Loaded Card: {card.name} (Count: {card.count})");
+        }
+    }
 
     void ShuffleDeck()
     {
@@ -61,5 +85,19 @@ public class NewBehaviourScript : MonoBehaviour
             Debug.LogWarning("Deck is empty!");
             return null;
         }
+    }
+
+    string GetCardNamesList()
+    {
+        StringBuilder cardNamesList = new StringBuilder();
+        for (int i = 0; i < deck.Count; i++)
+        {
+            cardNamesList.Append(deck[i].cardName);
+            if (i < deck.Count - 1)
+            {
+                cardNamesList.Append(", ");
+            }
+        }
+        return cardNamesList.ToString();
     }
 }

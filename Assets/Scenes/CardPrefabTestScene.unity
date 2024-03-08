@@ -310,6 +310,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3704723653011337405, guid: d1a94ddbf78901d4d95976fa401b0d8d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d47a70d0daa5fc42ba1295ed0a0c35a, type: 2}
     - target: {fileID: 3770231642015457048, guid: d1a94ddbf78901d4d95976fa401b0d8d,
         type: 3}
       propertyPath: m_Name
@@ -366,6 +371,11 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1881837690438345013, guid: b2f2946455d38d74ea60eb7cb6ba386b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31fd1e8389214d148b96846765eb82cf, type: 2}
     - target: {fileID: 2251945667911798457, guid: b2f2946455d38d74ea60eb7cb6ba386b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -529,6 +539,11 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5053165157860464054, guid: a81c1e4b4867d754799b4a8e9bb09c37,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df2880b5ce9b7884b914d9a476712061, type: 2}
     - target: {fileID: 7045282892478220508, guid: a81c1e4b4867d754799b4a8e9bb09c37,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -778,6 +793,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4977257139744004353, guid: f123d95019a62fe49b9202890e07b27e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f2ca31d954b10074ca3cb93ff9e3d698, type: 2}
     - target: {fileID: 6872614738482048631, guid: f123d95019a62fe49b9202890e07b27e,
         type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -953,7 +973,7 @@ Transform:
   m_GameObject: {fileID: 1838961519}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
