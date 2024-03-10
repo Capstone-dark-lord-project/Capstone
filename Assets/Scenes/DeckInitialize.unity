@@ -153,6 +153,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deck: []
+  eventCardPrefab: {fileID: 3641153120083092021, guid: f123d95019a62fe49b9202890e07b27e,
+    type: 3}
+  resourceCardPrefab: {fileID: 9108784620960869884, guid: b2f2946455d38d74ea60eb7cb6ba386b,
+    type: 3}
+  itemCardPrefab: {fileID: 2953510645649587135, guid: a81c1e4b4867d754799b4a8e9bb09c37,
+    type: 3}
+  actionCardPrefab: {fileID: 3770231642015457048, guid: d1a94ddbf78901d4d95976fa401b0d8d,
+    type: 3}
+  defaultCardPrefab: {fileID: 3770231642015457048, guid: d1a94ddbf78901d4d95976fa401b0d8d,
+    type: 3}
 --- !u!4 &682450838
 Transform:
   m_ObjectHideFlags: 0
@@ -162,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 682450836}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9081231, y: 4.5288258, z: -15.189646}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -484,13 +494,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753206033}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.57099956, y: -0, z: -0, w: 0.8209504}
-  m_LocalPosition: {x: 39.99, y: 18.79, z: 2.56}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 69.64, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

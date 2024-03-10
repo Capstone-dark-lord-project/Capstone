@@ -18,14 +18,14 @@ public class CardDisplay : MonoBehaviour
         DisplayCardInfo();
     }
 
-    void DisplayCardInfo()
+    public void DisplayCardInfo()
     {
         if (card != null)
         {
             cardNameText.text = card.cardName;
             cardDescriptionText.text = card.cardDescription;
             artWorkImage.sprite = card.cardArtwork;
-            
+
             if (card is ResourceCard resourceCard && resourceCard.resourceIcon != null)
             {
                 resourceIconImage.sprite = resourceCard.resourceIcon;
