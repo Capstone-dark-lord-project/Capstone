@@ -141,10 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea93ce02f30f604d84cea690f28a27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoints:
-  - {fileID: 1559878812}
-  craftedObjectPrefab: {fileID: 1559878812}
---- !u!65 &221282412
+--- !u!65 &221282415
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,11 +156,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 3, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &682450836
 GameObject:
@@ -339,7 +336,7 @@ PrefabInstance:
     - target: {fileID: 2251945667911798457, guid: b2f2946455d38d74ea60eb7cb6ba386b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.87
+      value: 1.73
       objectReference: {fileID: 0}
     - target: {fileID: 2251945667911798457, guid: b2f2946455d38d74ea60eb7cb6ba386b,
         type: 3}
@@ -386,6 +383,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7833907646088165144, guid: b2f2946455d38d74ea60eb7cb6ba386b,
+        type: 3}
+      propertyPath: card
+      value: 
+      objectReference: {fileID: 11400000, guid: 4791d264defcd774087c1cc7f1b949c8,
+        type: 2}
     - target: {fileID: 9108784620960869884, guid: b2f2946455d38d74ea60eb7cb6ba386b,
         type: 3}
       propertyPath: m_Name
@@ -402,7 +405,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9108784620960869884, guid: b2f2946455d38d74ea60eb7cb6ba386b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 221282412}
+      addedObject: {fileID: 221282415}
   m_SourcePrefab: {fileID: 100100000, guid: b2f2946455d38d74ea60eb7cb6ba386b, type: 3}
 --- !u!1001 &1559878811
 PrefabInstance:
@@ -421,7 +424,7 @@ PrefabInstance:
     - target: {fileID: 1653897243152656964, guid: d1a94ddbf78901d4d95976fa401b0d8d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.48
+      value: -1.788
       objectReference: {fileID: 0}
     - target: {fileID: 1653897243152656964, guid: d1a94ddbf78901d4d95976fa401b0d8d,
         type: 3}
@@ -524,7 +527,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3770231642015457048, guid: d1a94ddbf78901d4d95976fa401b0d8d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1559878823}
+      addedObject: {fileID: 1559878826}
   m_SourcePrefab: {fileID: 100100000, guid: d1a94ddbf78901d4d95976fa401b0d8d, type: 3}
 --- !u!1 &1559878812 stripped
 GameObject:
@@ -544,10 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea93ce02f30f604d84cea690f28a27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoints:
-  - {fileID: 221282407}
-  craftedObjectPrefab: {fileID: 1559878812}
---- !u!65 &1559878823
+--- !u!65 &1559878826
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -562,11 +562,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 3, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1693772200
 GameObject:

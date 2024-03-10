@@ -1,66 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Grabber : MonoBehaviour
+public class DragDrop3D : MonoBehaviour
 {
-   GameObject objSelected = null;
-   public GameObject[] snapPoints;
-   private float snapSensitivity = 2.0f;
-   public GameObject craftedObjectPrefab;
+    private Camera mainCamera;
+    private Vector3 offset;
+    private float zCoordinate;
+    private Vector3 startPosition;
+    private bool dragging = false;
 
-   void Update()
-   {
-        if(Input.GetMouseButtonDown(0))
+    void Awake()
+    {
+        mainCamera = Camera.main; // Cache the main camera for performance.
+        startPosition = transform.position; // Store the original start position.
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            CheckHitObject();
+            RaycastHit hit;
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform == transform)
+                {
+                    zCoordinate = mainCamera.WorldToScreenPoint(gameObject.transform.position).z;
+                    offset = gameObject.transform.position - GetMouseWorldPos();
+                    dragging = true;
+                }
+            }
         }
-        if(Input.GetMouseButton(0) && objSelected != null)
+
+        if (dragging)
         {
             DragObject();
         }
-        if(Input.GetMouseButtonUp(0) && objSelected != null)
+
+        if (Input.GetMouseButtonUp(0) && dragging)
         {
-            Dropobject();
-        }
-   }
-
-   void CheckHitObject()
-   {
-        if(objSelected == null )
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                objSelected = hit.transform.gameObject;
-            }
-        }
-   }
-
-   void DragObject()
-   {
-    objSelected.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 20.0f));
-   }
-
-   void Dropobject()
-   {
-    bool crafted = false;
-    for(int i = 0; i < snapPoints.Length; i++)
-    {
-        if(Vector3.Distance(snapPoints[i].transform.position, objSelected.transform.position) < snapSensitivity)
-        {
-            GameObject craftedObject = Instantiate(craftedObjectPrefab, snapPoints[i].transform.position, Quaternion.identity);
-            crafted = true;
-
-            Destroy(objSelected);
-            objSelected = null;
-            break;
+            dragging = false;
+            // Return the object to its start position when the mouse button is released.
+            transform.position = startPosition;
         }
     }
-    if (!crafted)
+
+    private Vector3 GetMouseWorldPos()
     {
-        objSelected = null;
+        Vector3 mousePoint = Input.mousePosition;
+        mousePoint.z = zCoordinate;
+        return mainCamera.ScreenToWorldPoint(mousePoint);
     }
-   }
-} 
+
+    private void DragObject()
+    {
+        transform.position = GetMouseWorldPos() + offset;
+    }
+}
