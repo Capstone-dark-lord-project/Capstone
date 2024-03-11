@@ -14,22 +14,21 @@ public class DeckManager : MonoBehaviour
     public GameObject actionCardPrefab;
     public GameObject defaultCardPrefab;
 
-    private int currentCardIndex = 0;
+    private int cardIndex = 0;
+    float cardWidth = 0.01f;
 
     // Start is called before the first frame update
     void Start()
     {
         InitializeDeck();
         ShuffleDeck();
-        InstantiateCurrentCard();
+        InstantiateDeck();
     }
 
     void Update()
     {
-        // Check for button press (you can customize the input method)
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Load and display the next card when the button is pressed
             LoadNextCard();
         }
     }
@@ -125,20 +124,23 @@ public class DeckManager : MonoBehaviour
     }
 
     // Card Instantiation
-    void InstantiateCurrentCard()
+    void InstantiateCurrentCard(int cardIndex)
     {
         if (deck.Count > 0)
         {
-            GameObject previousCard = GameObject.FindGameObjectWithTag("Cards");
-            if (previousCard != null)
-            {
-                Destroy(previousCard);
-            }
+            // GameObject previousCard = GameObject.FindGameObjectWithTag("Cards");
+            // if (previousCard != null)
+            // {
+            //     Destroy(previousCard);
+            // }
 
-            Card currentCard = deck[currentCardIndex];
+            Card currentCard = deck[cardIndex];
 
             GameObject currentCardPrefab = GetCardTypePrefab(currentCard);
-            GameObject instantiatedCard = Instantiate(currentCardPrefab, Vector3.zero, Quaternion.identity);
+            Vector3 cardPosition = new Vector3(Random.Range(0f, 0.2f), cardIndex * cardWidth, Random.Range(0f, 0.2f));
+            Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 5.0f), 0f);
+
+            GameObject instantiatedCard = Instantiate(currentCardPrefab, cardPosition, randomRotation);
 
             // Card Display
             CardDisplay cardDisplay = instantiatedCard.GetComponent<CardDisplay>();
@@ -151,8 +153,8 @@ public class DeckManager : MonoBehaviour
             {
                 Debug.LogWarning("CardDisplay component not found on the instantiated object.");
             }
-            instantiatedCard.transform.Rotate(new Vector3(90f, 0f, 0f));
-            Debug.Log($"Instantiating Card {currentCardIndex + 1}/{deck.Count}: {currentCard.cardName}");
+            instantiatedCard.transform.Rotate(new Vector3(-90f, 180f, 0f));
+            Debug.Log($"Instantiating Card {cardIndex + 1}/{deck.Count}: {currentCard.cardName}");
         }
         else
         {
@@ -187,15 +189,24 @@ public class DeckManager : MonoBehaviour
 
     void LoadNextCard()
     {
-        currentCardIndex++;
+        cardIndex++;
 
-        if (currentCardIndex < deck.Count)
+        if (cardIndex < deck.Count)
         {
-            InstantiateCurrentCard();
+            InstantiateCurrentCard(cardIndex);
         }
         else
         {
             Debug.LogWarning("No more cards in the deck.");
+        }
+    }
+
+    // Instantiate whole deck
+    void InstantiateDeck()
+    {
+        for (int i = 0; i < deck.Count; i++)
+        {
+            InstantiateCurrentCard(i);
         }
     }
 }

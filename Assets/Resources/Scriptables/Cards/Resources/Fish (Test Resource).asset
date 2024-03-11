@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Fishy fish
   cardDescription: You caught it! Yay!
   cardArtwork: {fileID: 21300000, guid: 995c83aded078874e92aed94ec7b675e, type: 3}
-  count: 10
+  count: 8
   resourceType: 1
   resourceIcon: {fileID: 21300000, guid: 3e7028e1887ef8541992d3478b43ad1e, type: 3}
