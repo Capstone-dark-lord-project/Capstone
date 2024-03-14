@@ -1,43 +1,98 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class DeckManager : MonoBehaviour
 {
-  // List to hold all cards in the deck
+    public TextMeshProUGUI deckCountText;
+
+    public List<GameObject> instantiatedCards = new List<GameObject>();
     public List<Card> deck = new List<Card>();
 
-    // Start is called before the first frame update
+    public GameObject defaultCardPrefab;
+
+    private int deckCount = 0;
+    float cardWidth = 0.01f;
+
     void Start()
     {
         InitializeDeck();
         ShuffleDeck();
+        InstantiateDeck();
+        UpdateDeckCountUI();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+
+            if (playerManager != null)
+            {
+                DrawCard(playerManager);
+            }
+            else
+            {
+                Debug.LogWarning("TempPlayerManager not found in the scene!");
+            }
+        }
+    }
+
+    // Deck initialization
     void InitializeDeck()
-{
-    // Load and add Event Cards
-    EventCard[] eventCards = Resources.LoadAll<EventCard>("Cards/Events");
-    deck.AddRange(eventCards);
+    {
+        EventCard[] eventCards = Resources.LoadAll<EventCard>("Scriptables/Cards/Events");
+        LoadAndAddCards(eventCards);
 
-    // Load and add Resource Cards
-    ResourceCard[] resourceCards = Resources.LoadAll<ResourceCard>("Cards/Resources");
-    deck.AddRange(resourceCards);
+        ResourceCard[] resourceCards = Resources.LoadAll<ResourceCard>("Scriptables/Cards/Resources");
+        LoadAndAddCards(resourceCards);
 
-    // Load and add Item Cards
-    ItemCard[] itemCards = Resources.LoadAll<ItemCard>("Cards/Items");
-    deck.AddRange(itemCards);
+        ItemCard[] itemCards = Resources.LoadAll<ItemCard>("Scriptables/Cards/Items");
+        LoadAndAddCards(itemCards);
 
-    // Load and add Action Cards
-    ActionCard[] actionCards = Resources.LoadAll<ActionCard>("Cards/Actions");
-    deck.AddRange(actionCards);
+        ActionCard[] actionCards = Resources.LoadAll<ActionCard>("Scriptables/Cards/Actions");
+        LoadAndAddCards(actionCards);
 
-    Debug.Log($"Deck initialized with {deck.Count} cards.");
-}
+        Debug.Log($"Deck initialized with {deck.Count} cards: {GetCardNamesList()}");
+    }
 
+    // Load card to deck list
+    void LoadAndAddCards<T>(T[] cards) where T : Card
+    {
+        if (cards.Length == 0)
+        {
+            Debug.LogWarning($"No {typeof(T).Name} found!");
+        }
+        else
+        {
+            foreach (T card in cards)
+            {
+                for (int i = 0; i < card.count; i++)
+                {
+                    deck.Add(card);
+                    deckCount++;
+                }
+            }
+            LogLoadedCards(cards);
+        }
+    }
+
+    // Log cards on load
+    void LogLoadedCards<T>(T[] loadedCards) where T : Card
+    {
+        foreach (var card in loadedCards)
+        {
+            Debug.Log($"Loaded Card: {card.name} (Count: {card.count})");
+        }
+    }
+
+    // Deck shuffle
     void ShuffleDeck()
     {
-        // Shuffle the deck
         for (int i = 0; i < deck.Count; i++)
         {
             Card temp = deck[i];
@@ -47,19 +102,103 @@ public class NewBehaviourScript : MonoBehaviour
         }
     }
 
-    // Method to draw a card from the deck
-    public Card DrawCard()
-    {
+    // Draw a card
+    public Card DrawCard(PlayerManager playerManager)
+    {        
         if (deck.Count > 0)
         {
             Card drawnCard = deck[0];
+            
             deck.RemoveAt(0);
+            deckCount--;
+            UpdateDeckCountUI();
+            DestroyTopCard();
+            playerManager.AddCardToHand(drawnCard);
             return drawnCard;
         }
         else
         {
             Debug.LogWarning("Deck is empty!");
             return null;
+        }
+    }
+
+    // Card names for logging
+    string GetCardNamesList()
+    {
+        StringBuilder cardNamesList = new StringBuilder();
+        for (int i = 0; i < deck.Count; i++)
+        {
+            cardNamesList.Append(deck[i].cardName);
+            if (i < deck.Count - 1)
+            {
+                cardNamesList.Append(", ");
+            }
+        }
+        return cardNamesList.ToString();
+    }
+
+    // Card Instantiation
+    void InstantiateCurrentCard(int cardIndex)
+    {
+        if (deck.Count > 0)
+        {
+            Card currentCard = deck[cardIndex];
+
+            Vector3 cardPosition = new Vector3(Random.Range(0f, 0.2f), cardIndex * cardWidth, Random.Range(0f, 0.2f));
+            Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 5.0f), 0f);
+
+            GameObject instantiatedCard = Instantiate(defaultCardPrefab, cardPosition, randomRotation);
+
+            instantiatedCard.transform.Rotate(new Vector3(-90f, 180f, 0f));
+
+            // Add the instantiated card to the list
+            instantiatedCards.Add(instantiatedCard);
+
+            Debug.Log($"Instantiating Card {cardIndex + 1}/{deck.Count}: {currentCard.cardName}");
+        }
+        else
+        {
+            Debug.LogWarning("Deck is empty. No cards to instantiate.");
+        }
+    }
+
+    // Instantiate whole deck
+    void InstantiateDeck()
+    {
+        for (int i = 0; i < deck.Count; i++)
+        {
+            InstantiateCurrentCard(i);
+        }
+    }
+
+    // Deck Count UI
+    void UpdateDeckCountUI()
+    {
+        string deckCountString = "Deck count: " + deckCount;
+
+        deckCountText.text = deckCountString;
+    }
+
+    void DestroyTopCard()
+    {
+        if (instantiatedCards.Count > 0)
+        {
+            // Get the index of the last card in the list
+            int lastIndex = instantiatedCards.Count - 1;
+
+            // Get the GameObject of the last card
+            GameObject topCard = instantiatedCards[lastIndex];
+
+            // Destroy the last card GameObject
+            Destroy(topCard);
+
+            // Remove the destroyed card from the list
+            instantiatedCards.RemoveAt(lastIndex);
+        }
+        else
+        {
+            Debug.LogWarning("No cards instantiated to destroy.");
         }
     }
 }
