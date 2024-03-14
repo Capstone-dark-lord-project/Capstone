@@ -2,34 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class DeckManager : MonoBehaviour
 {
-  // List to hold all cards in the deck
+    public TextMeshProUGUI deckCountText;
+
+    public List<GameObject> instantiatedCards = new List<GameObject>();
     public List<Card> deck = new List<Card>();
 
-    public GameObject eventCardPrefab;
-    public GameObject resourceCardPrefab;
-    public GameObject itemCardPrefab;
-    public GameObject actionCardPrefab;
     public GameObject defaultCardPrefab;
 
-    private int cardIndex = 0;
+    private int deckCount = 0;
     float cardWidth = 0.01f;
 
-    // Start is called before the first frame update
     void Start()
     {
         InitializeDeck();
         ShuffleDeck();
         InstantiateDeck();
+        UpdateDeckCountUI();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            LoadNextCard();
+            PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+
+            if (playerManager != null)
+            {
+                DrawCard(playerManager);
+            }
+            else
+            {
+                Debug.LogWarning("TempPlayerManager not found in the scene!");
+            }
         }
     }
 
@@ -65,6 +74,7 @@ public class DeckManager : MonoBehaviour
                 for (int i = 0; i < card.count; i++)
                 {
                     deck.Add(card);
+                    deckCount++;
                 }
             }
             LogLoadedCards(cards);
@@ -93,12 +103,17 @@ public class DeckManager : MonoBehaviour
     }
 
     // Draw a card
-    public Card DrawCard()
-    {
+    public Card DrawCard(PlayerManager playerManager)
+    {        
         if (deck.Count > 0)
         {
             Card drawnCard = deck[0];
+            
             deck.RemoveAt(0);
+            deckCount--;
+            UpdateDeckCountUI();
+            DestroyTopCard();
+            playerManager.AddCardToHand(drawnCard);
             return drawnCard;
         }
         else
@@ -128,76 +143,23 @@ public class DeckManager : MonoBehaviour
     {
         if (deck.Count > 0)
         {
-            // GameObject previousCard = GameObject.FindGameObjectWithTag("Cards");
-            // if (previousCard != null)
-            // {
-            //     Destroy(previousCard);
-            // }
-
             Card currentCard = deck[cardIndex];
 
-            GameObject currentCardPrefab = GetCardTypePrefab(currentCard);
             Vector3 cardPosition = new Vector3(Random.Range(0f, 0.2f), cardIndex * cardWidth, Random.Range(0f, 0.2f));
             Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 5.0f), 0f);
 
-            GameObject instantiatedCard = Instantiate(currentCardPrefab, cardPosition, randomRotation);
+            GameObject instantiatedCard = Instantiate(defaultCardPrefab, cardPosition, randomRotation);
 
-            // Card Display
-            CardDisplay cardDisplay = instantiatedCard.GetComponent<CardDisplay>();
-            if (cardDisplay != null)
-            {
-                cardDisplay.card = currentCard;
-                cardDisplay.DisplayCardInfo();
-            }
-            else
-            {
-                Debug.LogWarning("CardDisplay component not found on the instantiated object.");
-            }
             instantiatedCard.transform.Rotate(new Vector3(-90f, 180f, 0f));
+
+            // Add the instantiated card to the list
+            instantiatedCards.Add(instantiatedCard);
+
             Debug.Log($"Instantiating Card {cardIndex + 1}/{deck.Count}: {currentCard.cardName}");
         }
         else
         {
             Debug.LogWarning("Deck is empty. No cards to instantiate.");
-        }
-    }
-
-    // Type logic
-    GameObject GetCardTypePrefab(Card card)
-    {
-        if (card is EventCard)
-        {
-            return eventCardPrefab;
-        }
-        else if (card is ResourceCard)
-        {
-            return resourceCardPrefab;
-        }
-        else if (card is ItemCard)
-        {
-            return itemCardPrefab;
-        }
-        else if (card is ActionCard)
-        {
-            return actionCardPrefab;
-        }
-        else
-        {
-            return defaultCardPrefab;
-        }
-    }
-
-    void LoadNextCard()
-    {
-        cardIndex++;
-
-        if (cardIndex < deck.Count)
-        {
-            InstantiateCurrentCard(cardIndex);
-        }
-        else
-        {
-            Debug.LogWarning("No more cards in the deck.");
         }
     }
 
@@ -207,6 +169,36 @@ public class DeckManager : MonoBehaviour
         for (int i = 0; i < deck.Count; i++)
         {
             InstantiateCurrentCard(i);
+        }
+    }
+
+    // Deck Count UI
+    void UpdateDeckCountUI()
+    {
+        string deckCountString = "Deck count: " + deckCount;
+
+        deckCountText.text = deckCountString;
+    }
+
+    void DestroyTopCard()
+    {
+        if (instantiatedCards.Count > 0)
+        {
+            // Get the index of the last card in the list
+            int lastIndex = instantiatedCards.Count - 1;
+
+            // Get the GameObject of the last card
+            GameObject topCard = instantiatedCards[lastIndex];
+
+            // Destroy the last card GameObject
+            Destroy(topCard);
+
+            // Remove the destroyed card from the list
+            instantiatedCards.RemoveAt(lastIndex);
+        }
+        else
+        {
+            Debug.LogWarning("No cards instantiated to destroy.");
         }
     }
 }
