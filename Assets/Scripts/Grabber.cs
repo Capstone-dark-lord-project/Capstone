@@ -54,6 +54,6 @@ public class DragDrop3D : MonoBehaviour
 
     private void DragObject()
     {
-        transform.position = GetMouseWorldPos() + offset;
+        transform.position = GetMouseWorldPos() + offset + Vector3.up * 0.1f;
     }
 }
