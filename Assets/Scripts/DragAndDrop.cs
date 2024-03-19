@@ -7,20 +7,22 @@ public class DragDrop3D : MonoBehaviour
     private float zCoordinate;
     private Vector3 startPosition;
     private bool dragging = false;
+    private GameObject collidedObject = null; // To keep track of the current collided object
 
     void Awake()
     {
-        mainCamera = Camera.main; // Cache the main camera for performance.
-        startPosition = transform.position; // Store the original start position.
+        mainCamera = Camera.main;
+        startPosition = transform.position;
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            startPosition = transform.position;
             RaycastHit hit;
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            startPosition = transform.position;
+
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.transform == transform)
@@ -40,8 +42,18 @@ public class DragDrop3D : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && dragging)
         {
             dragging = false;
-            // Return the object to its start position when the mouse button is released.
-            transform.position = startPosition;
+            // Check if collided with another card, if so, potentially combine them
+            if (collidedObject != null)
+            {
+                // Notify the PlayerManager or a specific manager for combining logic
+                FindObjectOfType<PlayerManager>().CombineCards(gameObject, collidedObject);
+                collidedObject = null; // Reset for next drag operation
+            }
+            else
+            {
+                // If no combination is possible, return to the original position
+                transform.position = startPosition;
+            }
         }
     }
 
@@ -54,6 +66,23 @@ public class DragDrop3D : MonoBehaviour
 
     private void DragObject()
     {
-        transform.position = GetMouseWorldPos() + offset + Vector3.up * 0.2f;
+        transform.position = GetMouseWorldPos() + offset + Vector3.up * 0.1f;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ResourceCardTag")) // Make sure your cards have this tag set in the editor
+        {
+            Debug.Log($"COLLIDED");
+            collidedObject = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == collidedObject)
+        {
+            collidedObject = null; // No longer colliding with this object
+        }
     }
 }
