@@ -86,11 +86,11 @@ public class PlayerManager : MonoBehaviour
                 Debug.LogWarning("CardDisplay component not found on the instantiated object.");
             }
             // Calculate the total width of all cards in the hand
-            float totalWidth = (hand.Count - 1) * 2.5f;
+            float totalWidth = (hand.Count - 1) * 2.6f;
 
             // Calculate the x-position based on the index and total width
             
-            float newXPosition = -totalWidth / 2f + position * 2.5f;
+            float newXPosition = -totalWidth / 2f + position * 2.6f;
 
             // Set the local position of the card
             cardUI.transform.localPosition = new Vector3(newXPosition, 0f, 0f);
