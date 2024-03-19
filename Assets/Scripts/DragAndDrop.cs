@@ -20,7 +20,7 @@ public class DragDrop3D : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
+            startPosition = transform.position;
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.transform == transform)
@@ -54,6 +54,6 @@ public class DragDrop3D : MonoBehaviour
 
     private void DragObject()
     {
-        transform.position = GetMouseWorldPos() + offset + Vector3.up * 0.1f;
+        transform.position = GetMouseWorldPos() + offset + Vector3.up * 0.2f;
     }
 }

@@ -19,10 +19,16 @@ public class DeckManager : MonoBehaviour
 
     void Start()
     {
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+
         InitializeDeck();
         ShuffleDeck();
         InstantiateDeck();
         UpdateDeckCountUI();
+        for (int i = 0; i < 1; i++)
+        {
+            DrawCard(playerManager);
+        }
     }
 
     void Update()
