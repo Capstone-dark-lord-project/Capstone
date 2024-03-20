@@ -46,7 +46,7 @@ public class DragDrop3D : MonoBehaviour
             if (collidedObject != null)
             {
                 // Notify the PlayerManager or a specific manager for combining logic
-                FindObjectOfType<PlayerManager>().CombineCards(gameObject, collidedObject);
+                //FindObjectOfType<PlayerManager>().CombineCards(gameObject, collidedObject);
                 collidedObject = null; // Reset for next drag operation
             }
             else

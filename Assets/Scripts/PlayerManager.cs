@@ -36,13 +36,13 @@ public class PlayerManager : MonoBehaviour
         Debug.Log($"Added {card.cardName} to hand.");
     }
 
-    public void RemoveCardFromHand(Card card)
-    {
-        if (allCards != null)
-        {
-            allCards.Remove(card);
-        }
-    }
+    // public void RemoveCardFromHand(Card card)
+    // {
+    //     if (allCards != null)
+    //     {
+    //         allCards.Remove(card);
+    //     }
+    // }
 
     // Update Hand Count UI
     void UpdateHandCountUI()
@@ -124,35 +124,35 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void CombineCards(GameObject card1, GameObject card2)
-    {
-        // Example of retrieving the Card components
-        Card card1 = card1GameObject.GetComponent<CardDisplay>().card;
-        Card card2 = card2GameObject.GetComponent<CardDisplay>().card;
+    // public void CombineCards(GameObject card1, GameObject card2)
+    // {
+    //     // Example of retrieving the Card components
+    //     Card card1 = card1GameObject.GetComponent<CardDisplay>().card;
+    //     Card card2 = card2GameObject.GetComponent<CardDisplay>().card;
 
-        // Implement your game's logic to check if these two cards can be combined
-        // This might involve checking the card types, any special conditions, etc.
+    //     // Implement your game's logic to check if these two cards can be combined
+    //     // This might involve checking the card types, any special conditions, etc.
 
-        if (CanCombine(card1, card2))
-        {
-            // Determine the result of the combination
-            Card combinedCard = GetCombinationResult(card1, card2);
+    //     if (CanCombine(card1, card2))
+    //     {
+    //         // Determine the result of the combination
+    //         Card combinedCard = GetCombinationResult(card1, card2);
 
-            // Add the new card to the player's hand
-            AddCardToHand(combinedCard);
+    //         // Add the new card to the player's hand
+    //         AddCardToHand(combinedCard);
 
-            // Remove the original cards from the hand
-            RemoveCardFromHand(card1);
-            RemoveCardFromHand(card2);
+    //         // Remove the original cards from the hand
+    //         RemoveCardFromHand(card1);
+    //         RemoveCardFromHand(card2);
 
-            // Update the UI to reflect the new hand
-            UpdateHandUI();
-        }
-        else
-        {
-            // Handle the case where cards can't be combined
-            // For example, you could provide feedback to the player
-            Debug.Log("These cards can't be combined!");
-        }
-    }
+    //         // Update the UI to reflect the new hand
+    //         UpdateHandUI();
+    //     }
+    //     else
+    //     {
+    //         // Handle the case where cards can't be combined
+    //         // For example, you could provide feedback to the player
+    //         Debug.Log("These cards can't be combined!");
+    //     }
+    // }
 }
