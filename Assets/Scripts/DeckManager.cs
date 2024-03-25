@@ -9,12 +9,11 @@ public class DeckManager : MonoBehaviour
 {
     public TextMeshProUGUI deckCountText;
 
-    public List<GameObject> instantiatedCards = new List<GameObject>();
+    public List<GameObject> instantiatedDeckCards = new List<GameObject>();
     public List<Card> deck = new List<Card>();
 
     public GameObject defaultCardPrefab;
 
-    private int deckCount = 0;
     float cardWidth = 0.01f;
 
     void Start()
@@ -80,7 +79,6 @@ public class DeckManager : MonoBehaviour
                 for (int i = 0; i < card.count; i++)
                 {
                     deck.Add(card);
-                    deckCount++;
                 }
             }
             LogLoadedCards(cards);
@@ -116,7 +114,6 @@ public class DeckManager : MonoBehaviour
             Card drawnCard = deck[0];
             
             deck.RemoveAt(0);
-            deckCount--;
             UpdateDeckCountUI();
             DestroyTopCard();
             playerManager.AddCardToHand(drawnCard);
@@ -159,7 +156,7 @@ public class DeckManager : MonoBehaviour
             instantiatedCard.transform.Rotate(new Vector3(-90f, 180f, 0f));
 
             // Add the instantiated card to the list
-            instantiatedCards.Add(instantiatedCard);
+            instantiatedDeckCards.Add(instantiatedCard);
 
             Debug.Log($"Instantiating Card {cardIndex + 1}/{deck.Count}: {currentCard.cardName}");
         }
@@ -181,26 +178,26 @@ public class DeckManager : MonoBehaviour
     // Deck Count UI
     void UpdateDeckCountUI()
     {
-        string deckCountString = "Deck count: " + deckCount;
+        string deckCountString = "Deck count: " + deck.Count;
 
         deckCountText.text = deckCountString;
     }
 
     void DestroyTopCard()
     {
-        if (instantiatedCards.Count > 0)
+        if (instantiatedDeckCards.Count > 0)
         {
             // Get the index of the last card in the list
-            int lastIndex = instantiatedCards.Count - 1;
+            int lastIndex = instantiatedDeckCards.Count - 1;
 
             // Get the GameObject of the last card
-            GameObject topCard = instantiatedCards[lastIndex];
+            GameObject topCard = instantiatedDeckCards[lastIndex];
 
             // Destroy the last card GameObject
             Destroy(topCard);
 
             // Remove the destroyed card from the list
-            instantiatedCards.RemoveAt(lastIndex);
+            instantiatedDeckCards.RemoveAt(lastIndex);
         }
         else
         {

@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Nails
   cardDescription: It's sharp
   cardArtwork: {fileID: 0}
-  count: 3
+  count: 0
   resourceType: 2
   resourceIcon: {fileID: 0}

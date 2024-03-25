@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Log
   cardDescription: Just a log
   cardArtwork: {fileID: 0}
-  count: 3
+  count: 0
   resourceType: 0
   resourceIcon: {fileID: 0}
