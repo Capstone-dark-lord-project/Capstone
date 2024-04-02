@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6998462bf0f6e64e895f78dcb58edf6, type: 3}
-  m_Name: Fish (Test Resource)
+  m_Name: Fish (Test Food)
   m_EditorClassIdentifier: 
   cardName: Fishy fish
   cardDescription: You caught it! Yay!

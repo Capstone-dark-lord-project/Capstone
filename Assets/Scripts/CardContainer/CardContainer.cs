@@ -239,7 +239,7 @@ public class CardContainer : MonoBehaviour {
     public void OnCardDragEnd() {
         // If card is in play area, play it!
 		// Temp function
-        if (IsCursorInPlayArea()) {
+        if (IsCursorInPlayArea()  && cardPlayConfig.playArea.gameObject.activeSelf) {
             eventsConfig?.OnCardPlayed?.Invoke(new CardPlayed(currentDraggedCard));
             if (cardPlayConfig.destroyOnPlay) {
                 DestroyCard(currentDraggedCard);

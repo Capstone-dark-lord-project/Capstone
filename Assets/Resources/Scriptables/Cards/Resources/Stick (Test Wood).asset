@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6998462bf0f6e64e895f78dcb58edf6, type: 3}
-  m_Name: Wood
+  m_Name: Stick (Test Wood)
   m_EditorClassIdentifier: 
-  cardName: Log
-  cardDescription: Just a log
+  cardName: Stick
+  cardDescription: An arm of a tree.
   cardArtwork: {fileID: 0}
   count: 0
+  resourceIcon: {fileID: 21300000, guid: 2f921186523e2894e875c5f39fdbae3b, type: 3}
   resourceType: 0
-  resourceIcon: {fileID: 0}

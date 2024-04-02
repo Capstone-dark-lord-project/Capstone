@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6998462bf0f6e64e895f78dcb58edf6, type: 3}
-  m_Name: Junk
+  m_Name: Nails (Test Scrap)
   m_EditorClassIdentifier: 
-  cardName: Plastic Bottle
-  cardDescription: Whose is this?
-  cardArtwork: {fileID: 21300000, guid: dce9169eaadc58e45a2123e7122f5832, type: 3}
+  cardName: Nails
+  cardDescription: It's pointy!
+  cardArtwork: {fileID: 21300000, guid: 1af0efdd381137443ab8dc3d2f737148, type: 3}
   count: 5
-  resourceType: 3
-  resourceIcon: {fileID: 21300000, guid: 1d2e9a9bff941624cb1398acbf18cc93, type: 3}
+  resourceIcon: {fileID: 21300000, guid: d8d00db865d38ba41b3ba9cb0ef7cb3e, type: 3}
+  resourceType: 2

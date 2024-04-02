@@ -12,6 +12,8 @@ public class DeckManager : MonoBehaviour
     public List<GameObject> instantiatedDeckCards = new List<GameObject>();
     public List<Card> deck = new List<Card>();
 
+    public Button drawCardButton;
+
     public GameObject defaultCardPrefab;
 
     float cardWidth = 0.01f;
@@ -28,23 +30,12 @@ public class DeckManager : MonoBehaviour
         {
             DrawCard(playerManager);
         }
+        drawCardButton.onClick.AddListener(DrawCardOnClick);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayerManager playerManager = FindObjectOfType<PlayerManager>();
 
-            if (playerManager != null)
-            {
-                DrawCard(playerManager);
-            }
-            else
-            {
-                Debug.LogWarning("TempPlayerManager not found in the scene!");
-            }
-        }
     }
 
     // Deck initialization
@@ -123,6 +114,20 @@ public class DeckManager : MonoBehaviour
         {
             Debug.LogWarning("Deck is empty!");
             return null;
+        }
+    }
+
+    private void DrawCardOnClick()
+    {
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+
+        if (playerManager != null)
+        {
+            DrawCard(playerManager);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerManager not found in the scene!");
         }
     }
 

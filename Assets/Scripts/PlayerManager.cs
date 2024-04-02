@@ -82,6 +82,12 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.LogWarning("CardDisplay component not found on the instantiated object.");
             }
+            float yOffset = 200.0f;
+            float xOffset = 150.0f;
+            Vector3 newPosition = cardUI.transform.position;
+            newPosition.y -= yOffset;
+            newPosition.x += xOffset;
+            cardUI.transform.position = newPosition;
             Debug.Log($"Instantiating Card {card.cardName}");
     }
 
