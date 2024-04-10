@@ -17,5 +17,7 @@ namespace config {
         
         [SerializeField]
         public UnityEvent<CardDestroy> OnCardDestroy;
+        [SerializeField]
+        public UnityEvent<CardDiscard> OnCardDiscard;
     }
 }

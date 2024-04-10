@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using config;
-using DefaultNamespace;
 using events;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +10,10 @@ public class CardContainer : MonoBehaviour {
 	[SerializeField]
 	public PlayerManager playerManager;
 
+    [Header("Events")]
+    [SerializeField]
+    private EventsConfig eventsConfig;
+
     [Header("Constraints")]
     [SerializeField]
     private bool forceFitContainer;
@@ -18,6 +21,10 @@ public class CardContainer : MonoBehaviour {
     [Header("Alignment")]
     [SerializeField]
     private CardAlignment alignment = CardAlignment.Center;
+
+    private enum CardAlignment {
+        Left, Center, Right
+    }
 
     [SerializeField]
     private bool allowCardRepositioning = true;
@@ -38,12 +45,13 @@ public class CardContainer : MonoBehaviour {
 
     [SerializeField]
     private CardPlayConfig cardPlayConfig;
-    
-    [Header("Events")]
+
     [SerializeField]
-    private EventsConfig eventsConfig;
+    private DiscardConfig discardConfig;
+    [SerializeField]
+    private CraftingUIConfig craftingUIConfig;
     
-    [Header("CardList")]
+    [Header("Card List")]
     [SerializeField]
     public List<CardWrapper> cardOnHandUI = new();
     public List<Card> handList;
@@ -113,7 +121,7 @@ public class CardContainer : MonoBehaviour {
         }
     }
 
-	// Add need components
+	// Add needed components
     private void AddOtherComponentsIfNeeded(CardWrapper wrapper) {
         var canvas = wrapper.GetComponent<Canvas>();
         if (canvas == null) {
@@ -237,19 +245,35 @@ public class CardContainer : MonoBehaviour {
     }
 
     public void OnCardDragEnd() {
-        // If card is in play area, play it!
-		// Temp function
+		// Discard function
+        if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) {
+            DestroyCard(currentDraggedCard);
+            Debug.Log("Trash Area");
+            //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
+        }
+
+        // Play Card function
         if (IsCursorInPlayArea()  && cardPlayConfig.playArea.gameObject.activeSelf) {
             eventsConfig?.OnCardPlayed?.Invoke(new CardPlayed(currentDraggedCard));
+            //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
             if (cardPlayConfig.destroyOnPlay) {
                 DestroyCard(currentDraggedCard);
             }
         }
 
+        // Crafting functions
+        if (IsCursorInCraftArea1()  && craftingUIConfig.craftArea1.gameObject.activeSelf) {
+            Debug.Log("Craft Area 1");
+            //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
+        }
+        if (IsCursorInCraftArea2()  && craftingUIConfig.craftArea2.gameObject.activeSelf) {
+            Debug.Log("Craft Area 2");
+        }
         currentDraggedCard = null;
     }
     
     public void DestroyCard(CardWrapper card) {
+        // eventsConfig.OnCardDiscard?.Invoke(new CardDiscard(card));
         eventsConfig.OnCardDestroy?.Invoke(new CardDestroy(card));
     }
 
@@ -264,6 +288,44 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.x < playAreaCorners[2].x &&
                cursorPosition.y > playAreaCorners[0].y &&
                cursorPosition.y < playAreaCorners[2].y;
+    }
+
+    private bool IsCursorInTrashArea() {
+        if (discardConfig.trashArea == null) return false;
         
+        var cursorPosition = Input.mousePosition;
+        var trashArea = discardConfig.trashArea;
+        var trashAreaCorners = new Vector3[4];
+        trashArea.GetWorldCorners(trashAreaCorners);
+        return cursorPosition.x > trashAreaCorners[0].x &&
+               cursorPosition.x < trashAreaCorners[2].x &&
+               cursorPosition.y > trashAreaCorners[0].y &&
+               cursorPosition.y < trashAreaCorners[2].y;
+    }
+
+    private bool IsCursorInCraftArea1() {
+        if (craftingUIConfig.craftArea1 == null) return false;
+        
+        var cursorPosition = Input.mousePosition;
+        var craftArea1 = craftingUIConfig.craftArea1;
+        var craftAreaCorners = new Vector3[4];
+        craftArea1.GetWorldCorners(craftAreaCorners);
+        return cursorPosition.x > craftAreaCorners[0].x &&
+               cursorPosition.x < craftAreaCorners[2].x &&
+               cursorPosition.y > craftAreaCorners[0].y &&
+               cursorPosition.y < craftAreaCorners[2].y;
+    }
+
+    private bool IsCursorInCraftArea2() {
+        if (craftingUIConfig.craftArea2 == null) return false;
+        
+        var cursorPosition = Input.mousePosition;
+        var craftArea2 = craftingUIConfig.craftArea2;
+        var craftAreaCorners = new Vector3[4];
+        craftArea2.GetWorldCorners(craftAreaCorners);
+        return cursorPosition.x > craftAreaCorners[0].x &&
+               cursorPosition.x < craftAreaCorners[2].x &&
+               cursorPosition.y > craftAreaCorners[0].y &&
+               cursorPosition.y < craftAreaCorners[2].y;
     }
 }

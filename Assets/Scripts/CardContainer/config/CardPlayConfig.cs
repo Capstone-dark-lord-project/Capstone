@@ -9,6 +9,5 @@ namespace config {
         
         [SerializeField]
         public bool destroyOnPlay;
-
     }
 }

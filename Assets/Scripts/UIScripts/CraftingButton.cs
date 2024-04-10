@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class ButtonManager : MonoBehaviour
 {
-    public GameObject CraftingUI;
+    public List<GameObject> CraftingUIComponents;
     public GameObject TrashUI;
     public TMP_Text CraftingButtonText;
     public TMP_Text TrashButtonText;
@@ -33,12 +34,18 @@ public class ButtonManager : MonoBehaviour
         if (craftingUIActive)
         {
             CraftingButtonText.text = closeText;
-            CraftingUI.SetActive(true);
+            foreach (GameObject component in CraftingUIComponents)
+            {
+                component.SetActive(true);
+            }
         }
         else
         {
             CraftingButtonText.text = CraftingText;
-            CraftingUI.SetActive(false);
+            foreach (GameObject component in CraftingUIComponents)
+            {
+                component.SetActive(false);
+            }
         }
     }
 

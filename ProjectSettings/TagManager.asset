@@ -6,7 +6,10 @@ TagManager:
   tags:
   - drag
   - Cards
-  - ResourceCardTag
+  - ActionCards
+  - EventCards
+  - ItemCards
+  - ResourceCards
   layers:
   - Default
   - TransparentFX

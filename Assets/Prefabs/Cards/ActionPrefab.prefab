@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 7347015898822356486}
   m_Layer: 0
   m_Name: ActionPrefab
-  m_TagString: Cards
+  m_TagString: ActionCards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
