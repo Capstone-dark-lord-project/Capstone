@@ -41,6 +41,7 @@ public class ButtonManager : MonoBehaviour
         }
         else
         {
+            // Invoke card cancel events
             CraftingButtonText.text = CraftingText;
             foreach (GameObject component in CraftingUIComponents)
             {

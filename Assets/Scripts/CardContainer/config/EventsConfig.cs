@@ -7,17 +7,21 @@ namespace config {
     [Serializable]
     public class EventsConfig {
         [SerializeField]
-        public UnityEvent<CardPlayed> OnCardPlayed;
+        public UnityEvent<CardEvent> OnCardPlayed;
         
         [SerializeField]
-        public UnityEvent<CardHover> OnCardHover;
+        public UnityEvent<CardEvent> OnCardHover;
         
         [SerializeField]
-        public UnityEvent<CardUnhover> OnCardUnhover;
+        public UnityEvent<CardEvent> OnCardUnhover;
         
         [SerializeField]
-        public UnityEvent<CardDestroy> OnCardDestroy;
+        public UnityEvent<CardEvent> OnCardDestroy;
+
         [SerializeField]
-        public UnityEvent<CardDiscard> OnCardDiscard;
+        public UnityEvent<CardEvent> OnCardDiscard;
+        
+        [SerializeField]
+        public UnityEvent<Card, CardEvent> OnCraftSlotInput;
     }
 }

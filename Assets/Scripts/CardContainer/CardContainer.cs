@@ -9,6 +9,7 @@ public class CardContainer : MonoBehaviour {
 	[Header("Managers")]
 	[SerializeField]
 	public PlayerManager playerManager;
+    public CraftingManager craftingManager;
 
     [Header("Events")]
     [SerializeField]
@@ -54,7 +55,6 @@ public class CardContainer : MonoBehaviour {
     [Header("Card List")]
     [SerializeField]
     public List<CardWrapper> cardOnHandUI = new();
-    public List<Card> handList;
 
     private RectTransform rectTransform;
     private CardWrapper currentDraggedCard;
@@ -62,12 +62,6 @@ public class CardContainer : MonoBehaviour {
     private void Start() {
         rectTransform = GetComponent<RectTransform>();
         InitCards();
-		// Get list from playerManager
-        if (playerManager != null) {
-            handList = playerManager.hand;
-        } else {
-            Debug.LogError("PlayerManager reference is not set in CardContainer!");
-        }
     }
 
     void Update() {
@@ -166,15 +160,14 @@ public class CardContainer : MonoBehaviour {
         var originalCardIdx = cardOnHandUI.IndexOf(currentDraggedCard);
         if (newCardIdx != originalCardIdx) {
             cardOnHandUI.RemoveAt(originalCardIdx);
-            handList.RemoveAt(originalCardIdx);
+            playerManager.hand.RemoveAt(originalCardIdx);
             if (newCardIdx > originalCardIdx && newCardIdx < cardOnHandUI.Count - 1) {
                 newCardIdx--;
             }
             cardOnHandUI.Insert(newCardIdx, currentDraggedCard);
-			handList.Insert(newCardIdx, currentDraggedCard.card);
+			playerManager.hand.Insert(newCardIdx, currentDraggedCard.card);
         }
         currentDraggedCard.transform.SetSiblingIndex(newCardIdx);
-		playerManager.hand = handList;
     }
 
 	// Set card positioning based on container width
@@ -247,36 +240,38 @@ public class CardContainer : MonoBehaviour {
     public void OnCardDragEnd() {
 		// Discard function
         if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) {
-            DestroyCard(currentDraggedCard);
+            eventsConfig.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
             Debug.Log("Trash Area");
             //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
         }
 
         // Play Card function
         if (IsCursorInPlayArea()  && cardPlayConfig.playArea.gameObject.activeSelf) {
-            eventsConfig?.OnCardPlayed?.Invoke(new CardPlayed(currentDraggedCard));
-            //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
+            eventsConfig?.OnCardPlayed?.Invoke(new CardEvent(currentDraggedCard));
             if (cardPlayConfig.destroyOnPlay) {
                 DestroyCard(currentDraggedCard);
             }
         }
 
         // Crafting functions
-        if (IsCursorInCraftArea1()  && craftingUIConfig.craftArea1.gameObject.activeSelf) {
+        if (IsCursorInCraftArea1()  && craftingUIConfig.craftArea1.gameObject.activeSelf && craftingManager.cardSlot1 == null) {
             Debug.Log("Craft Area 1");
-            //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
+            eventsConfig?.OnCraftSlotInput?.Invoke(craftingManager.cardSlot1, new CardEvent(currentDraggedCard));
+            DestroyCard(currentDraggedCard);
         }
-        if (IsCursorInCraftArea2()  && craftingUIConfig.craftArea2.gameObject.activeSelf) {
+        if (IsCursorInCraftArea2()  && craftingUIConfig.craftArea2.gameObject.activeSelf && craftingManager.cardSlot2 == null) {
             Debug.Log("Craft Area 2");
+            eventsConfig?.OnCraftSlotInput?.Invoke(craftingManager.cardSlot2, new CardEvent(currentDraggedCard));
+            DestroyCard(currentDraggedCard);
         }
         currentDraggedCard = null;
     }
     
     public void DestroyCard(CardWrapper card) {
-        // eventsConfig.OnCardDiscard?.Invoke(new CardDiscard(card));
-        eventsConfig.OnCardDestroy?.Invoke(new CardDestroy(card));
+        eventsConfig.OnCardDestroy?.Invoke(new CardEvent(card));
     }
 
+    // Area Checks
     private bool IsCursorInPlayArea() {
         if (cardPlayConfig.playArea == null) return false;
         

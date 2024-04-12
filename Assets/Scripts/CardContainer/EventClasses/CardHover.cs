@@ -1,5 +1,5 @@
 namespace events {
-    public class CardHover : CardPlayed {
+    public class CardHover : CardEvent {
         public CardHover(CardWrapper card) : base(card) {
         }
     }

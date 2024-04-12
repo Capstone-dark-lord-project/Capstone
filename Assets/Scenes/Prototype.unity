@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 2139781735}
+  craftingManager: {fileID: 1705217865}
   eventsConfig:
     OnCardPlayed:
       m_PersistentCalls:
@@ -212,6 +213,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    OnCraftSlotInput:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1542447541}
+          m_TargetAssemblyTypeName: events.CardCraftSlot, Assembly-CSharp
+          m_MethodName: OnCraftSlotInput
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   forceFitContainer: 1
   alignment: 1
   allowCardRepositioning: 1
@@ -239,7 +255,6 @@ MonoBehaviour:
     craftArea1: {fileID: 1624996728}
     craftArea2: {fileID: 1331999047}
   cardOnHandUI: []
-  handList: []
 --- !u!1 &154609744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,6 +1182,7 @@ Transform:
   - {fileID: 2139781734}
   - {fileID: 682450838}
   - {fileID: 154609746}
+  - {fileID: 1705217864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &554334685
@@ -2779,6 +2795,51 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1542447540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1542447542}
+  - component: {fileID: 1542447541}
+  m_Layer: 0
+  m_Name: CardCrafter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1542447541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542447540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6cfff8964571e4683e2019c71d53a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingManager: {fileID: 1705217865}
+--- !u!4 &1542447542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542447540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 507.60342, y: 267.66663, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1557233688 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4269572589027785272, guid: c3347989118bd734b8f524a5b9a22726,
@@ -3298,6 +3359,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1705217863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705217864}
+  - component: {fileID: 1705217865}
+  m_Layer: 0
+  m_Name: CraftingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1705217864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705217863}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 466252092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1705217865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705217863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85070b8ff30396e43a41885ca3187bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardSlot1: {fileID: 0}
+  cardSlot2: {fileID: 0}
+  resultSlot: {fileID: 0}
+  craftArea1: {fileID: 1624996728}
+  craftArea2: {fileID: 1331999047}
+  resultArea: {fileID: 293261954}
 --- !u!1 &1753206033
 GameObject:
   m_ObjectHideFlags: 0
@@ -4602,3 +4713,4 @@ SceneRoots:
   - {fileID: 320293614}
   - {fileID: 867548638}
   - {fileID: 1625289936}
+  - {fileID: 1542447542}

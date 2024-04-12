@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using events;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace demo {
+namespace events {
     /**
      * Offers a preview of a card when hovering over it by cloning the original card and placing it on top of the original.
      * Allows setting the global preview position and scale.
@@ -22,11 +21,11 @@ namespace demo {
         private Dictionary<CardWrapper, Transform> previews = new();
         
         public void OnCardHover(CardHover cardHover) {
-            OnCardPreviewStarted(cardHover.card);
+            OnCardPreviewStarted(cardHover.cardWrapper);
         }
         
         public void OnCardUnhover(CardUnhover cardUnhover) {
-            OnCardPreviewEnded(cardUnhover.card);
+            OnCardPreviewEnded(cardUnhover.cardWrapper);
         }
 
         public void OnCardPreviewStarted(CardWrapper card) {
