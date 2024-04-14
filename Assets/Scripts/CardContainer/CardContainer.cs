@@ -240,7 +240,7 @@ public class CardContainer : MonoBehaviour {
     public void OnCardDragEnd() {
 		// Discard function
         if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) {
-            eventsConfig.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
+            eventsConfig?.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
             Debug.Log("Trash Area");
             //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
         }
@@ -254,21 +254,41 @@ public class CardContainer : MonoBehaviour {
         }
 
         // Crafting functions
-        if (IsCursorInCraftArea1()  && craftingUIConfig.craftArea1.gameObject.activeSelf && craftingManager.cardSlot1 == null) {
+        if (IsCursorInCraftArea1() && craftingUIConfig.craftArea1.gameObject.activeSelf &&
+            craftingManager.cardSlot1 == null && currentDraggedCard.tag == "ResourceCards") {
             Debug.Log("Craft Area 1");
-            eventsConfig?.OnCraftSlotInput?.Invoke(craftingManager.cardSlot1, new CardEvent(currentDraggedCard));
+            // Recasting to ResourceCard from Card
+            ResourceCard resourceInput = currentDraggedCard.card as ResourceCard;
+            eventsConfig?.OnCraftSlotInput?.Invoke(1, resourceInput);
             DestroyCard(currentDraggedCard);
+            if (craftingManager.cardSlot2 != null) {
+                Debug.Log("Initiate Crafting");
+                CraftCard(craftingManager.cardSlot1, craftingManager.cardSlot2);
+            }
         }
-        if (IsCursorInCraftArea2()  && craftingUIConfig.craftArea2.gameObject.activeSelf && craftingManager.cardSlot2 == null) {
+
+        if (IsCursorInCraftArea2() && craftingUIConfig.craftArea2.gameObject.activeSelf &&
+            craftingManager.cardSlot2 == null && currentDraggedCard.tag == "ResourceCards") {
             Debug.Log("Craft Area 2");
-            eventsConfig?.OnCraftSlotInput?.Invoke(craftingManager.cardSlot2, new CardEvent(currentDraggedCard));
+            // Recasting to ResourceCard from Card
+            ResourceCard resourceInput = currentDraggedCard.card as ResourceCard;
+            eventsConfig?.OnCraftSlotInput?.Invoke(2, resourceInput);
             DestroyCard(currentDraggedCard);
+            if (craftingManager.cardSlot1 != null) {
+                Debug.Log("Initiate Crafting");
+                CraftCard(craftingManager.cardSlot1, craftingManager.cardSlot2);
+            }
         }
+
         currentDraggedCard = null;
     }
     
     public void DestroyCard(CardWrapper card) {
         eventsConfig.OnCardDestroy?.Invoke(new CardEvent(card));
+    }
+
+    public void CraftCard(ResourceCard slot1, ResourceCard slot2) {
+        eventsConfig.OnBothSlotFull?.Invoke(slot1, slot2);
     }
 
     // Area Checks

@@ -22,6 +22,8 @@ namespace config {
         public UnityEvent<CardEvent> OnCardDiscard;
         
         [SerializeField]
-        public UnityEvent<Card, CardEvent> OnCraftSlotInput;
+        public UnityEvent<int, ResourceCard> OnCraftSlotInput;
+        [SerializeField]
+        public UnityEvent<ResourceCard, ResourceCard> OnBothSlotFull;
     }
 }

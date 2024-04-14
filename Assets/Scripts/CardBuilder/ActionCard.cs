@@ -10,8 +10,8 @@ public class ActionCard : Card
 {
     public ActionName actionName;
 
-    public ActionCard(string cardName, string cardDescription, Sprite cardArtwork, ActionName actionName)
-        : base(cardName, cardDescription, cardArtwork)
+    public ActionCard(Card card, ActionName actionName)
+        : base(card.cardName, card.cardDescription, card.cardArtwork)
     {
         this.actionName = actionName;
     }

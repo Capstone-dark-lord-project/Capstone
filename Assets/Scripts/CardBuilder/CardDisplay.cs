@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class CardDisplay : MonoBehaviour
 {
     public Card card;
-
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI cardDescriptionText;
     public Image artWorkImage;

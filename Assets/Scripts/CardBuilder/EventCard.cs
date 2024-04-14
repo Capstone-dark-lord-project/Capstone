@@ -10,8 +10,8 @@ public class EventCard : Card
 {
     public EventName eventName;
 
-    public EventCard(string cardName, string cardDescription, Sprite cardArtwork, EventName eventName)
-        : base(cardName, cardDescription, cardArtwork)
+    public EventCard(Card card, EventName eventName)
+        : base(card.cardName, card.cardDescription, card.cardArtwork)
     {
         this.eventName = eventName;
     }

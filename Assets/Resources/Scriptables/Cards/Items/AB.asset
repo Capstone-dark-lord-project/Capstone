@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6998462bf0f6e64e895f78dcb58edf6, type: 3}
-  m_Name: Stick (Test Wood)
+  m_Script: {fileID: 11500000, guid: a18c1cfbfae63c443b228c86785273a7, type: 3}
+  m_Name: AB
   m_EditorClassIdentifier: 
-  cardName: Stick
-  cardDescription: An arm of a tree.
+  cardName: Fishing Rod
+  cardDescription: Wood+Food
   cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
-  count: 5
-  resourceIcon: {fileID: 21300000, guid: 2f921186523e2894e875c5f39fdbae3b, type: 3}
-  resourceType: 0
+  count: 0
+  itemName: 3
