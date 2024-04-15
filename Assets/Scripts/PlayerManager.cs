@@ -35,7 +35,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Update Hand Count UI
-    void UpdateHandCountUI()
+    public void UpdateHandCountUI()
     {
         string handCountString = "Hand count: " + hand.Count;
 

@@ -82,6 +82,7 @@ public class CardContainer : MonoBehaviour {
         }
     }
 
+
 	// Associate a vertical displacement based on the index in the cards list with center card as the highest displacement
     private float GetCardVerticalDisplacement(int index) {
         if (cardOnHandUI.Count < 3) return 0;
@@ -241,6 +242,7 @@ public class CardContainer : MonoBehaviour {
 		// Discard function
         if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) {
             eventsConfig?.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
+            playerManager.UpdateHandCountUI();
             Debug.Log("Trash Area");
             //MethodToInvoke.Invoke(Arguments) >> public UnityEvent<CardDiscard> OnCardDiscard; which means invoke the OnCardDiscard event with the CardDiscard Argument.
         }
@@ -285,6 +287,7 @@ public class CardContainer : MonoBehaviour {
     
     public void DestroyCard(CardWrapper card) {
         eventsConfig.OnCardDestroy?.Invoke(new CardEvent(card));
+        playerManager.UpdateHandCountUI();
     }
 
     public void CraftCard(ResourceCard slot1, ResourceCard slot2) {
