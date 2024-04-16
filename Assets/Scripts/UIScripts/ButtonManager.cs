@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class ButtonManager : MonoBehaviour
 {
+    public UnityEvent OnCraftingCancel;
     public List<GameObject> CraftingUIComponents;
     public GameObject TrashUI;
     public TMP_Text CraftingButtonText;
@@ -41,7 +43,7 @@ public class ButtonManager : MonoBehaviour
         }
         else
         {
-            // Invoke card cancel events
+            OnCraftingCancel.Invoke();
             CraftingButtonText.text = CraftingText;
             foreach (GameObject component in CraftingUIComponents)
             {

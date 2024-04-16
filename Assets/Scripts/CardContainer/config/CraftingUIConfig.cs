@@ -7,5 +7,6 @@ namespace config {
         [SerializeField]
         public RectTransform craftArea1;
         public RectTransform craftArea2;
+        public RectTransform resultArea;
     }
 }

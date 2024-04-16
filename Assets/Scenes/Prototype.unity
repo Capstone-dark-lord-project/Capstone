@@ -149,7 +149,7 @@ RectTransform:
   m_GameObject: {fileID: 63703309}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1660920599}
@@ -250,7 +250,7 @@ MonoBehaviour:
   maxHeightDisplacement: 0
   zoomConfig:
     zoomOnHover: 1
-    multiplier: 1.5
+    multiplier: 1.2
     overrideYPosition: 100
     defaultSortOrder: 0
     bringToFrontOnHover: 1
@@ -269,6 +269,7 @@ MonoBehaviour:
   craftingUIConfig:
     craftArea1: {fileID: 4269572590632534350}
     craftArea2: {fileID: 4269572590120094591}
+    resultArea: {fileID: 0}
   cardOnHandUI: []
 --- !u!1 &154609744
 GameObject:
@@ -299,6 +300,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcc7839bc7f8bc42bc862d159639cf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnCraftingCancel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 661610179}
+        m_TargetAssemblyTypeName: events.SingleCardDestroyer, Assembly-CSharp
+        m_MethodName: OnCraftingCancel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   CraftingUIComponents:
   - {fileID: 4269572590632534351}
   - {fileID: 4269572590120094590}
@@ -1045,6 +1061,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554334685}
   m_CullTransparentMesh: 1
+--- !u!1 &661610177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661610178}
+  - component: {fileID: 661610179}
+  m_Layer: 0
+  m_Name: SIngleCardDestroyer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &661610178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661610177}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1760528774}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &661610179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661610177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74e7b84eefa79ca40934719334606453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingManager: {fileID: 1705217865}
+  playerManager: {fileID: 2139781735}
+  ContainerCraftArea1: {fileID: 4269572590632534352}
+  ContainerCraftArea2: {fileID: 4269572590120094592}
+  ContainerResultArea: {fileID: 4269572589279783100}
 --- !u!1 &682450836
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,10 +2447,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4269572590260879057}
-  - {fileID: 1974111965}
   - {fileID: 4269572590632534350}
   - {fileID: 4269572590120094591}
   - {fileID: 4269572589279783096}
+  - {fileID: 1974111965}
   - {fileID: 63703310}
   - {fileID: 1949469462}
   - {fileID: 413195046}
@@ -2689,6 +2754,7 @@ Transform:
   - {fileID: 1625289936}
   - {fileID: 1542447542}
   - {fileID: 1894511764}
+  - {fileID: 661610178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1778864090
@@ -3431,6 +3497,7 @@ GameObject:
   - component: {fileID: 1974111965}
   - component: {fileID: 1974111967}
   - component: {fileID: 1974111966}
+  - component: {fileID: 1974111968}
   m_Layer: 5
   m_Name: CraftingBG
   m_TagString: Untagged
@@ -3495,6 +3562,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974111964}
   m_CullTransparentMesh: 1
+--- !u!223 &1974111968
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974111964}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: -1
+  m_TargetDisplay: 0
 --- !u!1 &2048365552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,7 +3956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269572589279783096}
   - component: {fileID: 4269572589279783098}
-  - component: {fileID: 4269572589279783099}
+  - component: {fileID: 4269572589279783100}
   m_Layer: 5
   m_Name: ResultArea
   m_TagString: Untagged
@@ -3882,7 +3972,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4269572589279783097}
   m_CullTransparentMesh: 1
---- !u!114 &4269572589279783099
+--- !u!114 &4269572589279783100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3891,57 +3981,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 4269572589279783097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ce261e99517b0a04a86988493b9308c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.7647059, g: 0.254902, b: 0.31392, a: 0}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
+  playerManager: {fileID: 2139781735}
+  craftingManager: {fileID: 1705217865}
+  OnCardRemoveFromSlot:
     m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &4269572590120094588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4269572590120094590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.7647059, g: 0.254902, b: 0.31392, a: 0}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+      m_Calls:
+      - m_Target: {fileID: 661610179}
+        m_TargetAssemblyTypeName: events.SingleCardDestroyer, Assembly-CSharp
+        m_MethodName: OnCardRemoveFromSlot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  animationSpeedConfig:
+    rotation: 100
+    position: 1700
+    releasePosition: 1000
+    zoom: 5
+  craftingUIConfig:
+    craftArea1: {fileID: 4269572590632534350}
+    craftArea2: {fileID: 4269572590120094591}
+    resultArea: {fileID: 4269572589279783096}
+  cardInSlot: []
+  slot: 3
 --- !u!222 &4269572590120094589
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3960,7 +4030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269572590120094591}
   - component: {fileID: 4269572590120094589}
-  - component: {fileID: 4269572590120094588}
+  - component: {fileID: 4269572590120094592}
   m_Layer: 5
   m_Name: Crafting2
   m_TagString: Untagged
@@ -3987,6 +4057,46 @@ RectTransform:
   m_AnchoredPosition: {x: 570.00006, y: -20.461273}
   m_SizeDelta: {x: 250, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4269572590120094592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269572590120094590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce261e99517b0a04a86988493b9308c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 2139781735}
+  craftingManager: {fileID: 1705217865}
+  OnCardRemoveFromSlot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 661610179}
+        m_TargetAssemblyTypeName: events.SingleCardDestroyer, Assembly-CSharp
+        m_MethodName: OnCardRemoveFromSlot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  animationSpeedConfig:
+    rotation: 100
+    position: 1700
+    releasePosition: 1000
+    zoom: 5
+  craftingUIConfig:
+    craftArea1: {fileID: 4269572590632534350}
+    craftArea2: {fileID: 4269572590120094591}
+    resultArea: {fileID: 4269572589279783096}
+  cardInSlot: []
+  slot: 0
 --- !u!1 &4269572590260879056
 GameObject:
   m_ObjectHideFlags: 0
@@ -4071,36 +4181,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4269572590632534351}
   m_CullTransparentMesh: 1
---- !u!114 &4269572590632534349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4269572590632534351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.7647059, g: 0.254902, b: 0.31392, a: 0}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!224 &4269572590632534350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4130,7 +4210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269572590632534350}
   - component: {fileID: 4269572590632534348}
-  - component: {fileID: 4269572590632534349}
+  - component: {fileID: 4269572590632534352}
   m_Layer: 5
   m_Name: Crafting1
   m_TagString: Untagged
@@ -4138,6 +4218,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4269572590632534352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269572590632534351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce261e99517b0a04a86988493b9308c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 2139781735}
+  craftingManager: {fileID: 1705217865}
+  OnCardRemoveFromSlot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 661610179}
+        m_TargetAssemblyTypeName: events.SingleCardDestroyer, Assembly-CSharp
+        m_MethodName: OnCardRemoveFromSlot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  animationSpeedConfig:
+    rotation: 100
+    position: 1700
+    releasePosition: 1000
+    zoom: 5
+  craftingUIConfig:
+    craftArea1: {fileID: 4269572590632534350}
+    craftArea2: {fileID: 4269572590120094591}
+    resultArea: {fileID: 4269572589279783096}
+  cardInSlot: []
+  slot: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
