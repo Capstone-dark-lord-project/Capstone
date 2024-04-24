@@ -19,7 +19,7 @@ public class ActionDraw : ActionCard, ICardPlayable
         Debug.Log("DrawnCard!!!");
     }
 
-    public void Interact()
+    public void Play()
     {
         DrawToHand();
     }

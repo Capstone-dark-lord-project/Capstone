@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 588cd162d61287b4ca3bff2c383a7f08, type: 3}
-  m_Name: Flood (Test Event)
+  m_Script: {fileID: 11500000, guid: 18dd6b19a7a04c14aa47452dfc5b07c8, type: 3}
+  m_Name: A Little Refreshment
   m_EditorClassIdentifier: 
   cardName: A little refreshment
   cardDescription: All players randomly lose 1 card from their hand
   cardArtwork: {fileID: 21300000, guid: 5c88e069ecd499e4dbdcac39dfaba0b1, type: 3}
-  count: 0
+  count: 3
+  cardAmount: 1

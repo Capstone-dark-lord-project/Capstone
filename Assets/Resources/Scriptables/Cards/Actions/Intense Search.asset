@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4969996e4b3ec004fb5f6d339f741f2d, type: 3}
-  m_Name: New Action Card
+  m_Name: Intense Search
   m_EditorClassIdentifier: 
-  cardName: Draw test
-  cardDescription: Draw test
+  cardName: Intense Search
+  cardDescription: You spend a whole day searching<br>Draw 2 cards.
   cardArtwork: {fileID: 0}
-  count: 30
-  drawAmount: 0
+  count: 1
+  drawAmount: 2

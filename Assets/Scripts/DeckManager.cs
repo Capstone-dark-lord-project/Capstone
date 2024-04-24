@@ -119,8 +119,11 @@ public class DeckManager : MonoBehaviour
             }
             else
             {
+                if (drawnCard is ICardEventDrawn cardEventDrawn)
+                {
+                    cardEventDrawn.Drawn();
+                }
                 InstantiateEventCard(drawnCard);
-                Debug.LogWarning("EventCard");
             }
             return drawnCard;
         }
@@ -260,7 +263,7 @@ public class DeckManager : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(DestroyAfterSeconds(5));
+        StartCoroutine(DestroyAfterSeconds(3));
     }
 
     private IEnumerator DestroyAfterSeconds(int seconds)
