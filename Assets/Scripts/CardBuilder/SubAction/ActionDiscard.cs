@@ -11,4 +11,8 @@ public class ActionDiscard : ActionCard
         this.discardAmount = discardAmount;
     }
 
+    public void DiscardFromHand()
+    {
+        Debug.Log("DiscardedCard!!!");
+    }
 }

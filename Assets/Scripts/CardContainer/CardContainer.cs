@@ -240,7 +240,8 @@ public class CardContainer : MonoBehaviour {
 
     public void OnCardDragEnd() {
 		// Discard function
-        if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) {
+        if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) 
+        {
             eventsConfig?.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
             playerManager.UpdateHandCountUI();
             Debug.Log("Trash Area");
@@ -248,16 +249,18 @@ public class CardContainer : MonoBehaviour {
         }
 
         // Play Card function
-        if (IsCursorInPlayArea()  && cardPlayConfig.playArea.gameObject.activeSelf) {
+        if (IsCursorInPlayArea()  && cardPlayConfig.playArea.gameObject.activeSelf && currentDraggedCard.tag == "ActionCards") 
+        {
             eventsConfig?.OnCardPlayed?.Invoke(new CardEvent(currentDraggedCard));
-            if (cardPlayConfig.destroyOnPlay) {
+            if (cardPlayConfig.destroyOnPlay) 
+            {
                 DestroyCard(currentDraggedCard);
             }
         }
 
         // Crafting functions
-        if (IsCursorInCraftArea1() && craftingUIConfig.craftArea1.gameObject.activeSelf &&
-            craftingManager.cardSlot1 == null && currentDraggedCard.tag == "ResourceCards") {
+        if (IsCursorInCraftArea1() && craftingUIConfig.craftArea1.gameObject.activeSelf && craftingManager.cardSlot1 == null && currentDraggedCard.tag == "ResourceCards") 
+        {
             Debug.Log("Craft Area 1");
             // Recasting to ResourceCard from Card
             ResourceCard resourceInput = currentDraggedCard.card as ResourceCard;

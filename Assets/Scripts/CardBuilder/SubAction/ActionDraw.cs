@@ -11,4 +11,8 @@ public class ActionDraw : ActionCard
         this.drawAmount = drawAmount;
     }
 
+    public void DrawToHand()
+    {
+        Debug.Log("DrawnCard!!!");
+    }
 }
