@@ -14,7 +14,22 @@ public class PlayerManager : MonoBehaviour
     public TextMeshProUGUI handCountText;
     public List<Card> hand = new List<Card>();
     public int health = 3;
-    private int handCount = 0;
+
+    // Player's inventory
+    public int inventoryA = 0;
+    public int inventoryB = 0;
+    public int inventoryC = 0;
+    public int inventoryD = 0;
+    public int inventoryAA = 0;
+    public int inventoryAB = 0;
+    public int inventoryAC = 0;
+    public int inventoryAD = 0;
+    public int inventoryBB = 0;
+    public int inventoryBC = 0;
+    public int inventoryBD = 0;
+    public int inventoryCC = 0;
+    public int inventoryCD = 0;
+    public int inventoryDD = 0;
 
     void Start()
     {
@@ -29,7 +44,6 @@ public class PlayerManager : MonoBehaviour
     // Add Card from DeckManager.cs to the hand
     public void AddCardToHand(Card card)
     {
-        handCount++;
         hand.Add(card);
         UpdateHandCountUI();
         UpdateHandUI();
@@ -37,9 +51,9 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Update Hand Count UI
-    void UpdateHandCountUI()
+    public void UpdateHandCountUI()
     {
-        string handCountString = "Hand count: " + handCount;
+        string handCountString = "Hand count: " + hand.Count;
 
         handCountText.text = handCountString;
     }
@@ -68,14 +82,13 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void InstantiateCardUI(Card card, int position)
+    public void InstantiateCardUI(Card card)
     {
             GameObject CardPrefab = GetCardTypePrefab(card);
-            // Vector3 cardPosition = new Vector3(Random.Range(0f, 0.2f), cardIndex * cardWidth, Random.Range(0f, 0.2f));
-            // Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0f, 5.0f), 0f);
             GameObject cardUI  = Instantiate(CardPrefab, cardParent.transform);
+
             // Card Display
-            CardDisplay cardDisplay = cardUI .GetComponent<CardDisplay>();
+            CardDisplay cardDisplay = cardUI.GetComponent<CardDisplay>();
             if (cardDisplay != null)
             {
                 cardDisplay.card = card;
@@ -85,34 +98,23 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.LogWarning("CardDisplay component not found on the instantiated object.");
             }
-            // Calculate the total width of all cards in the hand
-            float totalWidth = (hand.Count - 1) * 2.6f;
-
-            // Calculate the x-position based on the index and total width
-            
-            float newXPosition = -totalWidth / 2f + position * 2.6f;
-
-            // Set the local position of the card
-            cardUI.transform.localPosition = new Vector3(newXPosition, 0f, 0f);
-            // cardUI .transform.Rotate(new Vector3(-90f, 180f, 0f));
+            float yOffset = 200.0f;
+            float xOffset = 150.0f;
+            Vector3 newPosition = cardUI.transform.position;
+            newPosition.y -= yOffset;
+            newPosition.x += xOffset;
+            cardUI.transform.position = newPosition;
             Debug.Log($"Instantiating Card {card.cardName}");
     }
 
     private void UpdateHandUI()
     {
-        // Destroy existing UI elements representing cards in the hand
-        foreach (Transform child in cardParent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        
-        int position = -1;
+        int existingCardCount = cardParent.transform.childCount;
 
-        // Instantiate UI elements for each card in the hand
-        foreach (Card card in hand)
+        // Instantiate for only new cards
+        for (int i = existingCardCount; i < hand.Count; i++)
         {
-            position++;
-            InstantiateCardUI(card, position);
+            InstantiateCardUI(hand[i]);
         }
     }
 }

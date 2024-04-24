@@ -4,17 +4,24 @@ using System.Text;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class DeckManager : MonoBehaviour
 {
     public TextMeshProUGUI deckCountText;
 
-    public List<GameObject> instantiatedCards = new List<GameObject>();
+    public List<GameObject> instantiatedDeckCards = new List<GameObject>();
     public List<Card> deck = new List<Card>();
 
+    public Button drawCardButton;
+    public Canvas UIcanvas;
     public GameObject defaultCardPrefab;
+    public GameObject eventCardPrefab;
+    private GameObject eventUI;
+    
+    public float scaleSpeed;
+    public Vector3 finalScale;
 
-    private int deckCount = 0;
     float cardWidth = 0.01f;
 
     void Start()
@@ -29,23 +36,12 @@ public class DeckManager : MonoBehaviour
         {
             DrawCard(playerManager);
         }
+        drawCardButton.onClick.AddListener(DrawCardOnClick);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayerManager playerManager = FindObjectOfType<PlayerManager>();
-
-            if (playerManager != null)
-            {
-                DrawCard(playerManager);
-            }
-            else
-            {
-                Debug.LogWarning("TempPlayerManager not found in the scene!");
-            }
-        }
+        
     }
 
     // Deck initialization
@@ -80,7 +76,6 @@ public class DeckManager : MonoBehaviour
                 for (int i = 0; i < card.count; i++)
                 {
                     deck.Add(card);
-                    deckCount++;
                 }
             }
             LogLoadedCards(cards);
@@ -116,16 +111,37 @@ public class DeckManager : MonoBehaviour
             Card drawnCard = deck[0];
             
             deck.RemoveAt(0);
-            deckCount--;
             UpdateDeckCountUI();
             DestroyTopCard();
-            playerManager.AddCardToHand(drawnCard);
+            if (!(drawnCard is EventCard))
+            {
+                playerManager.AddCardToHand(drawnCard);
+            }
+            else
+            {
+                InstantiateEventCard(drawnCard);
+                Debug.LogWarning("EventCard");
+            }
             return drawnCard;
         }
         else
         {
             Debug.LogWarning("Deck is empty!");
             return null;
+        }
+    }
+
+    private void DrawCardOnClick()
+    {
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+
+        if (playerManager != null)
+        {
+            DrawCard(playerManager);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerManager not found in the scene!");
         }
     }
 
@@ -144,7 +160,7 @@ public class DeckManager : MonoBehaviour
         return cardNamesList.ToString();
     }
 
-    // Card Instantiation
+    // Card Model Instantiation
     void InstantiateCurrentCard(int cardIndex)
     {
         if (deck.Count > 0)
@@ -159,7 +175,7 @@ public class DeckManager : MonoBehaviour
             instantiatedCard.transform.Rotate(new Vector3(-90f, 180f, 0f));
 
             // Add the instantiated card to the list
-            instantiatedCards.Add(instantiatedCard);
+            instantiatedDeckCards.Add(instantiatedCard);
 
             Debug.Log($"Instantiating Card {cardIndex + 1}/{deck.Count}: {currentCard.cardName}");
         }
@@ -181,30 +197,76 @@ public class DeckManager : MonoBehaviour
     // Deck Count UI
     void UpdateDeckCountUI()
     {
-        string deckCountString = "Deck count: " + deckCount;
+        string deckCountString = "Deck count: " + deck.Count;
 
         deckCountText.text = deckCountString;
     }
 
     void DestroyTopCard()
     {
-        if (instantiatedCards.Count > 0)
+        if (instantiatedDeckCards.Count > 0)
         {
             // Get the index of the last card in the list
-            int lastIndex = instantiatedCards.Count - 1;
+            int lastIndex = instantiatedDeckCards.Count - 1;
 
             // Get the GameObject of the last card
-            GameObject topCard = instantiatedCards[lastIndex];
+            GameObject topCard = instantiatedDeckCards[lastIndex];
 
             // Destroy the last card GameObject
             Destroy(topCard);
 
             // Remove the destroyed card from the list
-            instantiatedCards.RemoveAt(lastIndex);
+            instantiatedDeckCards.RemoveAt(lastIndex);
         }
         else
         {
             Debug.LogWarning("No cards instantiated to destroy.");
         }
+    }
+
+    public void InstantiateEventCard(Card card)
+    {
+        GameObject CardPrefab = eventCardPrefab;
+        Vector3 center = UIcanvas.transform.position;
+        eventUI = Instantiate(CardPrefab, center, Quaternion.identity, UIcanvas.transform);
+
+        eventUI.gameObject.AddComponent<Canvas>();
+        Canvas eventCanvas = eventUI.GetComponent<Canvas>();
+        eventCanvas.overrideSorting = true;
+        eventCanvas.sortingOrder = 30;
+
+        // Card Display
+        CardDisplay cardDisplay = eventUI.GetComponent<CardDisplay>();
+        if (cardDisplay != null)
+        {
+            cardDisplay.card = card;
+            cardDisplay.DisplayCardInfo();
+        }
+        else
+        {
+            Debug.LogWarning("CardDisplay component not found on the instantiated object.");
+        }
+        
+        Debug.LogWarning($"Instantiating Event Card {card.cardName}");
+
+        StartCoroutine(ScaleObject());
+    }
+
+    private IEnumerator ScaleObject()
+    {
+        while (eventUI.transform.localScale != finalScale)
+        {
+            eventUI.transform.localScale = Vector3.MoveTowards(eventUI.transform.localScale, finalScale, scaleSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        StartCoroutine(DestroyAfterSeconds(5));
+    }
+
+    private IEnumerator DestroyAfterSeconds(int seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+
+        Destroy(eventUI);
     }
 }
