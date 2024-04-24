@@ -15,6 +15,22 @@ public class PlayerManager : MonoBehaviour
     public List<Card> hand = new List<Card>();
     public int health = 3;
 
+    // Player's inventory
+    public int inventoryA = 0;
+    public int inventoryB = 0;
+    public int inventoryC = 0;
+    public int inventoryD = 0;
+    public int inventoryAA = 0;
+    public int inventoryAB = 0;
+    public int inventoryAC = 0;
+    public int inventoryAD = 0;
+    public int inventoryBB = 0;
+    public int inventoryBC = 0;
+    public int inventoryBD = 0;
+    public int inventoryCC = 0;
+    public int inventoryCD = 0;
+    public int inventoryDD = 0;
+
     void Start()
     {
         UpdateHandCountUI();

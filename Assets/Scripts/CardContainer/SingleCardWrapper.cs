@@ -14,6 +14,7 @@ public class SingleCardWrapper : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private bool isDragged;
     private Vector2 dragStartPos;
     public Card card;
+    public int uiLayer;
     public int slot;
 
     public float width {
@@ -34,6 +35,13 @@ public class SingleCardWrapper : MonoBehaviour, IPointerEnterHandler, IPointerEx
     void Update()
     {
         UpdatePosition();
+        UpdateUILayer();
+    }
+
+    private void UpdateUILayer() {
+        if (!isHovered && !isDragged) {
+            canvas.sortingOrder = uiLayer;
+        }
     }
 
     private void UpdatePosition() {
@@ -62,7 +70,8 @@ public class SingleCardWrapper : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (isDragged) {
             return;
         }
-        //isHovered = true;
+        canvas.sortingOrder = 100;
+        isHovered = true;
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -70,7 +79,8 @@ public class SingleCardWrapper : MonoBehaviour, IPointerEnterHandler, IPointerEx
             // Avoid hover events while dragging
             return;
         }
-        //isHovered = false;
+        canvas.sortingOrder = uiLayer;
+        isHovered = false;
     }
 
     public void OnPointerDown(PointerEventData eventData) {

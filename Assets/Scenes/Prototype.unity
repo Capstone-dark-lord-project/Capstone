@@ -367,15 +367,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa235fe237f85cb408b95f4a8a6314f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 2139781735}
   normalTask: 3
   taskPoint: 0
   taskCom: 0
   win: 0
-  task:
+  subTasks:
   - {fileID: 2113183032}
   - {fileID: 1623269784}
   - {fileID: 789532978}
-  winTask: {fileID: 1970084002}
+  mainTask: {fileID: 1970084002}
   taskStatus: 00000000
   taskNum: 000000000000000000000000
   wood: 0
@@ -1143,8 +1144,13 @@ MonoBehaviour:
   instantiatedDeckCards: []
   deck: []
   drawCardButton: {fileID: 1079439189}
+  UIcanvas: {fileID: 1660920598}
   defaultCardPrefab: {fileID: 3770231642015457048, guid: 0c4843965916dcb4a98920c7fc5b4075,
     type: 3}
+  eventCardPrefab: {fileID: 3770231642015457048, guid: cca26d236e0c94248a4d713ba03c1de9,
+    type: 3}
+  scaleSpeed: 3
+  finalScale: {x: 2.5, y: 2.5, z: 2.5}
 --- !u!4 &682450838
 Transform:
   m_ObjectHideFlags: 0
@@ -1631,7 +1637,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 279}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079439189
 MonoBehaviour:
@@ -2814,7 +2820,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Draw Card
+  m_text: Search the Island
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7865dada48e2d2a428d68eafe46b5e7c, type: 2}
   m_sharedMaterial: {fileID: -4084746001444044025, guid: 7865dada48e2d2a428d68eafe46b5e7c,
@@ -3852,6 +3858,20 @@ MonoBehaviour:
   handCountText: {fileID: 1949469463}
   hand: []
   health: 3
+  inventoryA: 0
+  inventoryB: 0
+  inventoryC: 0
+  inventoryD: 0
+  inventoryAA: 0
+  inventoryAB: 0
+  inventoryAC: 0
+  inventoryAD: 0
+  inventoryBB: 0
+  inventoryBC: 0
+  inventoryBD: 0
+  inventoryCC: 0
+  inventoryCD: 0
+  inventoryDD: 0
 --- !u!1 &2140806718
 GameObject:
   m_ObjectHideFlags: 0

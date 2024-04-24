@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class DeckManager : MonoBehaviour
 {
@@ -13,8 +14,13 @@ public class DeckManager : MonoBehaviour
     public List<Card> deck = new List<Card>();
 
     public Button drawCardButton;
-
+    public Canvas UIcanvas;
     public GameObject defaultCardPrefab;
+    public GameObject eventCardPrefab;
+    private GameObject eventUI;
+    
+    public float scaleSpeed;
+    public Vector3 finalScale;
 
     float cardWidth = 0.01f;
 
@@ -35,7 +41,7 @@ public class DeckManager : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     // Deck initialization
@@ -107,7 +113,15 @@ public class DeckManager : MonoBehaviour
             deck.RemoveAt(0);
             UpdateDeckCountUI();
             DestroyTopCard();
-            playerManager.AddCardToHand(drawnCard);
+            if (!(drawnCard is EventCard))
+            {
+                playerManager.AddCardToHand(drawnCard);
+            }
+            else
+            {
+                InstantiateEventCard(drawnCard);
+                Debug.LogWarning("EventCard");
+            }
             return drawnCard;
         }
         else
@@ -146,7 +160,7 @@ public class DeckManager : MonoBehaviour
         return cardNamesList.ToString();
     }
 
-    // Card Instantiation
+    // Card Model Instantiation
     void InstantiateCurrentCard(int cardIndex)
     {
         if (deck.Count > 0)
@@ -208,5 +222,51 @@ public class DeckManager : MonoBehaviour
         {
             Debug.LogWarning("No cards instantiated to destroy.");
         }
+    }
+
+    public void InstantiateEventCard(Card card)
+    {
+        GameObject CardPrefab = eventCardPrefab;
+        Vector3 center = UIcanvas.transform.position;
+        eventUI = Instantiate(CardPrefab, center, Quaternion.identity, UIcanvas.transform);
+
+        eventUI.gameObject.AddComponent<Canvas>();
+        Canvas eventCanvas = eventUI.GetComponent<Canvas>();
+        eventCanvas.overrideSorting = true;
+        eventCanvas.sortingOrder = 30;
+
+        // Card Display
+        CardDisplay cardDisplay = eventUI.GetComponent<CardDisplay>();
+        if (cardDisplay != null)
+        {
+            cardDisplay.card = card;
+            cardDisplay.DisplayCardInfo();
+        }
+        else
+        {
+            Debug.LogWarning("CardDisplay component not found on the instantiated object.");
+        }
+        
+        Debug.LogWarning($"Instantiating Event Card {card.cardName}");
+
+        StartCoroutine(ScaleObject());
+    }
+
+    private IEnumerator ScaleObject()
+    {
+        while (eventUI.transform.localScale != finalScale)
+        {
+            eventUI.transform.localScale = Vector3.MoveTowards(eventUI.transform.localScale, finalScale, scaleSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        StartCoroutine(DestroyAfterSeconds(5));
+    }
+
+    private IEnumerator DestroyAfterSeconds(int seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+
+        Destroy(eventUI);
     }
 }

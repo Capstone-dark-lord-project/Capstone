@@ -5,6 +5,7 @@ using TMPro;
 
 public class TaskManager : MonoBehaviour
 {
+    public PlayerManager playerManager;
     //Task
     public int normalTask = 3;
     public int taskPoint = 0;
@@ -12,18 +13,19 @@ public class TaskManager : MonoBehaviour
     public bool taskCom = false;
     public bool win = false;
 
-    public TMP_Text[] task = new TMP_Text[3];
-    public TMP_Text winTask;
+    public TMP_Text[] subTasks = new TMP_Text[3];
+    public TMP_Text mainTask;
 
     private string[] taskList = new string[4];
-    private string[] winTaskList = new string[1];
+    private string[] mainTaskList = new string[1];
 
     private System.Random rand = new System.Random();
     private bool randomTaskStatus = true;
     public bool[] taskStatus = new bool[4];
     public int[] taskNum = new int[3];
-    //TempInventory
 
+
+    //TempInventory
     public int wood = 0;
     public int stone = 0;
     public int matches = 0;
@@ -44,7 +46,7 @@ public class TaskManager : MonoBehaviour
         taskList[2] = "Gather 1 matches to start fire: " + matches.ToString() + "/1";
         taskList[3] = "Gather 2 wood and 2 stone for making tools: wood " + wood.ToString() + "/2 stone " + stone.ToString() + "/2";
         //Task Win
-        winTaskList[0] = "Escape the island by boat Gather 5 wood and 5 vine: wood " + wood.ToString() + "/5 vine " + vine.ToString() + "/5";
+        mainTaskList[0] = "Escape the island by boat Gather 5 wood and 5 vine: wood " + wood.ToString() + "/5 vine " + vine.ToString() + "/5";
     }
 
     void Update()
@@ -61,7 +63,7 @@ public class TaskManager : MonoBehaviour
             {
                 int randomIndex = rand.Next(0, availableIndices.Count);
                 int randomTask = availableIndices[randomIndex];
-                task[i].text = taskList[randomTask];
+                subTasks[i].text = taskList[randomTask];
                 taskStatus[randomTask] = true;
                 taskNum[i] = randomTask;
                 availableIndices.RemoveAt(randomIndex);
@@ -99,10 +101,10 @@ public class TaskManager : MonoBehaviour
                         switch (taskNum[i])
                         {
                             case 0:
-                                task[i].text = taskList[0];
+                                subTasks[i].text = taskList[0];
                                 if(water > 5)
                                 {
-                                    task[i].fontStyle |= FontStyles.Strikethrough;
+                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
                                     taskStatus[0] = false;
                                     water -= 5;
                                     taskPoint += 1;
@@ -110,10 +112,10 @@ public class TaskManager : MonoBehaviour
                                 }
                                 break;
                             case 1:
-                                task[i].text = taskList[1];
+                                subTasks[i].text = taskList[1];
                                 if(vine > 2)
                                 {
-                                    task[i].fontStyle |= FontStyles.Strikethrough;
+                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
                                     taskStatus[0] = false;
                                     vine -= 2;
                                     taskPoint += 1;
@@ -121,10 +123,10 @@ public class TaskManager : MonoBehaviour
                                 }
                                 break;
                             case 2:
-                                task[i].text = taskList[2];
+                                subTasks[i].text = taskList[2];
                                 if(matches > 1)
                                 {
-                                    task[i].fontStyle |= FontStyles.Strikethrough;
+                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
                                     taskStatus[0] = false;
                                     matches -= 1;
                                     taskPoint += 1;
@@ -132,10 +134,10 @@ public class TaskManager : MonoBehaviour
                                 }
                                 break;
                             case 3:
-                                task[i].text = taskList[3];
+                                subTasks[i].text = taskList[3];
                                 if(wood > 2 && stone > 2)
                                 {
-                                    task[i].fontStyle |= FontStyles.Strikethrough;
+                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
                                     taskStatus[0] = false;
                                     wood -= 2;
                                     stone -= 2;
@@ -152,11 +154,11 @@ public class TaskManager : MonoBehaviour
                 
                 //Debug.Log("Normal task all completed");
                 taskCom = true;
-                winTask.text = winTaskList[0];
-                winTaskList[0] = "Escape the island by boat Gather 5 wood and 5 vine: wood " + wood.ToString() + "/5 vine " + vine.ToString() + "/5";
+                mainTask.text = mainTaskList[0];
+                mainTaskList[0] = "Escape the island by boat Gather 5 wood and 5 vine: wood " + wood.ToString() + "/5 vine " + vine.ToString() + "/5";
                 if(wood > 5 && vine > 5)
                 {
-                    winTask.fontStyle |= FontStyles.Strikethrough;
+                    mainTask.fontStyle |= FontStyles.Strikethrough;
                     wood -= 5;
                     vine -= 5;
                     win = true;
@@ -174,7 +176,7 @@ public class TaskManager : MonoBehaviour
             for (int i = 0; i < normalTask; i++)
             {
                 int randomTask = rand.Next(0,3);
-                task[i].text = taskList[randomTask];
+                subTasks[i].text = taskList[randomTask];
                 taskStatus[randomTask] = true;
                 //Debug.Log("Random number: " + randomTask);
                 Debug.Log(i.ToString());
