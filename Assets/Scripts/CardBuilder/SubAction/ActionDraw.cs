@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
 
 [CreateAssetMenu(fileName = "New Draw Card", menuName = "Card/Action Card/Draw")]
-public class ActionDraw : ActionCard
+public class ActionDraw : ActionCard, ICardPlayable
 {
     public int drawAmount;
 
@@ -14,5 +17,10 @@ public class ActionDraw : ActionCard
     public void DrawToHand()
     {
         Debug.Log("DrawnCard!!!");
+    }
+
+    public void Interact()
+    {
+        DrawToHand();
     }
 }
