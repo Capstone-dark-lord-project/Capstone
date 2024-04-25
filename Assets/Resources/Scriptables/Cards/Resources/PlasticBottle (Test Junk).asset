@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Plastic Bottle
   cardDescription: Please don't litter on the beach.
   cardArtwork: {fileID: 21300000, guid: dce9169eaadc58e45a2123e7122f5832, type: 3}
-  count: 2
+  count: 5
   resourceIcon: {fileID: 21300000, guid: 1d2e9a9bff941624cb1398acbf18cc93, type: 3}
   resourceType: 3

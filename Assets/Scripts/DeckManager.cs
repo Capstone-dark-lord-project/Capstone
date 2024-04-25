@@ -34,7 +34,7 @@ public class DeckManager : MonoBehaviour
         UpdateDeckCountUI();
         for (int i = 0; i < 1; i++)
         {
-            DrawCard(playerManager);
+            StartCoroutine(DrawCard(playerManager));
         }
         drawCardButton.onClick.AddListener(DrawCardOnClick);
     }
@@ -104,7 +104,7 @@ public class DeckManager : MonoBehaviour
     }
 
     // Draw a card
-    public Card DrawCard(PlayerManager playerManager)
+    public IEnumerator DrawCard(PlayerManager playerManager)
     {        
         if (deck.Count > 0)
         {
@@ -119,18 +119,17 @@ public class DeckManager : MonoBehaviour
             }
             else
             {
+                yield return StartCoroutine(InstantiateEventCard(drawnCard)); // Ensure that the coroutine for InstantiateEventCard() completes before proceeding
                 if (drawnCard is ICardEventDrawn cardEventDrawn)
                 {
                     cardEventDrawn.Drawn();
                 }
-                InstantiateEventCard(drawnCard);
             }
-            return drawnCard;
+            yield break;
         }
         else
         {
             Debug.LogWarning("Deck is empty!");
-            return null;
         }
     }
 
@@ -140,7 +139,7 @@ public class DeckManager : MonoBehaviour
 
         if (playerManager != null)
         {
-            DrawCard(playerManager);
+            StartCoroutine(DrawCard(playerManager));
         }
         else
         {
@@ -227,7 +226,7 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    public void InstantiateEventCard(Card card)
+    public IEnumerator InstantiateEventCard(Card card)
     {
         GameObject CardPrefab = eventCardPrefab;
         Vector3 center = UIcanvas.transform.position;
@@ -252,7 +251,7 @@ public class DeckManager : MonoBehaviour
         
         Debug.LogWarning($"Instantiating Event Card {card.cardName}");
 
-        StartCoroutine(ScaleObject());
+        yield return StartCoroutine(ScaleObject());
     }
 
     private IEnumerator ScaleObject()
@@ -263,7 +262,7 @@ public class DeckManager : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(DestroyAfterSeconds(3));
+        yield return StartCoroutine(DestroyAfterSeconds(2)); // Ensure that the coroutine for DestroyAfterSeconds() completes before proceeding
     }
 
     private IEnumerator DestroyAfterSeconds(int seconds)
