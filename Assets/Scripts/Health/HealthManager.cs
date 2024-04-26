@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    public int health = 3;
+    public PlayerManager playerManager;
 
     public Image[] hearts;
     public Sprite fullHeart;
@@ -16,21 +16,26 @@ public class HealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Stunned == false)
+        if (playerManager.health < 0)
+        {
+            playerManager.health = 0;
+        }
+
+        if (Stunned == false)
         {
             foreach(Image img in hearts)
             {
                 img.sprite = emptyHeart;
             }
-            for (int i = 0; i < health; i++)
+            for (int i = 0; i < playerManager.health; i++)
             {
                 hearts[i].sprite = fullHeart;
             }
         }
 
-        if(health == 0 && Stunned == false)
+        if (playerManager.health == 0 && Stunned == false)
         {
-            Debug.Log("Stunned");
+            Debug.LogWarning("Stunned");
             Stunned = true;
         }
     }
