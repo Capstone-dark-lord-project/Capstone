@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using config;
@@ -58,6 +59,13 @@ public class CardContainer : MonoBehaviour {
 
     private RectTransform rectTransform;
     private CardWrapper currentDraggedCard;
+    
+    [Header("Card Action Display")]
+    private GameObject actionUI;
+    public Canvas UIcanvas;
+    public float scaleSpeed;
+    public Vector3 finalScale;
+    public GameObject actionCardPrefab;
 
     private void Start() {
         rectTransform = GetComponent<RectTransform>();
@@ -240,7 +248,7 @@ public class CardContainer : MonoBehaviour {
 
     public void OnCardDragEnd() {
 		// Discard function
-        if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) 
+        if (IsCursorInTrashArea() && discardConfig.trashArea.gameObject.activeSelf) 
         {
             eventsConfig?.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
             playerManager.UpdateHandCountUI();
@@ -249,9 +257,11 @@ public class CardContainer : MonoBehaviour {
         }
 
         // Play Card function
-        if (IsCursorInPlayArea()  && cardPlayConfig.playArea.gameObject.activeSelf && currentDraggedCard.tag == "ActionCards") 
+        if (IsCursorInPlayArea() && cardPlayConfig.playArea.gameObject.activeSelf && currentDraggedCard.tag == "ActionCards") 
         {
-            eventsConfig?.OnCardPlayed?.Invoke(new CardEvent(currentDraggedCard));
+            var cardPlaying = currentDraggedCard.card;
+            StartCoroutine(InstantiateActionCard(cardPlaying));
+            Debug.LogWarning("ACTIONCARD");
             if (cardPlayConfig.destroyOnPlay) 
             {
                 DestroyCard(currentDraggedCard);
@@ -308,7 +318,7 @@ public class CardContainer : MonoBehaviour {
         return cursorPosition.x > playAreaCorners[0].x &&
                cursorPosition.x < playAreaCorners[2].x &&
                cursorPosition.y > playAreaCorners[0].y &&
-               cursorPosition.y < playAreaCorners[2].y;
+               cursorPosition.y < playAreaCorners[2].y; // 2d clipping
     }
 
     private bool IsCursorInTrashArea() {
@@ -349,4 +359,51 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.y > craftAreaCorners[0].y &&
                cursorPosition.y < craftAreaCorners[2].y;
     }
+
+    public IEnumerator InstantiateActionCard(Card card)
+        {
+            Debug.LogWarning($"LINE 365");
+            GameObject CardPrefab = actionCardPrefab;
+            Vector3 center = UIcanvas.transform.position;
+            actionUI = Instantiate(CardPrefab, center, Quaternion.identity, UIcanvas.transform);
+
+            actionUI.gameObject.AddComponent<Canvas>();
+            Canvas actionCanvas = actionUI.GetComponent<Canvas>();
+            actionCanvas.overrideSorting = true;
+            actionCanvas.sortingOrder = 30;
+
+            // Card Display
+            CardDisplay cardDisplay = actionUI.GetComponent<CardDisplay>();
+            if (cardDisplay != null)
+            {
+                cardDisplay.card = card;
+                cardDisplay.DisplayCardInfo();
+            }
+            else
+            {
+                Debug.LogWarning("CardDisplay component not found on the instantiated object.");
+            }
+            
+            Debug.LogWarning($"Instantiating action Card {card.cardName}");
+
+            yield return StartCoroutine(ScaleObject());
+        }
+
+        private IEnumerator ScaleObject()
+        {
+            while (actionUI.transform.localScale != finalScale)
+            {
+                actionUI.transform.localScale = Vector3.MoveTowards(actionUI.transform.localScale, finalScale, scaleSpeed * Time.deltaTime);
+                yield return null;
+            }
+
+            yield return StartCoroutine(DestroyAfterSeconds(2));
+        }
+
+        private IEnumerator DestroyAfterSeconds(int seconds)
+        {
+            yield return new WaitForSecondsRealtime(seconds);
+
+            Destroy(actionUI);
+        }
 }

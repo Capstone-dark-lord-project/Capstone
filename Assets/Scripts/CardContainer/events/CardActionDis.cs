@@ -14,9 +14,8 @@ namespace events {
         public Vector3 finalScale;
         public GameObject actionCardPrefab;
 
-         public void InstantiateActionCard(CardEvent cardEvent)
+        public IEnumerator InstantiateActionCard(Card card)
         {
-            Card card = cardEvent.cardWrapper.card;
             GameObject CardPrefab = actionCardPrefab;
             Vector3 center = UIcanvas.transform.position;
             actionUI = Instantiate(CardPrefab, center, Quaternion.identity, UIcanvas.transform);
@@ -40,7 +39,7 @@ namespace events {
             
             Debug.LogWarning($"Instantiating action Card {card.cardName}");
 
-            StartCoroutine(ScaleObject());
+            yield return StartCoroutine(ScaleObject());
         }
 
         private IEnumerator ScaleObject()
@@ -51,7 +50,7 @@ namespace events {
                 yield return null;
             }
 
-            StartCoroutine(DestroyAfterSeconds(5));
+            yield return StartCoroutine(DestroyAfterSeconds(2));
         }
 
         private IEnumerator DestroyAfterSeconds(int seconds)

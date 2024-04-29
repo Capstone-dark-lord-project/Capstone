@@ -176,19 +176,7 @@ MonoBehaviour:
   eventsConfig:
     OnCardPlayed:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1136298635}
-          m_TargetAssemblyTypeName: events.CardActionDis, Assembly-CSharp
-          m_MethodName: InstantiateActionCard
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     OnCardHover:
       m_PersistentCalls:
         m_Calls: []
@@ -283,6 +271,11 @@ MonoBehaviour:
     craftArea2: {fileID: 4269572590120094591}
     resultArea: {fileID: 0}
   cardOnHandUI: []
+  UIcanvas: {fileID: 1660920598}
+  scaleSpeed: 3
+  finalScale: {x: 2.5, y: 2.5, z: 2.5}
+  actionCardPrefab: {fileID: 3770231642015457048, guid: 16f3130ab69e5034a92379f1eb181dae,
+    type: 3}
 --- !u!1 &154609744
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc31f9aa06b91704dbdd12783e41f68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  playerManager: {fileID: 2139781735}
   hearts:
   - {fileID: 1085746431}
   - {fileID: 2048365555}

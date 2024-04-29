@@ -54,7 +54,7 @@ public class ButtonManager : MonoBehaviour
 
     public void Trash_OnButtonClick()
     {
-        trashUIActive = !trashUIActive;
+        trashUIActive = !trashUIActive; 
 
         Trash_UpdateButtonTextAndUIState();
     }
@@ -66,7 +66,7 @@ public class ButtonManager : MonoBehaviour
             TrashButtonText.text = closeText;
             TrashUI.SetActive(true);
         }
-        else
+        else if (!trashUIActive)
         {
             TrashButtonText.text = trashText;
             TrashUI.SetActive(false);

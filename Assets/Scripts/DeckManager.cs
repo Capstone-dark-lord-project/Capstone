@@ -113,6 +113,7 @@ public class DeckManager : MonoBehaviour
             deck.RemoveAt(0);
             UpdateDeckCountUI();
             DestroyTopCard();
+
             if (!(drawnCard is EventCard))
             {
                 playerManager.AddCardToHand(drawnCard);

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc3e99e98bdc2a4b991f7a662bcc85e, type: 3}
   m_Name: Wolves Attack
   m_EditorClassIdentifier: 
-  cardName: 
-  cardDescription: 
-  cardArtwork: {fileID: 0}
+  cardName: Wolves Attack
+  cardDescription: Wolves attacked everyone.<br>Health -1
+  cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
   count: 0
-  damageAmount: 0
+  damageAmount: 1
