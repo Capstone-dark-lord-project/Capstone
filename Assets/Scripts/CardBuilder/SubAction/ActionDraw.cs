@@ -14,13 +14,20 @@ public class ActionDraw : ActionCard, ICardPlayable
         this.drawAmount = drawAmount;
     }
 
-    public void DrawToHand()
+    public void DrawToHand(int drawAmount)
     {
-        Debug.Log("DrawnCard!!!");
+        DeckManager deckManager = FindObjectOfType<DeckManager>();
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+        for (int i = 0; i < drawAmount; i++)
+        {
+            StartCoroutine(deckManager.DrawCard(playerManager));
+            Debug.Log("draw success!");
+        }
+        Debug.LogWarning($"Add {drawAmount} card");
     }
 
     public void Play()
     {
-        DrawToHand();
+        DrawToHand(drawAmount);
     }
 }

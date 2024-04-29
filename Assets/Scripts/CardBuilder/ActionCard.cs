@@ -6,6 +6,6 @@ public class ActionCard : Card
     public ActionCard(Card card)
         : base(card.cardName, card.cardDescription, card.cardArtwork)
     {
-
+        
     }
 }

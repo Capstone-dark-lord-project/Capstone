@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using config;
 using events;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -259,9 +260,13 @@ public class CardContainer : MonoBehaviour {
         // Play Card function
         if (IsCursorInPlayArea() && cardPlayConfig.playArea.gameObject.activeSelf && currentDraggedCard.tag == "ActionCards") 
         {
-            var cardPlaying = currentDraggedCard.card;
-            StartCoroutine(InstantiateActionCard(cardPlaying));
+            var playedCard = currentDraggedCard.card;
+            StartCoroutine(InstantiateActionCard(playedCard));
             Debug.LogWarning("ACTIONCARD");
+            if (playedCard is ICardPlayable cardPlayable)
+            {
+                cardPlayable.Play();
+            }
             if (cardPlayConfig.destroyOnPlay) 
             {
                 DestroyCard(currentDraggedCard);
