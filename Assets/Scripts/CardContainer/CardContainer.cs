@@ -261,14 +261,11 @@ public class CardContainer : MonoBehaviour {
         if (IsCursorInPlayArea() && cardPlayConfig.playArea.gameObject.activeSelf && currentDraggedCard.tag == "ActionCards") 
         {
             var playedCard = currentDraggedCard.card;
-            StartCoroutine(InstantiateActionCard(playedCard));
-            Debug.LogWarning("ACTIONCARD");
-            if (playedCard is ICardPlayable cardPlayable)
-            {
-                cardPlayable.Play();
-            }
+            StartCoroutine(PlayCardAfterInstantiate(playedCard));
+
             if (cardPlayConfig.destroyOnPlay) 
             {
+                Debug.LogWarning("Destroying");
                 DestroyCard(currentDraggedCard);
             }
         }
@@ -313,7 +310,8 @@ public class CardContainer : MonoBehaviour {
     }
 
     // Area Checks
-    private bool IsCursorInPlayArea() {
+    private bool IsCursorInPlayArea()
+    {
         if (cardPlayConfig.playArea == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -326,7 +324,8 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.y < playAreaCorners[2].y; // 2d clipping
     }
 
-    private bool IsCursorInTrashArea() {
+    private bool IsCursorInTrashArea()
+    {
         if (discardConfig.trashArea == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -339,7 +338,8 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.y < trashAreaCorners[2].y;
     }
 
-    private bool IsCursorInCraftArea1() {
+    private bool IsCursorInCraftArea1()
+    {
         if (craftingUIConfig.craftArea1 == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -352,7 +352,8 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.y < craftAreaCorners[2].y;
     }
 
-    private bool IsCursorInCraftArea2() {
+    private bool IsCursorInCraftArea2()
+    {
         if (craftingUIConfig.craftArea2 == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -365,50 +366,59 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.y < craftAreaCorners[2].y;
     }
 
-    public IEnumerator InstantiateActionCard(Card card)
+    private IEnumerator PlayCardAfterInstantiate(Card card) // Chain 1
+    {
+        yield return StartCoroutine(InstantiateActionCard(card)); //Instantiate -> Scale -> Destroy -> finish = FINISH
+        
+        if (card is ICardPlayable cardPlayable)
         {
-            Debug.LogWarning($"LINE 365");
-            GameObject CardPrefab = actionCardPrefab;
-            Vector3 center = UIcanvas.transform.position;
-            actionUI = Instantiate(CardPrefab, center, Quaternion.identity, UIcanvas.transform);
+            StartCoroutine(cardPlayable.Play()); // Effect
+        }
+    }
 
-            actionUI.gameObject.AddComponent<Canvas>();
-            Canvas actionCanvas = actionUI.GetComponent<Canvas>();
-            actionCanvas.overrideSorting = true;
-            actionCanvas.sortingOrder = 30;
+    public IEnumerator InstantiateActionCard(Card card) // Chain 2
+    {
+        GameObject CardPrefab = actionCardPrefab;
+        Vector3 center = UIcanvas.transform.position;
+        actionUI = Instantiate(CardPrefab, center, Quaternion.identity, UIcanvas.transform);
 
-            // Card Display
-            CardDisplay cardDisplay = actionUI.GetComponent<CardDisplay>();
-            if (cardDisplay != null)
-            {
-                cardDisplay.card = card;
-                cardDisplay.DisplayCardInfo();
-            }
-            else
-            {
-                Debug.LogWarning("CardDisplay component not found on the instantiated object.");
-            }
-            
-            Debug.LogWarning($"Instantiating action Card {card.cardName}");
+        actionUI.gameObject.AddComponent<Canvas>();
+        Canvas actionCanvas = actionUI.GetComponent<Canvas>();
+        actionCanvas.overrideSorting = true;
+        actionCanvas.sortingOrder = 30;
 
-            yield return StartCoroutine(ScaleObject());
+        // Card Display
+        CardDisplay cardDisplay = actionUI.GetComponent<CardDisplay>();
+        if (cardDisplay != null)
+        {
+            cardDisplay.card = card;
+            cardDisplay.DisplayCardInfo();
+        }
+        else
+        {
+            Debug.LogWarning("CardDisplay component not found on the instantiated object.");
+        }
+        
+        Debug.LogWarning($"Instantiating action Card {card.cardName}");
+
+        yield return StartCoroutine(ScaleObject());
+    }
+
+    private IEnumerator ScaleObject() // Chain 3
+    {
+        while (actionUI.transform.localScale != finalScale)
+        {
+            actionUI.transform.localScale = Vector3.MoveTowards(actionUI.transform.localScale, finalScale, scaleSpeed * Time.deltaTime);
+            yield return null;
         }
 
-        private IEnumerator ScaleObject()
-        {
-            while (actionUI.transform.localScale != finalScale)
-            {
-                actionUI.transform.localScale = Vector3.MoveTowards(actionUI.transform.localScale, finalScale, scaleSpeed * Time.deltaTime);
-                yield return null;
-            }
+        yield return StartCoroutine(DestroyAfterSeconds(2));
+    }
 
-            yield return StartCoroutine(DestroyAfterSeconds(2));
-        }
+    private IEnumerator DestroyAfterSeconds(int seconds) // Chain 4
+    {
+        yield return new WaitForSecondsRealtime(seconds);
 
-        private IEnumerator DestroyAfterSeconds(int seconds)
-        {
-            yield return new WaitForSecondsRealtime(seconds);
-
-            Destroy(actionUI);
-        }
+        Destroy(actionUI);
+    }
 }

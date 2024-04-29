@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Wolves Attack
   cardDescription: Wolves attacked everyone.<br>Health -1
   cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
-  count: 0
+  count: 5
   damageAmount: 1
