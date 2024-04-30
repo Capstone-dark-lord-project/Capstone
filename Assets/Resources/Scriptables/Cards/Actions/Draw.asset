@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Draw card
   cardDescription: draw card into player hand by 3 card
   cardArtwork: {fileID: 0}
-  count: 15
+  count: 0
   drawAmount: 3

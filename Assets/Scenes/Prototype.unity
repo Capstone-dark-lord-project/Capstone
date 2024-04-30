@@ -1154,6 +1154,7 @@ MonoBehaviour:
     type: 3}
   eventCardPrefab: {fileID: 3770231642015457048, guid: cca26d236e0c94248a4d713ba03c1de9,
     type: 3}
+  MapSO: {fileID: 11400000, guid: 166b5c40467acb540ade58f5686234de, type: 2}
   scaleSpeed: 3
   finalScale: {x: 2.5, y: 2.5, z: 2.5}
 --- !u!4 &682450838

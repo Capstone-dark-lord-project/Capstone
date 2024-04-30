@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Discard Event Card", menuName = "Card/Event Card/Discard")]
@@ -37,8 +38,9 @@ public class EventDiscard : EventCard, ICardEventDrawn
         }
     }
 
-    public void Drawn()
+    public IEnumerator Drawn()
     {
         DiscardFromHand(cardAmount);
+        yield return null;
     }
 }
