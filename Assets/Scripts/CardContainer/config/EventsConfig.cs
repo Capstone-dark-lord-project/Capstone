@@ -23,6 +23,7 @@ namespace config {
         
         [SerializeField]
         public UnityEvent<int, ResourceCard> OnCraftSlotInput;
+
         [SerializeField]
         public UnityEvent<ResourceCard, ResourceCard> OnBothSlotFull;
     }

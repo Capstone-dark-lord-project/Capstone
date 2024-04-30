@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour
     public List<Card> hand = new List<Card>();
     public int health = 3;
 
-    // Player's inventory
+    // Player's Variable for task check
     public int inventoryA = 0;
     public int inventoryB = 0;
     public int inventoryC = 0;

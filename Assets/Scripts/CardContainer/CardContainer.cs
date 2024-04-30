@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using config;
 using events;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,6 +60,13 @@ public class CardContainer : MonoBehaviour {
 
     private RectTransform rectTransform;
     private CardWrapper currentDraggedCard;
+    
+    [Header("Card Action Display")]
+    private GameObject actionUI;
+    public Canvas UIcanvas;
+    public float scaleSpeed;
+    public Vector3 finalScale;
+    public GameObject actionCardPrefab;
 
     private void Start() {
         rectTransform = GetComponent<RectTransform>();
@@ -240,7 +249,8 @@ public class CardContainer : MonoBehaviour {
 
     public void OnCardDragEnd() {
 		// Discard function
-        if (IsCursorInTrashArea()  && discardConfig.trashArea.gameObject.activeSelf) {
+        if (IsCursorInTrashArea() && discardConfig.trashArea.gameObject.activeSelf) 
+        {
             eventsConfig?.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
             playerManager.UpdateHandCountUI();
             Debug.Log("Trash Area");
@@ -248,16 +258,21 @@ public class CardContainer : MonoBehaviour {
         }
 
         // Play Card function
-        if (IsCursorInPlayArea()  && cardPlayConfig.playArea.gameObject.activeSelf) {
-            eventsConfig?.OnCardPlayed?.Invoke(new CardEvent(currentDraggedCard));
-            if (cardPlayConfig.destroyOnPlay) {
+        if (IsCursorInPlayArea() && cardPlayConfig.playArea.gameObject.activeSelf && currentDraggedCard.tag == "ActionCards") 
+        {
+            var playedCard = currentDraggedCard.card;
+            StartCoroutine(PlayCardAfterInstantiate(playedCard));
+
+            if (cardPlayConfig.destroyOnPlay) 
+            {
+                Debug.LogWarning("Destroying");
                 DestroyCard(currentDraggedCard);
             }
         }
 
         // Crafting functions
-        if (IsCursorInCraftArea1() && craftingUIConfig.craftArea1.gameObject.activeSelf &&
-            craftingManager.cardSlot1 == null && currentDraggedCard.tag == "ResourceCards") {
+        if (IsCursorInCraftArea1() && craftingUIConfig.craftArea1.gameObject.activeSelf && craftingManager.cardSlot1 == null && currentDraggedCard.tag == "ResourceCards") 
+        {
             Debug.Log("Craft Area 1");
             // Recasting to ResourceCard from Card
             ResourceCard resourceInput = currentDraggedCard.card as ResourceCard;
@@ -295,7 +310,8 @@ public class CardContainer : MonoBehaviour {
     }
 
     // Area Checks
-    private bool IsCursorInPlayArea() {
+    private bool IsCursorInPlayArea()
+    {
         if (cardPlayConfig.playArea == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -305,10 +321,11 @@ public class CardContainer : MonoBehaviour {
         return cursorPosition.x > playAreaCorners[0].x &&
                cursorPosition.x < playAreaCorners[2].x &&
                cursorPosition.y > playAreaCorners[0].y &&
-               cursorPosition.y < playAreaCorners[2].y;
+               cursorPosition.y < playAreaCorners[2].y; // 2d clipping
     }
 
-    private bool IsCursorInTrashArea() {
+    private bool IsCursorInTrashArea()
+    {
         if (discardConfig.trashArea == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -321,7 +338,8 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.y < trashAreaCorners[2].y;
     }
 
-    private bool IsCursorInCraftArea1() {
+    private bool IsCursorInCraftArea1()
+    {
         if (craftingUIConfig.craftArea1 == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -334,7 +352,8 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.y < craftAreaCorners[2].y;
     }
 
-    private bool IsCursorInCraftArea2() {
+    private bool IsCursorInCraftArea2()
+    {
         if (craftingUIConfig.craftArea2 == null) return false;
         
         var cursorPosition = Input.mousePosition;
@@ -345,5 +364,61 @@ public class CardContainer : MonoBehaviour {
                cursorPosition.x < craftAreaCorners[2].x &&
                cursorPosition.y > craftAreaCorners[0].y &&
                cursorPosition.y < craftAreaCorners[2].y;
+    }
+
+    private IEnumerator PlayCardAfterInstantiate(Card card) // Chain 1
+    {
+        yield return StartCoroutine(InstantiateActionCard(card)); //Instantiate -> Scale -> Destroy -> finish = FINISH
+        
+        if (card is ICardPlayable cardPlayable)
+        {
+            StartCoroutine(cardPlayable.Play()); // Effect
+        }
+    }
+
+    public IEnumerator InstantiateActionCard(Card card) // Chain 2
+    {
+        GameObject CardPrefab = actionCardPrefab;
+        Vector3 center = UIcanvas.transform.position;
+        actionUI = Instantiate(CardPrefab, center, Quaternion.identity, UIcanvas.transform);
+
+        actionUI.gameObject.AddComponent<Canvas>();
+        Canvas actionCanvas = actionUI.GetComponent<Canvas>();
+        actionCanvas.overrideSorting = true;
+        actionCanvas.sortingOrder = 30;
+
+        // Card Display
+        CardDisplay cardDisplay = actionUI.GetComponent<CardDisplay>();
+        if (cardDisplay != null)
+        {
+            cardDisplay.card = card;
+            cardDisplay.DisplayCardInfo();
+        }
+        else
+        {
+            Debug.LogWarning("CardDisplay component not found on the instantiated object.");
+        }
+        
+        Debug.LogWarning($"Instantiating action Card {card.cardName}");
+
+        yield return StartCoroutine(ScaleObject());
+    }
+
+    private IEnumerator ScaleObject() // Chain 3
+    {
+        while (actionUI.transform.localScale != finalScale)
+        {
+            actionUI.transform.localScale = Vector3.MoveTowards(actionUI.transform.localScale, finalScale, scaleSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        yield return StartCoroutine(DestroyAfterSeconds(2));
+    }
+
+    private IEnumerator DestroyAfterSeconds(int seconds) // Chain 4
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+
+        Destroy(actionUI);
     }
 }

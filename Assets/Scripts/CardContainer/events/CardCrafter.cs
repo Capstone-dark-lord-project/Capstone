@@ -37,8 +37,10 @@ namespace events {
             }
         }
 
-        private Card GetCombination(ResourceType slot1Type, ResourceType slot2Type) {
-            switch (slot1Type) {
+        private Card GetCombination(ResourceType slot1Type, ResourceType slot2Type) 
+        {
+            switch (slot1Type) 
+            {
                 case ResourceType.Wood:
                     if (slot2Type == ResourceType.Wood) return AA;
                     else if (slot2Type == ResourceType.Food) return AB;

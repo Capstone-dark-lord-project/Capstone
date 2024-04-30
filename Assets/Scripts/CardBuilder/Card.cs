@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Card")]
@@ -16,10 +13,5 @@ public class Card : ScriptableObject
         this.cardName = cardName;
         this.cardDescription = cardDescription;
         this.cardArtwork = cardArtwork;
-    }
-
-    public virtual void PlayCard()
-    {
-
     }
 }
