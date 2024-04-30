@@ -16,20 +16,22 @@ public class PlayerManager : MonoBehaviour
     public int health = 3;
 
     // Player's Variable for task check
-    public int inventoryA = 0;
-    public int inventoryB = 0;
-    public int inventoryC = 0;
-    public int inventoryD = 0;
-    public int inventoryAA = 0;
-    public int inventoryAB = 0;
-    public int inventoryAC = 0;
-    public int inventoryAD = 0;
-    public int inventoryBB = 0;
-    public int inventoryBC = 0;
-    public int inventoryBD = 0;
-    public int inventoryCC = 0;
-    public int inventoryCD = 0;
-    public int inventoryDD = 0;
+    public int Wood = 0;
+    public int Food = 0;
+    public int Scrap = 0;
+    public int Junk = 0;
+    public int Plank = 0;
+    public int FishingRod = 0;
+    public int Weapon = 0;
+    public int Toy = 0;
+    public int HealthPack = 0;
+    public int CannedFood = 0;
+    public int FoodWaste = 0;
+    public int Metal = 0;
+    public int Trap = 0;
+    public int Bomb = 0;
+
+    public int MetalPlate { get; internal set; }
 
     void Start()
     {

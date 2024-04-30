@@ -116,6 +116,27 @@ public class DeckManager : MonoBehaviour
 
             if (!(drawnCard is EventCard))
             {
+                if (drawnCard is ResourceCard)
+                {
+                    ResourceCard resourceCard = drawnCard as ResourceCard;
+                    ResourceType resourceType = resourceCard.resourceType;
+                    switch (resourceType)
+                    {
+                        case ResourceType.Wood:
+                            playerManager.Wood += 1;
+                            break;
+                        case ResourceType.Food:
+                            playerManager.Food += 1;
+                            break;
+                        case ResourceType.Junk:
+                            playerManager.Junk += 1;
+                            break;
+                        case ResourceType.Scrap:
+                            playerManager.Scrap += 1;
+                            break; 
+                    }
+
+                }
                 playerManager.AddCardToHand(drawnCard);
             }
             else

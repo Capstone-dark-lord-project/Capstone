@@ -52,11 +52,47 @@ namespace events {
                     craftingManager.cardSlot1 = null;
                     craftingManager.cardSlot2 = null;
                     craftingManager.resultSlot = null;
+                    AddVariableForTask(card);
                     playerManager.AddCardToHand(card);
                     break;
             }
         }
 
+        public void AddVariableForTask(Card card)
+        {
+            if (card is ItemCard)
+            {
+                ItemCard itemCard = card as ItemCard;
+                ItemName itemName = itemCard.itemName;
+                switch (itemName) 
+                {
+                    case ItemName.Plank:
+                        playerManager.Plank += 1;
+                        break;
+                    case ItemName.FishingRod:
+                        playerManager.FishingRod += 1;
+                        break;
+                    case ItemName.Metal:
+                        playerManager.Metal += 1;
+                        break;
+                    case ItemName.CannedFood:
+                        playerManager.CannedFood += 1;
+                        break;
+                    case ItemName.Bomb:
+                        playerManager.Bomb += 1;
+                        break;
+                    case ItemName.Weapon:
+                        playerManager.Weapon += 1;
+                        break;
+                    case ItemName.Toy:
+                        playerManager.Toy += 1;
+                        break;
+                    case ItemName.FoodWaste:
+                        playerManager.FoodWaste += 1;
+                        break;
+                }
+            }
+        }
         public void OnCraftingCancel() {
             Debug.Log("OnCraftingCancel");
             
