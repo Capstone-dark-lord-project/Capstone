@@ -85,10 +85,10 @@ namespace events {
                         playerManager.Weapon += 1;
                         break;
                     case ItemName.Toy:
-                        playerManager.Toy += 1;
+                        playerManager.DummyCard += 1;
                         break;
                     case ItemName.FoodWaste:
-                        playerManager.FoodWaste += 1;
+                        playerManager.DummyCard += 1;
                         break;
                 }
             }

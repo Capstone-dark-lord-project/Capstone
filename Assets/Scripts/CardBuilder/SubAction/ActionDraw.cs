@@ -9,8 +9,8 @@ public class ActionDraw : ActionCard, ICardPlayable
 {
     public int drawAmount;
 
-    public ActionDraw(Card card, int drawAmount)
-        : base(card)
+    public ActionDraw(Card card, ActionName actionName, int drawAmount)
+        : base(card, actionName)
     {
         this.drawAmount = drawAmount;
     }

@@ -23,13 +23,17 @@ public class PlayerManager : MonoBehaviour
     public int Plank = 0;
     public int FishingRod = 0;
     public int Weapon = 0;
-    public int Toy = 0;
     public int HealthPack = 0;
     public int CannedFood = 0;
-    public int FoodWaste = 0;
     public int Metal = 0;
     public int Trap = 0;
     public int Bomb = 0;
+    public int ActionTrashed = 0;
+    public int ItemTrashed = 0;
+    public int DummyCard = 0;
+    public int dealDamage = 0;
+    public int weaponOrBombTrashed = 0;
+    public int heal = 0;
 
     public int MetalPlate { get; internal set; }
 
