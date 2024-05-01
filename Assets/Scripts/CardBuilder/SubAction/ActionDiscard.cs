@@ -5,8 +5,8 @@ public class ActionDiscard : ActionCard
 {
     public int discardAmount;
 
-    public ActionDiscard(Card card, int discardAmount)
-        : base(card)
+    public ActionDiscard(Card card, ActionName actionName, int discardAmount)
+        : base(card, actionName)
     {
         this.discardAmount = discardAmount;
     }

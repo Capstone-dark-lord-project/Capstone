@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AB
   m_EditorClassIdentifier: 
   cardName: Fishing Rod
-  cardDescription: Wood+Food
-  cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
+  cardDescription: When a food card is found,<br>get one more food card.
+  cardArtwork: {fileID: 21300000, guid: 43457e59e68d1494dbb647f6cbbaa2ff, type: 3}
   count: 0
   itemName: 3

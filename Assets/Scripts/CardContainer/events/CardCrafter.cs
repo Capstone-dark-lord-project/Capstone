@@ -15,6 +15,7 @@ namespace events {
         public Card CD;
         public Card DD;
         public GameObject itemCardPrefab;
+        public GameObject actionCardPrefab;
 
         public void OnBothSlotFull(ResourceCard slot1, ResourceCard slot2) {
             Debug.Log("CardCraftInitiate.cs");
@@ -65,7 +66,9 @@ namespace events {
 
         public void InstantiateCardUI(Card card)
         {
-            GameObject cardUI = Instantiate(itemCardPrefab);
+            
+            GameObject CardPrefab = GetCardTypePrefab(card);
+            GameObject cardUI  = Instantiate(CardPrefab);
 
             cardUI.transform.SetParent(craftingManager.resultArea, false);
 
@@ -80,6 +83,22 @@ namespace events {
                 Debug.LogWarning("CardDisplay component not found on the instantiated object.");
             }
             Debug.Log($"Instantiating Card {card.cardName}");
+        }
+
+        GameObject GetCardTypePrefab(Card card)
+        {
+            if (card is ItemCard)
+            {
+                return itemCardPrefab;
+            }
+            else if (card is ActionCard)
+            {
+                return actionCardPrefab;
+            }
+            else
+            {
+                return itemCardPrefab;
+            }
         }
     }
 }

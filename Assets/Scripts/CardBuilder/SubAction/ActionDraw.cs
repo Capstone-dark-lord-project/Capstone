@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-
 [CreateAssetMenu(fileName = "New Draw Card", menuName = "Card/Action Card/Draw")]
 public class ActionDraw : ActionCard, ICardPlayable
 {
     public int drawAmount;
 
-    public ActionDraw(Card card, int drawAmount)
-        : base(card)
+    public ActionDraw(Card card, ActionName actionName, int drawAmount)
+        : base(card, actionName)
     {
         this.drawAmount = drawAmount;
     }
