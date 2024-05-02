@@ -19,7 +19,7 @@ public class ActionDamage : ActionCard, ICardPlayable
     {
         PlayerManager playerManager = FindObjectOfType<PlayerManager>();
         
-        playerManager.dealDamage += 1;
+        playerManager.TaskVariableUpdate(ref playerManager.dealDamage);
         if (playerManager.health > 0)
         {
             for (int i = 0; i < damageAmount; i++)

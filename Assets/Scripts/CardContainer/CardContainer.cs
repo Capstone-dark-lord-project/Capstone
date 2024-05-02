@@ -254,15 +254,15 @@ public class CardContainer : MonoBehaviour {
             Card card = currentDraggedCard.card;
             if(card is ActionCard actionCard)
             {
-                playerManager.ActionTrashed += 1;
+                playerManager.TaskVariableUpdate(ref playerManager.ActionTrashed);
                 if (actionCard.actionName == ActionName.Bomb || actionCard.actionName == ActionName.Weapon)
                 {
-                    playerManager.weaponOrBombTrashed += 1;
+                    playerManager.TaskVariableUpdate(ref playerManager.weaponOrBombTrashed);
                 }
             }
             else if (card is ItemCard)
             {
-                playerManager.ItemTrashed += 1;
+                playerManager.TaskVariableUpdate(ref playerManager.ItemTrashed);
             }
             eventsConfig?.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
             playerManager.UpdateHandCountUI();

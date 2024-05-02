@@ -18,7 +18,7 @@ public class EventAddFood : EventCard, ICardEventDrawn
         PlayerManager playerManager = FindObjectOfType<PlayerManager>();
         for (int i = 0; i < cardAmount; i++)
         {
-            playerManager.Food += 1;
+            playerManager.TaskVariableUpdate(ref playerManager.Food);
             playerManager.AddCardToHand(foodResourceCard);
         }
         Debug.LogWarning($"Add {cardAmount} Food for Everyone!!!");

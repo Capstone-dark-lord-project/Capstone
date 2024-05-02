@@ -123,16 +123,16 @@ public class DeckManager : MonoBehaviour
                     switch (resourceType)
                     {
                         case ResourceType.Wood:
-                            playerManager.Wood += 1;
+                            playerManager.TaskVariableUpdate(ref playerManager.Wood);
                             break;
                         case ResourceType.Food:
-                            playerManager.Food += 1;
+                            playerManager.TaskVariableUpdate(ref playerManager.Food);
                             break;
                         case ResourceType.Junk:
-                            playerManager.Junk += 1;
+                            playerManager.TaskVariableUpdate(ref playerManager.Junk);
                             break;
                         case ResourceType.Scrap:
-                            playerManager.Scrap += 1;
+                            playerManager.TaskVariableUpdate(ref playerManager.Scrap);
                             break; 
                     }
 

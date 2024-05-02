@@ -67,28 +67,28 @@ namespace events {
                 switch (itemName) 
                 {
                     case ItemName.Plank:
-                        playerManager.Plank += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.Plank);
                         break;
                     case ItemName.FishingRod:
-                        playerManager.FishingRod += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.FishingRod);
                         break;
                     case ItemName.Metal:
-                        playerManager.Metal += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.Metal);
                         break;
                     case ItemName.CannedFood:
-                        playerManager.CannedFood += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.CannedFood);
                         break;
                     case ItemName.Bomb:
-                        playerManager.Bomb += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.Bomb);
                         break;
                     case ItemName.Weapon:
-                        playerManager.Weapon += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.Weapon);
                         break;
                     case ItemName.Toy:
-                        playerManager.DummyCard += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.DummyCard);
                         break;
                     case ItemName.FoodWaste:
-                        playerManager.DummyCard += 1;
+                        playerManager.TaskVariableUpdate(ref playerManager.DummyCard);
                         break;
                 }
             }

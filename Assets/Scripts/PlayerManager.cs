@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
+    public TaskManager taskManager;
     public GameObject cardParent;
     public GameObject eventCardPrefab;
     public GameObject resourceCardPrefab;
@@ -122,5 +123,11 @@ public class PlayerManager : MonoBehaviour
         {
             InstantiateCardUI(hand[i]);
         }
+    }
+
+    public void TaskVariableUpdate(ref int taskVariable)
+    {
+        taskVariable += 1;
+        taskManager.UpdateTaskProgress();
     }
 }
