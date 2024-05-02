@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Add Food Card", menuName = "Card/Event Card/AddFood")]
@@ -23,8 +24,9 @@ public class EventAddFood : EventCard, ICardEventDrawn
         Debug.LogWarning($"Add {cardAmount} Food for Everyone!!!");
     }
 
-    public void Drawn()
+    public IEnumerator Drawn()
     {
         AddFoodToHand(cardAmount);
+        yield return null;
     }
 }

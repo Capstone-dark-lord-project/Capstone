@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4969996e4b3ec004fb5f6d339f741f2d, type: 3}
-  m_Name: Draw
+  m_Script: {fileID: 11500000, guid: 0180f1a9c01195b48854112b9e3fcef7, type: 3}
+  m_Name: BB
   m_EditorClassIdentifier: 
-  cardName: Draw card
-  cardDescription: draw card into player hand by 3 card
-  cardArtwork: {fileID: 0}
-  count: 15
-  drawAmount: 3
+  cardName: Health Pack
+  cardDescription: Heal 1 health to yourself.
+  cardArtwork: {fileID: 21300000, guid: 081b1bdc03f950f4e8f025816ad9e832, type: 3}
+  count: 0
+  actionName: 4
+  healAmount: 1

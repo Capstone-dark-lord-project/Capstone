@@ -123,10 +123,9 @@ public class DeckManager : MonoBehaviour
                 yield return StartCoroutine(InstantiateEventCard(drawnCard)); // Ensure that the coroutine for InstantiateEventCard() completes before proceeding
                 if (drawnCard is ICardEventDrawn cardEventDrawn)
                 {
-                    cardEventDrawn.Drawn();
+                    yield return cardEventDrawn.Drawn();
                 }
             }
-            yield break;
         }
         else
         {
@@ -136,11 +135,24 @@ public class DeckManager : MonoBehaviour
 
     private void DrawCardOnClick()
     {
+        StartCoroutine(DrawCardCoroutine());
+    }
+
+    private IEnumerator DrawCardCoroutine()
+    {
         PlayerManager playerManager = FindObjectOfType<PlayerManager>();
 
         if (playerManager != null)
         {
-            StartCoroutine(DrawCard(playerManager));
+            if (playerManager.IsItemInHand(ItemName.Map))
+            {
+                Debug.LogWarning("You got a map! Get one more card!");
+                yield return StartCoroutine(DrawCard(playerManager));
+                Debug.LogWarning("Draw extra finish");
+            }
+            Debug.LogWarning("Draw main start");
+            yield return StartCoroutine(DrawCard(playerManager));
+            Debug.LogWarning("Draw main finish");
         }
         else
         {

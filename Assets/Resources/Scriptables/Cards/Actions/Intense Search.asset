@@ -15,5 +15,6 @@ MonoBehaviour:
   cardName: Intense Search
   cardDescription: You spend a whole day searching<br>Draw 2 cards.
   cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
-  count: 10
+  count: 5
+  actionName: 3
   drawAmount: 2

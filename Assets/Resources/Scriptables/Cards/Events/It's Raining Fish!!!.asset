@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: It's Raining Fish!!!
   cardDescription: That's odd...<br>Everybody gets 2 food cards.
   cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
-  count: 5
+  count: 3
   cardAmount: 2
   foodResourceCard: {fileID: 11400000, guid: 4791d264defcd774087c1cc7f1b949c8, type: 2}

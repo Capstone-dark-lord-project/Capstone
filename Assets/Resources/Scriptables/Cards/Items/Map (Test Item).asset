@@ -16,5 +16,5 @@ MonoBehaviour:
   cardDescription: You can now navigate easily around the island, draw 2 cards instead
     of 1 every turn
   cardArtwork: {fileID: 21300000, guid: d66c544e73688a640808f596d8e88202, type: 3}
-  count: 2
+  count: 1
   itemName: 0

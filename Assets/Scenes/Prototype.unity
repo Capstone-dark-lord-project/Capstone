@@ -250,8 +250,8 @@ MonoBehaviour:
   maxHeightDisplacement: 0
   zoomConfig:
     zoomOnHover: 1
-    multiplier: 1.2
-    overrideYPosition: 100
+    multiplier: 1.6
+    overrideYPosition: 110
     defaultSortOrder: 0
     bringToFrontOnHover: 1
     zoomedSortOrder: 100
@@ -1154,6 +1154,7 @@ MonoBehaviour:
     type: 3}
   eventCardPrefab: {fileID: 3770231642015457048, guid: cca26d236e0c94248a4d713ba03c1de9,
     type: 3}
+  MapSO: {fileID: 11400000, guid: 166b5c40467acb540ade58f5686234de, type: 2}
   scaleSpeed: 3
   finalScale: {x: 2.5, y: 2.5, z: 2.5}
 --- !u!4 &682450838
@@ -3254,15 +3255,17 @@ MonoBehaviour:
   craftingManager: {fileID: 1705217865}
   AA: {fileID: 11400000, guid: 778c6d15db3f3fa429f8bce7d03d7d2a, type: 2}
   AB: {fileID: 11400000, guid: a49ca68b61d7ed54d8ae08941ac533b9, type: 2}
-  AC: {fileID: 11400000, guid: bb63fcbe7be88674ab6309e2904ab413, type: 2}
+  AC: {fileID: 11400000, guid: 7317c2248cec28a49b58e000e3cf1ecf, type: 2}
   AD: {fileID: 11400000, guid: 872cbc441bbefe34ebf4e8015f7764d8, type: 2}
-  BB: {fileID: 11400000, guid: 55c56bc0ce7c6e64fb5d9b40ef71741d, type: 2}
-  BC: {fileID: 11400000, guid: 9687572bf3d04754faffb0dfe9b6d8d4, type: 2}
+  BB: {fileID: 11400000, guid: 566374ca944bdf94da6d581bc08c7d5f, type: 2}
+  BC: {fileID: 11400000, guid: 755b27aeb7a96314a95c3babc31b94f3, type: 2}
   BD: {fileID: 11400000, guid: 17281ab7494ae8742877930cef6077c7, type: 2}
   CC: {fileID: 11400000, guid: 9bb79730a068a9a42835d5a2491eb673, type: 2}
   CD: {fileID: 11400000, guid: b02304c15455a8c49942a787cab30351, type: 2}
-  DD: {fileID: 11400000, guid: 8a321b8ad6de84a42b281ac7f8e01029, type: 2}
+  DD: {fileID: 11400000, guid: fbd12572b4d708f43b4ced47eb60494f, type: 2}
   itemCardPrefab: {fileID: 3770231642015457048, guid: ed564d3246d827f459c616a4cba60af5,
+    type: 3}
+  actionCardPrefab: {fileID: 3770231642015457048, guid: 16f3130ab69e5034a92379f1eb181dae,
     type: 3}
 --- !u!4 &1894511764
 Transform:

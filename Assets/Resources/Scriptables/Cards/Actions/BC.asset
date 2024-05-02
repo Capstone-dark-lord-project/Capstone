@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18c1cfbfae63c443b228c86785273a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0180f1a9c01195b48854112b9e3fcef7, type: 3}
   m_Name: BC
   m_EditorClassIdentifier: 
-  cardName: Canned Food
-  cardDescription: Food+Scrap
-  cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
+  cardName: Canned food
+  cardDescription: Heal 1 health to<br>another chosen player.
+  cardArtwork: {fileID: 21300000, guid: d9cc599987c1c5e4eb6e3e6cb95936bb, type: 3}
   count: 0
-  itemName: 7
+  actionName: 4
+  healAmount: 1

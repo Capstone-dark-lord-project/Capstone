@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AD
   m_EditorClassIdentifier: 
   cardName: Toy
-  cardDescription: Wood+Junk
-  cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
+  cardDescription: This might entertain me on the island.
+  cardArtwork: {fileID: 21300000, guid: 60dc804fb2b37794e8a774659ddca01f, type: 3}
   count: 0
   itemName: 5
