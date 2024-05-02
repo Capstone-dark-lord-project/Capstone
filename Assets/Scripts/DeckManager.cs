@@ -18,7 +18,6 @@ public class DeckManager : MonoBehaviour
     public GameObject defaultCardPrefab;
     public GameObject eventCardPrefab;
     private GameObject eventUI;
-    public Card MapSO; // TESTTEST
     
     public float scaleSpeed;
     public Vector3 finalScale;
@@ -37,7 +36,6 @@ public class DeckManager : MonoBehaviour
         {
             StartCoroutine(DrawCard(playerManager));
         }
-        deck[0] = MapSO; // TESTTEST
         drawCardButton.onClick.AddListener(DrawCardOnClick);
     }
 
