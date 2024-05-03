@@ -24,6 +24,7 @@ public class ActionDamage : ActionCard, ICardPlayable
         {
             for (int i = 0; i < damageAmount; i++)
             {
+                Debug.LogWarning($"damage 1 !!!");
                 playerManager.health -= 1;
             }
             Debug.LogWarning($"Damaged {damageAmount}!!!");

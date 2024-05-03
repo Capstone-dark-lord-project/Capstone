@@ -24,7 +24,8 @@ public class ActionHeal : ActionCard, ICardPlayable
         {
             for (int i = 0; i < healAmount; i++)
             {
-                playerManager.health += 1;
+                Debug.LogWarning($"heal 1 !!!");
+                // playerManager.health += 1;
             }
             Debug.LogWarning($"heald {healAmount}!!!");
         }

@@ -129,5 +129,6 @@ public class PlayerManager : MonoBehaviour
     {
         taskVariable += 1;
         taskManager.UpdateTaskProgress();
+        taskManager.ResetMainTaskVariable();
     }
 }

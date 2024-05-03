@@ -17,21 +17,22 @@ public class TaskManager : MonoBehaviour
     
     public List<string> playerTaskList = new List<string>();
     public List<string> playermainTaskList = new List<string>();
-    private bool subtaskprog1 = false;
-    private bool subtaskprog2 = false;
-    private bool subtaskprog3 = false;
-    private bool maintaskprog = false;
+    public bool subtaskprog1 = false;
+    public bool subtaskprog2 = false;
+    public bool subtaskprog3 = false;
+    public bool maintaskprog = false;
 
     void Start()
     {
         InitializeTaskList();
         InitializeMainTaskList();
         RandomizeTasks();
+        UpdateTaskString(subtaskprog1, subtaskprog2, subtaskprog3);
     }
 
     void Update()
     {
-
+        
     }
 
     private void InitializeTaskList()
@@ -117,72 +118,72 @@ public class TaskManager : MonoBehaviour
 
     private bool CheckTaskProgress(string task)
     {
-        if (task.Contains("Craft 3 plank") && playerManager.Plank == 3)
+        if (task.Contains("Craft 3 plank") && playerManager.Plank >= 3)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 3 metal sheet") && playerManager.Metal == 3)
+        if (task.Contains("Craft 3 metal sheet") && playerManager.Metal >= 3)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 3 canned food") && playerManager.CannedFood == 3)
+        if (task.Contains("Craft 3 canned food") && playerManager.CannedFood >= 3)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Trash any 2 action cards") && playerManager.ActionTrashed == 2)
+        if (task.Contains("Trash any 2 action cards") && playerManager.ActionTrashed >= 2)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 2 fishing rod") && playerManager.FishingRod == 2)
+        if (task.Contains("Craft 2 fishing rod") && playerManager.FishingRod >= 2)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 wood") && playerManager.Wood == 6)
+        if (task.Contains("Gather 6 wood") && playerManager.Wood >= 6)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 food") && playerManager.Food == 6)
+        if (task.Contains("Gather 6 food") && playerManager.Food >= 6)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 scrap") && playerManager.Scrap == 6)
+        if (task.Contains("Gather 6 scrap") && playerManager.Scrap >= 6)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 junk") && playerManager.Junk == 6)
+        if (task.Contains("Gather 6 junk") && playerManager.Junk >= 6)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 3 dummy card") && playerManager.DummyCard == 6)
+        if (task.Contains("Craft 3 dummy card") && playerManager.DummyCard >= 3)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Deal damage 3 times (any player)") && playerManager.dealDamage == 3)
+        if (task.Contains("Deal damage 3 times (any player)") && playerManager.dealDamage >= 3)
         {
             Debug.Log("Task done!!");
             return true;
         } 
-        if (task.Contains("Trash any item cards") && playerManager.ItemTrashed == 1)
+        if (task.Contains("Trash any item cards") && playerManager.ItemTrashed >= 1)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Heal 3 heart") && playerManager.heal == 3)
+        if (task.Contains("Heal 3 heart") && playerManager.heal >= 3)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Trash 2 bomb or weapon card") && playerManager.weaponOrBombTrashed == 2)
+        if (task.Contains("Trash 2 bomb or weapon card") && playerManager.weaponOrBombTrashed >= 2)
         {
             Debug.Log("Task done!!");
             return true;
@@ -190,24 +191,28 @@ public class TaskManager : MonoBehaviour
         return false;
     }
 
-    public void UpdateTaskString()
+    public void UpdateTaskString(bool subtaskprog1, bool subtaskprog2, bool subtaskprog3)
     {
         // Update subtasks
         for (int i = 0; i < Mathf.Min(normalTaskCount, taskList.Count, subTasks.Length); i++)
         {
-            subTasks[i].text = taskList[i] + GetTaskProgressString(taskList[i]);
+            subTasks[i].text = playerTaskList[i] + GetTaskProgressString(taskList[i]);
         }
 
         // Update main task (assuming only one main task for simplicity)
-        if (mainTaskList.Count > 0)
+        if (subtaskprog1 == true && subtaskprog2 == true && subtaskprog3 == true) 
         {
-            mainTask.text = mainTaskList[0] + GetTaskProgressString(mainTaskList[0]);
+            Debug.Log("mainTask.text = playermainTaskList[0] + GetTaskProgressString(mainTaskList[0])");
+            mainTask.text = playermainTaskList[0] + GetTaskProgressString(mainTaskList[0]);
+        }
+        else 
+        {
+            mainTask.text = "complete all subtask first!";
         }
     }
 
     public void UpdateTaskProgress()
     {
-        UpdateTaskString();
         subtaskprog1 = CheckTaskProgress(playerTaskList[0]);
         TextColorUpdate(subtaskprog1, subTasks[0]);
         subtaskprog2 = CheckTaskProgress(playerTaskList[1]);
@@ -216,6 +221,8 @@ public class TaskManager : MonoBehaviour
         TextColorUpdate(subtaskprog3, subTasks[2]);
         maintaskprog = CheckTaskProgress(playermainTaskList[0]);
         TextColorUpdate(maintaskprog, mainTask);
+        StartCoroutine(WinCheck());
+        UpdateTaskString(subtaskprog1, subtaskprog2, subtaskprog3);
     }
 
     private void TextColorUpdate(bool status, TMP_Text text)
@@ -223,6 +230,28 @@ public class TaskManager : MonoBehaviour
         if (status == true)
         {
             text.color = Color.green;
+        }
+    }
+
+    public void ResetMainTaskVariable()
+    {
+        if (subtaskprog1 != true || subtaskprog2 != true || subtaskprog3 != true) 
+        {
+            playerManager.heal = 0;
+            playerManager.weaponOrBombTrashed = 0;
+            playerManager.ItemTrashed = 0;
+            playerManager.dealDamage = 0;
+        }
+    }
+
+    public IEnumerator WinCheck()
+    {
+        if (maintaskprog == true)
+        {
+            Debug.LogWarning("WIN!!!");
+            yield return new WaitForSecondsRealtime(5);
+
+            Application.Quit();
         }
     }
 }

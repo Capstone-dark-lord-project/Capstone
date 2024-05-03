@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Health pack
   cardDescription: heal 1 heart
   cardArtwork: {fileID: 0}
-  count: 0
+  count: 3
   actionName: 4
   healAmount: 1
