@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
     public int Food = 0;
     public int Scrap = 0;
     public int Junk = 0;
-    public int Plank = 0;
+    public int ProcessedWood = 0;
     public int FishingRod = 0;
     public int Weapon = 0;
     public int HealthPack = 0;

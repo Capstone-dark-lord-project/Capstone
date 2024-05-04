@@ -66,8 +66,8 @@ namespace events {
                 ItemName itemName = itemCard.itemName;
                 switch (itemName) 
                 {
-                    case ItemName.Plank:
-                        playerManager.TaskVariableUpdate(ref playerManager.Plank);
+                    case ItemName.ProcessedWood:
+                        playerManager.TaskVariableUpdate(ref playerManager.ProcessedWood);
                         break;
                     case ItemName.FishingRod:
                         playerManager.TaskVariableUpdate(ref playerManager.FishingRod);

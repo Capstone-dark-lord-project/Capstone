@@ -37,7 +37,7 @@ public class TaskManager : MonoBehaviour
 
     private void InitializeTaskList()
     {
-        taskList.Add("Craft 3 plank: "); // taskList[0]
+        taskList.Add("Craft 3 processed wood: "); // taskList[0]
         taskList.Add("Craft 3 metal sheet: "); // taskList[1]
         taskList.Add("Craft 3 canned food: ");
         taskList.Add("Trash any 2 action cards: ");
@@ -84,8 +84,8 @@ public class TaskManager : MonoBehaviour
 
     private string GetTaskProgressString(string task)
     {
-        if (task.Contains("Craft 3 plank"))
-            return playerManager.Plank + "/3";
+        if (task.Contains("Craft 3 processed wood"))
+            return playerManager.ProcessedWood + "/3";
         else if (task.Contains("Craft 3 metal sheet"))
             return playerManager.MetalPlate + "/3";
         else if (task.Contains("Craft 3 canned food"))
@@ -118,7 +118,7 @@ public class TaskManager : MonoBehaviour
 
     private bool CheckTaskProgress(string task)
     {
-        if (task.Contains("Craft 3 plank") && playerManager.Plank >= 3)
+        if (task.Contains("Craft 3 processed wood") && playerManager.ProcessedWood >= 3)
         {
             Debug.Log("Task done!!");
             return true;
