@@ -18,10 +18,12 @@ public class ActionHeal : ActionCard, ICardPlayable
     {
         PlayerManager playerManager = FindObjectOfType<PlayerManager>();
         
+        playerManager.TaskVariableUpdate(ref playerManager.heal);
         if (playerManager.health < 3)
         {
             for (int i = 0; i < healAmount; i++)
             {
+                Debug.LogWarning($"heal 1 !!!");
                 playerManager.health += 1;
             }
             Debug.LogWarning($"heald {healAmount}!!!");

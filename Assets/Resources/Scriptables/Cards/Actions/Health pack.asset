@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcaeadf10833248bcb8f334cfb1050, type: 3}
+  m_Name: Health pack
+  m_EditorClassIdentifier: 
+  cardName: Health pack
+  cardDescription: heal 1 heart
+  cardArtwork: {fileID: 0}
+  count: 3
+  actionName: 4
+  healAmount: 1

@@ -2,188 +2,256 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class TaskManager : MonoBehaviour
 {
     public PlayerManager playerManager;
-    //Task
-    public int normalTask = 3;
-    public int taskPoint = 0;
+    public int normalTaskCount = 7;
 
-    public bool taskCom = false;
-    public bool win = false;
-
-    public TMP_Text[] subTasks = new TMP_Text[3];
+    public TMP_Text[] subTasks;
     public TMP_Text mainTask;
 
-    private string[] taskList = new string[4];
-    private string[] mainTaskList = new string[1];
-
-    private System.Random rand = new System.Random();
-    private bool randomTaskStatus = true;
-    public bool[] taskStatus = new bool[4];
-    public int[] taskNum = new int[3];
-
-
-    //TempInventory
-    public int wood = 0;
-    public int stone = 0;
-    public int matches = 0;
-    public int water = 0;
-    public int vine = 0;
-    public int food = 0;
+    public List<string> taskList = new List<string>();
+    public List<string> mainTaskList = new List<string>();
+    
+    public List<string> playerTaskList = new List<string>();
+    public List<string> playermainTaskList = new List<string>();
+    public bool subtaskprog1 = false;
+    public bool subtaskprog2 = false;
+    public bool subtaskprog3 = false;
+    public bool maintaskprog = false;
 
     void Start()
     {
-        Debug.Log("Start");
-        //Temp Task
-        /*task[0].text = "1";
-        task[1].text = "2";
-        task[2].text = "3";*/
-        //Task Normal
-        taskList[0] = "Gather 5 water for your survival: " +  water.ToString() + "/5";
-        taskList[1] = "Gather 2 vine for climbing: " + vine.ToString() + "/2";
-        taskList[2] = "Gather 1 matches to start fire: " + matches.ToString() + "/1";
-        taskList[3] = "Gather 2 wood and 2 stone for making tools: wood " + wood.ToString() + "/2 stone " + stone.ToString() + "/2";
-        //Task Win
-        mainTaskList[0] = "Escape the island by boat Gather 5 wood and 5 vine: wood " + wood.ToString() + "/5 vine " + vine.ToString() + "/5";
+        InitializeTaskList();
+        InitializeMainTaskList();
+        RandomizeTasks();
+        UpdateTaskString(subtaskprog1, subtaskprog2, subtaskprog3);
     }
 
     void Update()
     {
-        //Random Normal Task
-        if (randomTaskStatus == true)
+        
+    }
+
+    private void InitializeTaskList()
+    {
+        taskList.Add("Craft 3 plank: "); // taskList[0]
+        taskList.Add("Craft 3 metal sheet: "); // taskList[1]
+        taskList.Add("Craft 3 canned food: ");
+        taskList.Add("Trash any 2 action cards: ");
+        taskList.Add("Craft 2 fishing rod: ");
+        taskList.Add("Gather 6 wood: ");
+        taskList.Add("Gather 6 food: ");
+        taskList.Add("Gather 6 scrap: ");
+        taskList.Add("Gather 6 junk: ");
+        taskList.Add("Craft 3 dummy card: ");
+    }
+
+    private void InitializeMainTaskList()
+    {
+        mainTaskList.Add("Deal damage 3 times (any player): ");
+        mainTaskList.Add("Trash 2 item cards: ");
+        mainTaskList.Add("Heal 3 heart: ");
+        mainTaskList.Add("Trash 2 bomb or weapon card: ");
+    }
+
+    private void RandomizeTasks()
+    {
+        // Randomly shuffle task list
+        taskList = taskList.OrderBy(x => Random.value).ToList();
+
+        // Assign tasks to subtasks
+        for (int i = 0; i < normalTaskCount; i++)
         {
-            List<int> availableIndices = new List<int>();
-            for (int j = 0; j < taskList.Length; j++)
+            if (i < taskList.Count)
             {
-                availableIndices.Add(j);
+                subTasks[i].text = taskList[i] + GetTaskProgressString(taskList[i]);
+                playerTaskList.Add(taskList[i]);
             }
-            for (int i = 0; i < normalTask; i++)
+            else
             {
-                int randomIndex = rand.Next(0, availableIndices.Count);
-                int randomTask = availableIndices[randomIndex];
-                subTasks[i].text = taskList[randomTask];
-                taskStatus[randomTask] = true;
-                taskNum[i] = randomTask;
-                availableIndices.RemoveAt(randomIndex);
-
-                Debug.Log("สุ่มtask" + i.ToString());
-                if (i == 2)
-                {
-                    randomTaskStatus = false;
-                }
+                subTasks[i].text = "";
             }
         }
-        //Task Update Inventory
-        if(taskStatus[0] == true)
+
+        // Randomly select main task
+        int mainIndex = Random.Range(0, mainTaskList.Count);
+        mainTask.text = mainTaskList[mainIndex] + GetTaskProgressString(mainTaskList[mainIndex]);
+        playermainTaskList.Add(mainTaskList[mainIndex]);
+    }
+
+    private string GetTaskProgressString(string task)
+    {
+        if (task.Contains("Craft 3 plank"))
+            return playerManager.Plank + "/3";
+        else if (task.Contains("Craft 3 metal sheet"))
+            return playerManager.Metal + "/3";
+        else if (task.Contains("Craft 3 canned food"))
+            return playerManager.CannedFood + "/3";
+        else if (task.Contains("Trash any 2 action cards"))
+            return playerManager.ActionTrashed + "/2";
+        else if (task.Contains("Craft 2 fishing rod"))
+            return playerManager.FishingRod + "/2";
+        else if (task.Contains("Gather 6 wood"))
+            return playerManager.Wood + "/6";
+        else if (task.Contains("Gather 6 food"))
+            return playerManager.Food + "/6";
+        else if (task.Contains("Gather 6 scrap"))
+            return playerManager.Scrap + "/6";
+        else if (task.Contains("Gather 6 junk"))
+            return playerManager.Junk + "/6";
+        else if (task.Contains("Craft 3 dummy card"))
+            return playerManager.DummyCard + "/3";
+        else if (task.Contains("Deal damage 3 times (any player)"))
+            return playerManager.dealDamage + "/3";
+        else if (task.Contains("Trash 2 item cards"))
+            return playerManager.ItemTrashed + "/1";
+        else if (task.Contains("Heal 3 heart"))
+            return playerManager.heal + "/3";
+        else if (task.Contains("Trash 2 bomb or weapon card"))
+            return playerManager.weaponOrBombTrashed + "/2";
+        else
+            return "";
+    }
+
+    private bool CheckTaskProgress(string task)
+    {
+        if (task.Contains("Craft 3 plank") && playerManager.Plank >= 3)
         {
-            taskList[0] = "Gather 5 water for your survival: " +  water.ToString() + "/5";
+            Debug.Log("Task done!!");
+            return true;
         }
-        if(taskStatus[1] == true)
+        if (task.Contains("Craft 3 metal sheet") && playerManager.Metal >= 3)
         {
-            taskList[1] = "Gather 2 vine for climbing: " + vine.ToString() + "/2";
+            Debug.Log("Task done!!");
+            return true;
         }
-        if(taskStatus[2] == true)
+        if (task.Contains("Craft 3 canned food") && playerManager.CannedFood >= 3)
         {
-            taskList[2] = "Gather 1 matches to start fire: " + matches.ToString() + "/1";
+            Debug.Log("Task done!!");
+            return true;
         }
-        if(taskStatus[3] == true)
+        if (task.Contains("Trash any 2 action cards") && playerManager.ActionTrashed >= 2)
         {
-            taskList[3] = "Gather 2 wood and 2 stone for making tools: wood " + wood.ToString() + "/2 stone " + stone.ToString() + "/2";
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Craft 2 fishing rod") && playerManager.FishingRod >= 2)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Gather 6 wood") && playerManager.Wood >= 6)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Gather 6 food") && playerManager.Food >= 6)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Gather 6 scrap") && playerManager.Scrap >= 6)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Gather 6 junk") && playerManager.Junk >= 6)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Craft 3 dummy card") && playerManager.DummyCard >= 3)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Deal damage 3 times (any player)") && playerManager.dealDamage >= 3)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        } 
+        if (task.Contains("Trash 2 item cards") && playerManager.ItemTrashed >= 2)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Heal 3 heart") && playerManager.heal >= 3)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        if (task.Contains("Trash 2 bomb or weapon card") && playerManager.weaponOrBombTrashed >= 2)
+        {
+            Debug.Log("Task done!!");
+            return true;
+        }
+        return false;
+    }
+
+    public void UpdateTaskString(bool subtaskprog1, bool subtaskprog2, bool subtaskprog3)
+    {
+        // Update subtasks
+        for (int i = 0; i < Mathf.Min(normalTaskCount, taskList.Count, subTasks.Length); i++)
+        {
+            subTasks[i].text = playerTaskList[i] + GetTaskProgressString(taskList[i]);
         }
 
-        //Task Update to Text
-        if(taskCom == false)
+        // Update main task (assuming only one main task for simplicity)
+        if (subtaskprog1 == true && subtaskprog2 == true && subtaskprog3 == true) 
         {
-            for (int i = 0; i < normalTask; i++)
-                    {
-                        switch (taskNum[i])
-                        {
-                            case 0:
-                                subTasks[i].text = taskList[0];
-                                if(water > 5)
-                                {
-                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
-                                    taskStatus[0] = false;
-                                    water -= 5;
-                                    taskPoint += 1;
-                                    Debug.Log("Task Water Complete :" + taskPoint);
-                                }
-                                break;
-                            case 1:
-                                subTasks[i].text = taskList[1];
-                                if(vine > 2)
-                                {
-                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
-                                    taskStatus[0] = false;
-                                    vine -= 2;
-                                    taskPoint += 1;
-                                    Debug.Log("Task Vine Complete :" + taskPoint);
-                                }
-                                break;
-                            case 2:
-                                subTasks[i].text = taskList[2];
-                                if(matches > 1)
-                                {
-                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
-                                    taskStatus[0] = false;
-                                    matches -= 1;
-                                    taskPoint += 1;
-                                    Debug.Log("Task Matches Complete :" + taskPoint);
-                                }
-                                break;
-                            case 3:
-                                subTasks[i].text = taskList[3];
-                                if(wood > 2 && stone > 2)
-                                {
-                                    subTasks[i].fontStyle |= FontStyles.Strikethrough;
-                                    taskStatus[0] = false;
-                                    wood -= 2;
-                                    stone -= 2;
-                                    taskPoint += 1;
-                                    Debug.Log("Task Tools Complete :" + taskPoint);
-                                }
-                                break;
-                        }
-                    }
+            Debug.Log("mainTask.text = playermainTaskList[0] + GetTaskProgressString(mainTaskList[0])");
+            mainTask.text = playermainTaskList[0] + GetTaskProgressString(playermainTaskList[0]);
         }
+        else 
+        {
+            mainTask.text = "complete all subtask first!";
+        }
+    }
 
-        if(taskPoint == 3)
-            {   
-                
-                //Debug.Log("Normal task all completed");
-                taskCom = true;
-                mainTask.text = mainTaskList[0];
-                mainTaskList[0] = "Escape the island by boat Gather 5 wood and 5 vine: wood " + wood.ToString() + "/5 vine " + vine.ToString() + "/5";
-                if(wood > 5 && vine > 5)
-                {
-                    mainTask.fontStyle |= FontStyles.Strikethrough;
-                    wood -= 5;
-                    vine -= 5;
-                    win = true;
-                }
-            }
+    public void UpdateTaskProgress()
+    {
+        subtaskprog1 = CheckTaskProgress(playerTaskList[0]);
+        TextColorUpdate(subtaskprog1, subTasks[0]);
+        subtaskprog2 = CheckTaskProgress(playerTaskList[1]);
+        TextColorUpdate(subtaskprog2, subTasks[1]);
+        subtaskprog3 = CheckTaskProgress(playerTaskList[2]);
+        TextColorUpdate(subtaskprog3, subTasks[2]);
+        maintaskprog = CheckTaskProgress(playermainTaskList[0]);
+        TextColorUpdate(maintaskprog, mainTask);
+        StartCoroutine(WinCheck());
+        UpdateTaskString(subtaskprog1, subtaskprog2, subtaskprog3);
+    }
 
-            if(win == true)
-            {
-                Debug.Log("WIN!!!!");
-                win = false;
-            }
+    private void TextColorUpdate(bool status, TMP_Text text)
+    {
+        if (status == true)
+        {
+            text.color = Color.green;
+        }
+    }
 
+    public void ResetMainTaskVariable()
+    {
+        if (subtaskprog1 != true || subtaskprog2 != true || subtaskprog3 != true) 
+        {
+            playerManager.heal = 0;
+            playerManager.weaponOrBombTrashed = 0;
+            playerManager.ItemTrashed = 0;
+            playerManager.dealDamage = 0;
+        }
+    }
 
-        /*if(randomTaskStatus == true)
-            for (int i = 0; i < normalTask; i++)
-            {
-                int randomTask = rand.Next(0,3);
-                subTasks[i].text = taskList[randomTask];
-                taskStatus[randomTask] = true;
-                //Debug.Log("Random number: " + randomTask);
-                Debug.Log(i.ToString());
-                if(i == 2)
-                {
-                    randomTaskStatus = false;
-                }
-            }*/
+    public IEnumerator WinCheck()
+    {
+        if (maintaskprog == true)
+        {
+            Debug.LogWarning("WIN!!!");
+            yield return new WaitForSecondsRealtime(5);
+
+            Application.Quit();
+        }
     }
 }

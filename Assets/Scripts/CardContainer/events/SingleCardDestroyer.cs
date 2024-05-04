@@ -52,11 +52,47 @@ namespace events {
                     craftingManager.cardSlot1 = null;
                     craftingManager.cardSlot2 = null;
                     craftingManager.resultSlot = null;
+                    AddVariableForTask(card);
                     playerManager.AddCardToHand(card);
                     break;
             }
         }
 
+        public void AddVariableForTask(Card card)
+        {
+            if (card is ItemCard)
+            {
+                ItemCard itemCard = card as ItemCard;
+                ItemName itemName = itemCard.itemName;
+                switch (itemName) 
+                {
+                    case ItemName.Plank:
+                        playerManager.TaskVariableUpdate(ref playerManager.Plank);
+                        break;
+                    case ItemName.FishingRod:
+                        playerManager.TaskVariableUpdate(ref playerManager.FishingRod);
+                        break;
+                    case ItemName.Metal:
+                        playerManager.TaskVariableUpdate(ref playerManager.Metal);
+                        break;
+                    case ItemName.CannedFood:
+                        playerManager.TaskVariableUpdate(ref playerManager.CannedFood);
+                        break;
+                    case ItemName.Bomb:
+                        playerManager.TaskVariableUpdate(ref playerManager.Bomb);
+                        break;
+                    case ItemName.Weapon:
+                        playerManager.TaskVariableUpdate(ref playerManager.Weapon);
+                        break;
+                    case ItemName.Toy:
+                        playerManager.TaskVariableUpdate(ref playerManager.DummyCard);
+                        break;
+                    case ItemName.FoodWaste:
+                        playerManager.TaskVariableUpdate(ref playerManager.DummyCard);
+                        break;
+                }
+            }
+        }
         public void OnCraftingCancel() {
             Debug.Log("OnCraftingCancel");
             

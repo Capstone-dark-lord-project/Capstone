@@ -251,6 +251,19 @@ public class CardContainer : MonoBehaviour {
 		// Discard function
         if (IsCursorInTrashArea() && discardConfig.trashArea.gameObject.activeSelf) 
         {
+            Card card = currentDraggedCard.card;
+            if(card is ActionCard actionCard)
+            {
+                playerManager.TaskVariableUpdate(ref playerManager.ActionTrashed);
+                if (actionCard.actionName == ActionName.Bomb || actionCard.actionName == ActionName.Weapon)
+                {
+                    playerManager.TaskVariableUpdate(ref playerManager.weaponOrBombTrashed);
+                }
+            }
+            else if (card is ItemCard)
+            {
+                playerManager.TaskVariableUpdate(ref playerManager.ItemTrashed);
+            }
             eventsConfig?.OnCardDiscard?.Invoke(new CardEvent(currentDraggedCard));
             playerManager.UpdateHandCountUI();
             Debug.Log("Trash Area");
