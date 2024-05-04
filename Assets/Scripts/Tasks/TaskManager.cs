@@ -52,7 +52,7 @@ public class TaskManager : MonoBehaviour
     private void InitializeMainTaskList()
     {
         mainTaskList.Add("Deal damage 3 times (any player): ");
-        mainTaskList.Add("Trash any item cards: ");
+        mainTaskList.Add("Trash 2 item cards: ");
         mainTaskList.Add("Heal 3 heart: ");
         mainTaskList.Add("Trash 2 bomb or weapon card: ");
     }
@@ -106,7 +106,7 @@ public class TaskManager : MonoBehaviour
             return playerManager.DummyCard + "/3";
         else if (task.Contains("Deal damage 3 times (any player)"))
             return playerManager.dealDamage + "/3";
-        else if (task.Contains("Trash any item cards"))
+        else if (task.Contains("Trash 2 item cards"))
             return playerManager.ItemTrashed + "/1";
         else if (task.Contains("Heal 3 heart"))
             return playerManager.heal + "/3";
@@ -173,7 +173,7 @@ public class TaskManager : MonoBehaviour
             Debug.Log("Task done!!");
             return true;
         } 
-        if (task.Contains("Trash any item cards") && playerManager.ItemTrashed >= 1)
+        if (task.Contains("Trash 2 item cards") && playerManager.ItemTrashed >= 2)
         {
             Debug.Log("Task done!!");
             return true;
@@ -203,7 +203,7 @@ public class TaskManager : MonoBehaviour
         if (subtaskprog1 == true && subtaskprog2 == true && subtaskprog3 == true) 
         {
             Debug.Log("mainTask.text = playermainTaskList[0] + GetTaskProgressString(mainTaskList[0])");
-            mainTask.text = playermainTaskList[0] + GetTaskProgressString(mainTaskList[0]);
+            mainTask.text = playermainTaskList[0] + GetTaskProgressString(playermainTaskList[0]);
         }
         else 
         {

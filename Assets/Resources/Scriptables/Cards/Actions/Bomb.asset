@@ -16,5 +16,5 @@ MonoBehaviour:
   cardDescription: damage 3 (get stunt)
   cardArtwork: {fileID: 0}
   count: 0
-  actionName: 0
+  actionName: 1
   damageAmount: 3
