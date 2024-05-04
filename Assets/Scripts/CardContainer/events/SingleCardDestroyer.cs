@@ -93,6 +93,7 @@ namespace events {
                 }
             }
         }
+        
         public void OnCraftingCancel() {
             Debug.Log("OnCraftingCancel");
             

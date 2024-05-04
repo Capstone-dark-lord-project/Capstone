@@ -383,6 +383,10 @@ MonoBehaviour:
   mainTaskList: []
   playerTaskList: []
   playermainTaskList: []
+  subtaskprog1: 0
+  subtaskprog2: 0
+  subtaskprog3: 0
+  maintaskprog: 0
 --- !u!4 &158400366
 Transform:
   m_ObjectHideFlags: 0
@@ -1147,9 +1151,9 @@ MonoBehaviour:
     type: 3}
   eventCardPrefab: {fileID: 3770231642015457048, guid: cca26d236e0c94248a4d713ba03c1de9,
     type: 3}
-  MapSO: {fileID: 11400000, guid: 166b5c40467acb540ade58f5686234de, type: 2}
   scaleSpeed: 3
   finalScale: {x: 2.5, y: 2.5, z: 2.5}
+  foodResourceCard: {fileID: 11400000, guid: 4791d264defcd774087c1cc7f1b949c8, type: 2}
 --- !u!4 &682450838
 Transform:
   m_ObjectHideFlags: 0
@@ -3248,14 +3252,14 @@ MonoBehaviour:
   craftingManager: {fileID: 1705217865}
   AA: {fileID: 11400000, guid: 778c6d15db3f3fa429f8bce7d03d7d2a, type: 2}
   AB: {fileID: 11400000, guid: a49ca68b61d7ed54d8ae08941ac533b9, type: 2}
-  AC: {fileID: 11400000, guid: 7317c2248cec28a49b58e000e3cf1ecf, type: 2}
+  AC: {fileID: 11400000, guid: a06a03c0c18bc504fb3f79a4df263a3e, type: 2}
   AD: {fileID: 11400000, guid: 872cbc441bbefe34ebf4e8015f7764d8, type: 2}
   BB: {fileID: 11400000, guid: 566374ca944bdf94da6d581bc08c7d5f, type: 2}
   BC: {fileID: 11400000, guid: 755b27aeb7a96314a95c3babc31b94f3, type: 2}
   BD: {fileID: 11400000, guid: 17281ab7494ae8742877930cef6077c7, type: 2}
   CC: {fileID: 11400000, guid: 9bb79730a068a9a42835d5a2491eb673, type: 2}
   CD: {fileID: 11400000, guid: b02304c15455a8c49942a787cab30351, type: 2}
-  DD: {fileID: 11400000, guid: fbd12572b4d708f43b4ced47eb60494f, type: 2}
+  DD: {fileID: 11400000, guid: 02c3e7a62e51b384d968c74877087762, type: 2}
   itemCardPrefab: {fileID: 3770231642015457048, guid: ed564d3246d827f459c616a4cba60af5,
     type: 3}
   actionCardPrefab: {fileID: 3770231642015457048, guid: 16f3130ab69e5034a92379f1eb181dae,
@@ -4131,7 +4135,7 @@ MonoBehaviour:
   Weapon: 0
   HealthPack: 0
   CannedFood: 0
-  Metal: 0
+  MetalPlate: 0
   Trap: 0
   Bomb: 0
   ActionTrashed: 0

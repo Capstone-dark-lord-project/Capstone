@@ -87,7 +87,7 @@ public class TaskManager : MonoBehaviour
         if (task.Contains("Craft 3 plank"))
             return playerManager.Plank + "/3";
         else if (task.Contains("Craft 3 metal sheet"))
-            return playerManager.MetalPlate+ "/3";
+            return playerManager.MetalPlate + "/3";
         else if (task.Contains("Craft 3 canned food"))
             return playerManager.CannedFood + "/3";
         else if (task.Contains("Trash any 2 action cards"))

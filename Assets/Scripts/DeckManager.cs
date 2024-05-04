@@ -23,6 +23,8 @@ public class DeckManager : MonoBehaviour
     public Vector3 finalScale;
 
     float cardWidth = 0.01f;
+    [SerializeField]
+    private Card foodResourceCard;
 
     void Start()
     {
@@ -126,6 +128,11 @@ public class DeckManager : MonoBehaviour
                             playerManager.TaskVariableUpdate(ref playerManager.Wood);
                             break;
                         case ResourceType.Food:
+                            if (playerManager.IsItemInHand(ItemName.FishingRod))
+                            {
+                                playerManager.TaskVariableUpdate(ref playerManager.Food);
+                                playerManager.AddCardToHand(foodResourceCard);
+                            }
                             playerManager.TaskVariableUpdate(ref playerManager.Food);
                             break;
                         case ResourceType.Junk:
