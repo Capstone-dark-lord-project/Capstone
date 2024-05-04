@@ -87,7 +87,7 @@ public class TaskManager : MonoBehaviour
         if (task.Contains("Craft 3 plank"))
             return playerManager.Plank + "/3";
         else if (task.Contains("Craft 3 metal sheet"))
-            return playerManager.Metal + "/3";
+            return playerManager.MetalPlate+ "/3";
         else if (task.Contains("Craft 3 canned food"))
             return playerManager.CannedFood + "/3";
         else if (task.Contains("Trash any 2 action cards"))
@@ -123,7 +123,7 @@ public class TaskManager : MonoBehaviour
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 3 metal sheet") && playerManager.Metal >= 3)
+        if (task.Contains("Craft 3 metal sheet") && playerManager.MetalPlate >= 3)
         {
             Debug.Log("Task done!!");
             return true;

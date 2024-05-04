@@ -72,8 +72,8 @@ namespace events {
                     case ItemName.FishingRod:
                         playerManager.TaskVariableUpdate(ref playerManager.FishingRod);
                         break;
-                    case ItemName.Metal:
-                        playerManager.TaskVariableUpdate(ref playerManager.Metal);
+                    case ItemName.MetalPlate:
+                        playerManager.TaskVariableUpdate(ref playerManager.MetalPlate);
                         break;
                     case ItemName.CannedFood:
                         playerManager.TaskVariableUpdate(ref playerManager.CannedFood);

@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
     public int Weapon = 0;
     public int HealthPack = 0;
     public int CannedFood = 0;
-    public int Metal = 0;
+    public int MetalPlate = 0;
     public int Trap = 0;
     public int Bomb = 0;
     public int ActionTrashed = 0;
@@ -35,8 +35,6 @@ public class PlayerManager : MonoBehaviour
     public int dealDamage = 0;
     public int weaponOrBombTrashed = 0;
     public int heal = 0;
-
-    public int MetalPlate { get; internal set; }
 
     void Start()
     {
