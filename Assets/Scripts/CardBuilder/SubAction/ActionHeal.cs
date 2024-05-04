@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-
-[CreateAssetMenu(fileName = "New heal Card", menuName = "Card/Action Card/heal")]
+[CreateAssetMenu(fileName = "New heal Card", menuName = "Card/Action Card/Heal")]
 public class ActionHeal : ActionCard, ICardPlayable
 {
     public int healAmount;
@@ -25,7 +24,7 @@ public class ActionHeal : ActionCard, ICardPlayable
             for (int i = 0; i < healAmount; i++)
             {
                 Debug.LogWarning($"heal 1 !!!");
-                // playerManager.health += 1;
+                playerManager.health += 1;
             }
             Debug.LogWarning($"heald {healAmount}!!!");
         }

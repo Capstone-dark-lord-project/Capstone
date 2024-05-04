@@ -8,5 +8,5 @@ public interface ICardPlayable // When Cards are played
 
 public interface ICardEventDrawn // Drawn from deck
 {
-    void Drawn();
+    IEnumerator Drawn();
 }

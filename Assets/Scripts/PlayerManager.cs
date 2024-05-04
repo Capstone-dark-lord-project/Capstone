@@ -131,4 +131,9 @@ public class PlayerManager : MonoBehaviour
         taskManager.UpdateTaskProgress();
         taskManager.ResetMainTaskVariable();
     }
+
+    public bool IsItemInHand(ItemName itemName)
+    {
+        return hand.Exists(card => card is ItemCard itemCard && itemCard.itemName == itemName);
+    }
 }

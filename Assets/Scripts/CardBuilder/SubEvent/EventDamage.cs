@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Damage Event Card", menuName = "Card/Event Card/Damage")]
@@ -29,8 +30,9 @@ public class EventDamage : EventCard, ICardEventDrawn
         }
     }
 
-    public void Drawn()
+    public IEnumerator Drawn()
     {
         Damage(damageAmount);
+        yield return null;
     }
 }

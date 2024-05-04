@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
-public enum ItemName { Map, Compass, Plank, FishingRod, Weapon, Toy, HealthPack, CannedFood, FoodWaste, Metal, Trap, Bomb}
+public enum ItemName { Map, Compass, Plank, FishingRod, Weapon, Toy, HealthPack, CannedFood, FoodWaste, MetalPlate, Trap, Bomb}
 
 [CreateAssetMenu(fileName = "New Item Card", menuName = "Card/Item Card")]
 public class ItemCard : Card

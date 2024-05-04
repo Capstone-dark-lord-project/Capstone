@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-
 [CreateAssetMenu(fileName = "New Damage Card", menuName = "Card/Action Card/Damage")]
 public class ActionDamage : ActionCard, ICardPlayable
 {

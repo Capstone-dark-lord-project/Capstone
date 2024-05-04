@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CD
   m_EditorClassIdentifier: 
   cardName: Trap
-  cardDescription: Scrap+Junk
-  cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
+  cardDescription: When this card is stolen,<br>that player takes one damage.
+  cardArtwork: {fileID: 21300000, guid: f99f89f7a4e553d40b3a53fd3cc05d36, type: 3}
   count: 0
   itemName: 10
