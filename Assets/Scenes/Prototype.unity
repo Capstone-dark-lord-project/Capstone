@@ -3252,7 +3252,7 @@ MonoBehaviour:
   craftingManager: {fileID: 1705217865}
   AA: {fileID: 11400000, guid: 778c6d15db3f3fa429f8bce7d03d7d2a, type: 2}
   AB: {fileID: 11400000, guid: a49ca68b61d7ed54d8ae08941ac533b9, type: 2}
-  AC: {fileID: 11400000, guid: a06a03c0c18bc504fb3f79a4df263a3e, type: 2}
+  AC: {fileID: 11400000, guid: 699a889a01ceb3c439ae31e664d8343d, type: 2}
   AD: {fileID: 11400000, guid: 872cbc441bbefe34ebf4e8015f7764d8, type: 2}
   BB: {fileID: 11400000, guid: 566374ca944bdf94da6d581bc08c7d5f, type: 2}
   BC: {fileID: 11400000, guid: 755b27aeb7a96314a95c3babc31b94f3, type: 2}
@@ -4130,7 +4130,7 @@ MonoBehaviour:
   Food: 0
   Scrap: 0
   Junk: 0
-  Plank: 0
+  ProcessedWood: 0
   FishingRod: 0
   Weapon: 0
   HealthPack: 0
