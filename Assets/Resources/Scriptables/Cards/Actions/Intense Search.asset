@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4969996e4b3ec004fb5f6d339f741f2d, type: 3}
+  m_Name: Intense Search
+  m_EditorClassIdentifier: 
+  cardName: Intense Search
+  cardDescription: You spend a whole day searching<br>Draw 2 cards.
+  cardArtwork: {fileID: 21300000, guid: 72fec11a8b4d3a04a895b75d234a7899, type: 3}
+  count: 3
+  actionName: 3
+  drawAmount: 2

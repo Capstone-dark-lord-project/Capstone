@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Scriptables/Cards/Actions/Bomb.asset.meta
+guid: 699a889a01ceb3c439ae31e664d8343d
+========
+guid: 7317c2248cec28a49b58e000e3cf1ecf
+>>>>>>>> f826eeb563d59994d308971634faab5f5866ece1:Assets/Resources/Scriptables/Cards/Actions/AC.asset.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0180f1a9c01195b48854112b9e3fcef7, type: 3}
+  m_Name: BC
+  m_EditorClassIdentifier: 
+  cardName: Canned food
+  cardDescription: Heal 1 health to<br>another chosen player.
+  cardArtwork: {fileID: 21300000, guid: d9cc599987c1c5e4eb6e3e6cb95936bb, type: 3}
+  count: 0
+  actionName: 4
+  healAmount: 1

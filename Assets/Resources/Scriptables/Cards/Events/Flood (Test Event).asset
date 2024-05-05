@@ -15,5 +15,4 @@ MonoBehaviour:
   cardName: A little refreshment
   cardDescription: All players randomly lose 1 card from their hand
   cardArtwork: {fileID: 21300000, guid: 5c88e069ecd499e4dbdcac39dfaba0b1, type: 3}
-  count: 8
-  eventName: 0
+  count: 0
