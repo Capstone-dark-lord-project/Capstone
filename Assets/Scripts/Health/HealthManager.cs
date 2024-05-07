@@ -20,17 +20,14 @@ public class HealthManager : MonoBehaviour
         {
             playerManager.health = 0;
         }
-
-        if (Stunned == false)
+        
+        foreach(Image img in hearts)
         {
-            foreach(Image img in hearts)
-            {
-                img.sprite = emptyHeart;
-            }
-            for (int i = 0; i < playerManager.health; i++)
-            {
-                hearts[i].sprite = fullHeart;
-            }
+            img.sprite = emptyHeart;
+        }
+        for (int i = 0; i < playerManager.health; i++)
+        {
+            hearts[i].sprite = fullHeart;
         }
 
         if (playerManager.health == 0 && Stunned == false)
