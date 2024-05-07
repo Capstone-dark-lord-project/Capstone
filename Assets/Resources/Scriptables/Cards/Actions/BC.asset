@@ -16,5 +16,5 @@ MonoBehaviour:
   cardDescription: Heal 1 health to<br>another chosen player.
   cardArtwork: {fileID: 21300000, guid: d9cc599987c1c5e4eb6e3e6cb95936bb, type: 3}
   count: 0
-  actionName: 4
+  actionName: 5
   healAmount: 1
