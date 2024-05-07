@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public enum ItemName { Map, Compass, ProcessedWood, FishingRod, Weapon, Toy, HealthPack, CannedFood, FoodWaste, MetalPlate, Trap, Bomb}
