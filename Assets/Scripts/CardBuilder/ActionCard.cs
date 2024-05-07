@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ActionName {Weapon, Bomb, Discard, Draw, Heal}
+public enum ActionName {Weapon, Bomb, Discard, Draw, HealthPack, CannedFood}
 
 [CreateAssetMenu(fileName = "New Action Card", menuName = "Card/Action Card")]
 public class ActionCard : Card

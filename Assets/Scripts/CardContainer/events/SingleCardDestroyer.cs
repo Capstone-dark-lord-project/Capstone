@@ -75,20 +75,28 @@ namespace events {
                     case ItemName.MetalPlate:
                         playerManager.TaskVariableUpdate(ref playerManager.MetalPlate);
                         break;
-                    case ItemName.CannedFood:
-                        playerManager.TaskVariableUpdate(ref playerManager.CannedFood);
-                        break;
-                    case ItemName.Bomb:
-                        playerManager.TaskVariableUpdate(ref playerManager.Bomb);
-                        break;
-                    case ItemName.Weapon:
-                        playerManager.TaskVariableUpdate(ref playerManager.Weapon);
-                        break;
                     case ItemName.Toy:
                         playerManager.TaskVariableUpdate(ref playerManager.DummyCard);
                         break;
                     case ItemName.FoodWaste:
                         playerManager.TaskVariableUpdate(ref playerManager.DummyCard);
+                        break;
+                }
+            }
+            else if (card is ActionCard)
+            {
+                ActionCard actionCard = card as ActionCard;
+                ActionName actionName = actionCard.actionName;
+                switch (actionName)
+                {
+                    case ActionName.CannedFood:
+                        playerManager.TaskVariableUpdate(ref playerManager.CannedFood);
+                        break;
+                    case ActionName.Bomb:
+                        playerManager.TaskVariableUpdate(ref playerManager.Bomb);
+                        break;
+                    case ActionName.Weapon:
+                        playerManager.TaskVariableUpdate(ref playerManager.Weapon);
                         break;
                 }
             }

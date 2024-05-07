@@ -56,7 +56,7 @@ public class SingleCardWrapper : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 repositionSpeed / distance * Time.deltaTime);
         }
         else {
-            var delta = (Vector2)Input.mousePosition + dragStartPos;
+            var delta = (Vector2)Input.mousePosition;
             rectTransform.position = new Vector2(delta.x, delta.y);
         }
     }

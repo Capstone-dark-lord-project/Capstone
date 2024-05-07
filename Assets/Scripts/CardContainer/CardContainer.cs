@@ -398,7 +398,7 @@ public class CardContainer : MonoBehaviour {
         actionUI.gameObject.AddComponent<Canvas>();
         Canvas actionCanvas = actionUI.GetComponent<Canvas>();
         actionCanvas.overrideSorting = true;
-        actionCanvas.sortingOrder = 30;
+        actionCanvas.sortingOrder = 100;
 
         // Card Display
         CardDisplay cardDisplay = actionUI.GetComponent<CardDisplay>();

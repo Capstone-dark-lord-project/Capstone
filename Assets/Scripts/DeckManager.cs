@@ -276,7 +276,7 @@ public class DeckManager : MonoBehaviour
         eventUI.gameObject.AddComponent<Canvas>();
         Canvas eventCanvas = eventUI.GetComponent<Canvas>();
         eventCanvas.overrideSorting = true;
-        eventCanvas.sortingOrder = 30;
+        eventCanvas.sortingOrder = 100;
 
         // Card Display
         CardDisplay cardDisplay = eventUI.GetComponent<CardDisplay>();
