@@ -37,21 +37,21 @@ public class TaskManager : MonoBehaviour
 
     private void InitializeTaskList()
     {
-        taskList.Add("Craft 3 processed wood: "); // taskList[0]
-        taskList.Add("Craft 3 metal sheet: "); // taskList[1]
-        taskList.Add("Craft 3 canned food: ");
+        taskList.Add("Craft 2 processed wood: "); // taskList[0]
+        taskList.Add("Craft 2 metal sheet: "); // taskList[1]
+        taskList.Add("Craft 2 canned food: ");
         taskList.Add("Trash any 2 action cards: ");
         taskList.Add("Craft 2 fishing rod: ");
-        taskList.Add("Gather 6 wood: ");
-        taskList.Add("Gather 6 food: ");
-        taskList.Add("Gather 6 scrap: ");
-        taskList.Add("Gather 6 junk: ");
-        taskList.Add("Craft 3 dummy card: ");
+        taskList.Add("Gather 5 wood: ");
+        taskList.Add("Gather 5 food: ");
+        taskList.Add("Gather 5 scrap: ");
+        taskList.Add("Gather 5 junk: ");
+        taskList.Add("Craft 2 dummy card: ");
     }
 
     private void InitializeMainTaskList()
     {
-        mainTaskList.Add("Deal damage 3 times (any player): ");
+        mainTaskList.Add("Deal damage 2 times (any player): ");
         mainTaskList.Add("Trash 2 item cards: ");
         mainTaskList.Add("Heal 3 heart: ");
         mainTaskList.Add("Trash 2 bomb or weapon card: ");
@@ -84,30 +84,30 @@ public class TaskManager : MonoBehaviour
 
     private string GetTaskProgressString(string task)
     {
-        if (task.Contains("Craft 3 processed wood"))
-            return playerManager.ProcessedWood + "/3";
-        else if (task.Contains("Craft 3 metal sheet"))
-            return playerManager.MetalPlate + "/3";
-        else if (task.Contains("Craft 3 canned food"))
-            return playerManager.CannedFood + "/3";
+        if (task.Contains("Craft 2 processed wood"))
+            return playerManager.ProcessedWood + "/2";
+        else if (task.Contains("Craft 2 metal sheet"))
+            return playerManager.MetalPlate + "/2";
+        else if (task.Contains("Craft 2 canned food"))
+            return playerManager.CannedFood + "/2";
         else if (task.Contains("Trash any 2 action cards"))
             return playerManager.ActionTrashed + "/2";
         else if (task.Contains("Craft 2 fishing rod"))
             return playerManager.FishingRod + "/2";
-        else if (task.Contains("Gather 6 wood"))
-            return playerManager.Wood + "/6";
-        else if (task.Contains("Gather 6 food"))
-            return playerManager.Food + "/6";
-        else if (task.Contains("Gather 6 scrap"))
-            return playerManager.Scrap + "/6";
-        else if (task.Contains("Gather 6 junk"))
-            return playerManager.Junk + "/6";
-        else if (task.Contains("Craft 3 dummy card"))
-            return playerManager.DummyCard + "/3";
-        else if (task.Contains("Deal damage 3 times (any player)"))
-            return playerManager.dealDamage + "/3";
+        else if (task.Contains("Gather 5 wood"))
+            return playerManager.Wood + "/5";
+        else if (task.Contains("Gather 5 food"))
+            return playerManager.Food + "/5";
+        else if (task.Contains("Gather 5 scrap"))
+            return playerManager.Scrap + "/5";
+        else if (task.Contains("Gather 5 junk"))
+            return playerManager.Junk + "/5";
+        else if (task.Contains("Craft 2 dummy card"))
+            return playerManager.DummyCard + "/2";
+        else if (task.Contains("Deal damage 2 times (any player)"))
+            return playerManager.dealDamage + "/2";
         else if (task.Contains("Trash 2 item cards"))
-            return playerManager.ItemTrashed + "/1";
+            return playerManager.ItemTrashed + "/2";
         else if (task.Contains("Heal 3 heart"))
             return playerManager.heal + "/3";
         else if (task.Contains("Trash 2 bomb or weapon card"))
@@ -118,17 +118,17 @@ public class TaskManager : MonoBehaviour
 
     private bool CheckTaskProgress(string task)
     {
-        if (task.Contains("Craft 3 processed wood") && playerManager.ProcessedWood >= 3)
+        if (task.Contains("Craft 2 processed wood") && playerManager.ProcessedWood >= 2)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 3 metal sheet") && playerManager.MetalPlate >= 3)
+        if (task.Contains("Craft 2 metal sheet") && playerManager.MetalPlate >= 2)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 3 canned food") && playerManager.CannedFood >= 3)
+        if (task.Contains("Craft 2 canned food") && playerManager.CannedFood >= 2)
         {
             Debug.Log("Task done!!");
             return true;
@@ -143,32 +143,32 @@ public class TaskManager : MonoBehaviour
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 wood") && playerManager.Wood >= 6)
+        if (task.Contains("Gather 5 wood") && playerManager.Wood >= 5)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 food") && playerManager.Food >= 6)
+        if (task.Contains("Gather 5 food") && playerManager.Food >= 5)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 scrap") && playerManager.Scrap >= 6)
+        if (task.Contains("Gather 5 scrap") && playerManager.Scrap >= 5)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Gather 6 junk") && playerManager.Junk >= 6)
+        if (task.Contains("Gather 5 junk") && playerManager.Junk >= 5)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Craft 3 dummy card") && playerManager.DummyCard >= 3)
+        if (task.Contains("Craft 2 dummy card") && playerManager.DummyCard >= 2)
         {
             Debug.Log("Task done!!");
             return true;
         }
-        if (task.Contains("Deal damage 3 times (any player)") && playerManager.dealDamage >= 3)
+        if (task.Contains("Deal damage 2 times (any player)") && playerManager.dealDamage >= 2)
         {
             Debug.Log("Task done!!");
             return true;
@@ -207,7 +207,7 @@ public class TaskManager : MonoBehaviour
         }
         else 
         {
-            mainTask.text = "complete all subtask first!";
+            mainTask.text = "Complete all the subtasks first!";
         }
     }
 
@@ -249,7 +249,7 @@ public class TaskManager : MonoBehaviour
         if (maintaskprog == true)
         {
             Debug.LogWarning("WIN!!!");
-            yield return new WaitForSecondsRealtime(5);
+            yield return new WaitForSecondsRealtime(2);
 
             Application.Quit();
         }
